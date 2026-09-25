@@ -1,0 +1,47 @@
+name: Myntra Deal Sentinel
+
+on:
+  # Allows external trigger via cron-job.org or manual run from GitHub UI
+  workflow_dispatch:
+
+  # Built-in fallback schedule (runs every 30 minutes)
+  schedule:
+    - cron: '*/30 * * * *'
+
+# Permissions required to commit and push updated seen_deals.json
+permissions:
+  contents: write
+
+jobs:
+  check-deals:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run Deal Sentinel Bot
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          MIN_DISCOUNT_PERCENT: ${{ secrets.MIN_DISCOUNT_PERCENT || '70' }}
+          PINCODE: ${{ secrets.PINCODE || '560032' }}
+        run: |
+          python bot_checker.py
+
+      - name: Commit and Push Updated Seen Deals
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add seen_deals.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update seen_deals database [skip ci]" && git push)

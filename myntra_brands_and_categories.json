@@ -1,0 +1,1297 @@
+{
+  "title": "Myntra Multi-Category Deal Monitor Configuration",
+  "version": "2.0.0",
+  "pincode": "560032",
+  "bookmarkletMinDiscount": 65,
+  "botMinDiscount": 70,
+  "categories": {
+    "Haircare": {
+      "displayName": "Haircare",
+      "basePath": "personal-care",
+      "brands": [
+        "&honey",
+        "2.Oh!",
+        "ARATA",
+        "Bare Anatomy",
+        "BBLUNT",
+        "Biolage",
+        "BIOTOP PROFESSIONAL",
+        "BRILLARE",
+        "Dabur",
+        "Dove",
+        "Dr. Batras",
+        "Earth Rhythm",
+        "Fix My Curls",
+        "Garnier",
+        "Head & Shoulders",
+        "indulekha",
+        "Kesh King",
+        "Khadi Natural",
+        "LOreal",
+        "LOreal Professionnel",
+        "Mamaearth",
+        "MATRIX",
+        "MOROCCANOIL",
+        "Nat Habit",
+        "Neutrogena",
+        "OGX",
+        "OLAPLEX",
+        "Pantene",
+        "Pilgrim",
+        "Plum",
+        "Schwarzkopf",
+        "Schwarzkopf PROFESSIONAL",
+        "Streax",
+        "Streax Professional",
+        "Sunsilk",
+        "THE BODY SHOP",
+        "TRESemme",
+        "TRICHUP",
+        "VEDIX",
+        "WELLA PROFESSIONALS",
+        "WishCare",
+        "WOW SKIN SCIENCE"
+      ],
+      "brandDetails": [
+        {
+          "brand": "&honey",
+          "productCount": 14
+        },
+        {
+          "brand": "2.Oh!",
+          "productCount": 44
+        },
+        {
+          "brand": "ARATA",
+          "productCount": 46
+        },
+        {
+          "brand": "Bare Anatomy",
+          "productCount": 95
+        },
+        {
+          "brand": "BBLUNT",
+          "productCount": 96
+        },
+        {
+          "brand": "Biolage",
+          "productCount": 29
+        },
+        {
+          "brand": "BIOTOP PROFESSIONAL",
+          "productCount": 53
+        },
+        {
+          "brand": "BRILLARE",
+          "productCount": 129
+        },
+        {
+          "brand": "Dabur",
+          "productCount": 51
+        },
+        {
+          "brand": "Dove",
+          "productCount": 225
+        },
+        {
+          "brand": "Dr. Batras",
+          "productCount": 122
+        },
+        {
+          "brand": "Earth Rhythm",
+          "productCount": 83
+        },
+        {
+          "brand": "Fix My Curls",
+          "productCount": 49
+        },
+        {
+          "brand": "Garnier",
+          "productCount": 177
+        },
+        {
+          "brand": "Head & Shoulders",
+          "productCount": 65
+        },
+        {
+          "brand": "indulekha",
+          "productCount": 17
+        },
+        {
+          "brand": "Kesh King",
+          "productCount": 27
+        },
+        {
+          "brand": "Khadi Natural",
+          "productCount": 264
+        },
+        {
+          "brand": "LOreal",
+          "productCount": 330
+        },
+        {
+          "brand": "LOreal Professionnel",
+          "productCount": 49
+        },
+        {
+          "brand": "Mamaearth",
+          "productCount": 457
+        },
+        {
+          "brand": "MATRIX",
+          "productCount": 26
+        },
+        {
+          "brand": "MOROCCANOIL",
+          "productCount": 154
+        },
+        {
+          "brand": "Nat Habit",
+          "productCount": 384
+        },
+        {
+          "brand": "Neutrogena",
+          "productCount": 28
+        },
+        {
+          "brand": "OGX",
+          "productCount": 8
+        },
+        {
+          "brand": "OLAPLEX",
+          "productCount": 17
+        },
+        {
+          "brand": "Pantene",
+          "productCount": 50
+        },
+        {
+          "brand": "Pilgrim",
+          "productCount": 265
+        },
+        {
+          "brand": "Plum",
+          "productCount": 314
+        },
+        {
+          "brand": "Schwarzkopf",
+          "productCount": 37
+        },
+        {
+          "brand": "Schwarzkopf PROFESSIONAL",
+          "productCount": 110
+        },
+        {
+          "brand": "Streax",
+          "productCount": 80
+        },
+        {
+          "brand": "Streax Professional",
+          "productCount": 32
+        },
+        {
+          "brand": "Sunsilk",
+          "productCount": 23
+        },
+        {
+          "brand": "THE BODY SHOP",
+          "productCount": 189
+        },
+        {
+          "brand": "TRESemme",
+          "productCount": 106
+        },
+        {
+          "brand": "TRICHUP",
+          "productCount": 52
+        },
+        {
+          "brand": "VEDIX",
+          "productCount": 75
+        },
+        {
+          "brand": "WELLA PROFESSIONALS",
+          "productCount": 124
+        },
+        {
+          "brand": "WishCare",
+          "productCount": 103
+        },
+        {
+          "brand": "WOW SKIN SCIENCE",
+          "productCount": 56
+        }
+      ],
+      "productTypes": {
+        "Shampoo": [
+          "Shampoo",
+          "Dry Shampoo",
+          "Baby Shampoo and Conditioner"
+        ],
+        "Conditioner": [
+          "Conditioner"
+        ],
+        "Hair Oil": [
+          "Hair Oil",
+          "Baby Hair Oil"
+        ],
+        "Hair Serum": [
+          "Hair Serum"
+        ],
+        "Hair Mask": [
+          "Hair Masks"
+        ],
+        "Hair Styling & Treatment": [
+          "Hair Gels and Wax",
+          "Hair Spray",
+          "Hair Spa",
+          "Hair Cream and Mask",
+          "Hair Tonic"
+        ],
+        "Hair Color": [
+          "Hair Colour",
+          "Hair Color",
+          "Beard Colour"
+        ]
+      }
+    },
+    "Skincare": {
+      "displayName": "Skincare",
+      "basePath": "personal-care",
+      "brands": [
+        "Anua",
+        "Aqualogica",
+        "Aroma Magic",
+        "Aveeno",
+        "Aveeno Baby",
+        "Avene",
+        "Axis-Y",
+        "AYUR HERBALS",
+        "Be Bodywise",
+        "Beauty of Joseon",
+        "Bella Vita Organic",
+        "BIODERMA",
+        "Biotique",
+        "Blue Nectar",
+        "BOROLINE",
+        "BOROPLUS",
+        "Burt's Bees",
+        "Celimax",
+        "CeraVe",
+        "Cetaphil",
+        "Chemist at Play",
+        "CLARINS",
+        "Clinique",
+        "Conscious Chemist",
+        "COSRX",
+        "deconstruct",
+        "Dermalogica",
+        "Dettol",
+        "DOT & KEY",
+        "DR. SHETHS",
+        "Earth Rhythm",
+        "Elizabeth Arden",
+        "Estee Lauder",
+        "ETUDE",
+        "Eucerin",
+        "Eveline Cosmetics",
+        "everyuth Naturals",
+        "FIXDERMA",
+        "Forest Essentials",
+        "FoxTale",
+        "Garnier",
+        "GHAR SOAPS",
+        "Haruharu Wonder",
+        "Himalaya",
+        "Innisfree",
+        "ISNTREE",
+        "Jovees",
+        "JOY",
+        "Just Herbs",
+        "KAMA AYURVEDA",
+        "Khadi Natural",
+        "Lakme",
+        "LANEIGE",
+        "Lotus Botanicals",
+        "Lotus Herbals",
+        "Love Beauty & Planet",
+        "Mamaearth",
+        "MCaffeine",
+        "Minimalist",
+        "Neutrogena",
+        "Nivea",
+        "Olay",
+        "Origins Nutra",
+        "Pears",
+        "Pilgrim",
+        "Plum",
+        "Ponds",
+        "Sanfe",
+        "Sebamed",
+        "Simple",
+        "SKINFOOD",
+        "Sulwhasoo",
+        "THE BODY SHOP",
+        "The Derma co.",
+        "The Face Shop",
+        "THE ORDINARY",
+        "Torriden",
+        "Vaseline",
+        "VLCC",
+        "WishCare",
+        "WOW SKIN SCIENCE"
+      ],
+      "brandDetails": [
+        {
+          "brand": "Anua",
+          "productCount": 18
+        },
+        {
+          "brand": "Aqualogica",
+          "productCount": 98
+        },
+        {
+          "brand": "Aroma Magic",
+          "productCount": 3
+        },
+        {
+          "brand": "Aveeno",
+          "productCount": 2
+        },
+        {
+          "brand": "Aveeno Baby",
+          "productCount": 9
+        },
+        {
+          "brand": "Avene",
+          "productCount": 29
+        },
+        {
+          "brand": "Axis-Y",
+          "productCount": 16
+        },
+        {
+          "brand": "AYUR HERBALS",
+          "productCount": 49
+        },
+        {
+          "brand": "Be Bodywise",
+          "productCount": 153
+        },
+        {
+          "brand": "Beauty of Joseon",
+          "productCount": 35
+        },
+        {
+          "brand": "Bella Vita Organic",
+          "productCount": 298
+        },
+        {
+          "brand": "BIODERMA",
+          "productCount": 68
+        },
+        {
+          "brand": "Biotique",
+          "productCount": 196
+        },
+        {
+          "brand": "Blue Nectar",
+          "productCount": 203
+        },
+        {
+          "brand": "BOROLINE",
+          "productCount": 30
+        },
+        {
+          "brand": "BOROPLUS",
+          "productCount": 55
+        },
+        {
+          "brand": "Burt's Bees",
+          "productCount": 14
+        },
+        {
+          "brand": "Celimax",
+          "productCount": 24
+        },
+        {
+          "brand": "CeraVe",
+          "productCount": 46
+        },
+        {
+          "brand": "Cetaphil",
+          "productCount": 92
+        },
+        {
+          "brand": "Chemist at Play",
+          "productCount": 85
+        },
+        {
+          "brand": "CLARINS",
+          "productCount": 48
+        },
+        {
+          "brand": "Clinique",
+          "productCount": 348
+        },
+        {
+          "brand": "Conscious Chemist",
+          "productCount": 73
+        },
+        {
+          "brand": "COSRX",
+          "productCount": 4
+        },
+        {
+          "brand": "deconstruct",
+          "productCount": 63
+        },
+        {
+          "brand": "Dermalogica",
+          "productCount": 16
+        },
+        {
+          "brand": "Dettol",
+          "productCount": 17
+        },
+        {
+          "brand": "DOT & KEY",
+          "productCount": 176
+        },
+        {
+          "brand": "DR. SHETHS",
+          "productCount": 73
+        },
+        {
+          "brand": "Earth Rhythm",
+          "productCount": 83
+        },
+        {
+          "brand": "Elizabeth Arden",
+          "productCount": 74
+        },
+        {
+          "brand": "Estee Lauder",
+          "productCount": 181
+        },
+        {
+          "brand": "ETUDE",
+          "productCount": 129
+        },
+        {
+          "brand": "Eucerin",
+          "productCount": 26
+        },
+        {
+          "brand": "Eveline Cosmetics",
+          "productCount": 99
+        },
+        {
+          "brand": "everyuth Naturals",
+          "productCount": 34
+        },
+        {
+          "brand": "FIXDERMA",
+          "productCount": 142
+        },
+        {
+          "brand": "Forest Essentials",
+          "productCount": 243
+        },
+        {
+          "brand": "FoxTale",
+          "productCount": 204
+        },
+        {
+          "brand": "Garnier",
+          "productCount": 177
+        },
+        {
+          "brand": "GHAR SOAPS",
+          "productCount": 29
+        },
+        {
+          "brand": "Haruharu Wonder",
+          "productCount": 30
+        },
+        {
+          "brand": "Himalaya",
+          "productCount": 226
+        },
+        {
+          "brand": "Innisfree",
+          "productCount": 107
+        },
+        {
+          "brand": "ISNTREE",
+          "productCount": 35
+        },
+        {
+          "brand": "Jovees",
+          "productCount": 158
+        },
+        {
+          "brand": "JOY",
+          "productCount": 158
+        },
+        {
+          "brand": "Just Herbs",
+          "productCount": 184
+        },
+        {
+          "brand": "KAMA AYURVEDA",
+          "productCount": 136
+        },
+        {
+          "brand": "Khadi Natural",
+          "productCount": 264
+        },
+        {
+          "brand": "Lakme",
+          "productCount": 1005
+        },
+        {
+          "brand": "LANEIGE",
+          "productCount": 70
+        },
+        {
+          "brand": "Lotus Botanicals",
+          "productCount": 110
+        },
+        {
+          "brand": "Lotus Herbals",
+          "productCount": 426
+        },
+        {
+          "brand": "Love Beauty & Planet",
+          "productCount": 64
+        },
+        {
+          "brand": "Mamaearth",
+          "productCount": 457
+        },
+        {
+          "brand": "MCaffeine",
+          "productCount": 151
+        },
+        {
+          "brand": "Minimalist",
+          "productCount": 119
+        },
+        {
+          "brand": "Neutrogena",
+          "productCount": 28
+        },
+        {
+          "brand": "Nivea",
+          "productCount": 280
+        },
+        {
+          "brand": "Olay",
+          "productCount": 45
+        },
+        {
+          "brand": "Origins Nutra",
+          "productCount": 38
+        },
+        {
+          "brand": "Pears",
+          "productCount": 40
+        },
+        {
+          "brand": "Pilgrim",
+          "productCount": 265
+        },
+        {
+          "brand": "Plum",
+          "productCount": 314
+        },
+        {
+          "brand": "Ponds",
+          "productCount": 165
+        },
+        {
+          "brand": "Sanfe",
+          "productCount": 187
+        },
+        {
+          "brand": "Sebamed",
+          "productCount": 43
+        },
+        {
+          "brand": "Simple",
+          "productCount": 31
+        },
+        {
+          "brand": "SKINFOOD",
+          "productCount": 39
+        },
+        {
+          "brand": "Sulwhasoo",
+          "productCount": 23
+        },
+        {
+          "brand": "THE BODY SHOP",
+          "productCount": 189
+        },
+        {
+          "brand": "The Derma co.",
+          "productCount": 155
+        },
+        {
+          "brand": "The Face Shop",
+          "productCount": 103
+        },
+        {
+          "brand": "THE ORDINARY",
+          "productCount": 66
+        },
+        {
+          "brand": "Torriden",
+          "productCount": 4
+        },
+        {
+          "brand": "Vaseline",
+          "productCount": 109
+        },
+        {
+          "brand": "VLCC",
+          "productCount": 240
+        },
+        {
+          "brand": "WishCare",
+          "productCount": 103
+        },
+        {
+          "brand": "WOW SKIN SCIENCE",
+          "productCount": 56
+        }
+      ],
+      "productTypes": {
+        "Facewash & Cleanser": [
+          "Face Wash and Cleanser",
+          "Facial Wipes",
+          "Face Cleanser"
+        ],
+        "Serum & Essence": [
+          "Serum",
+          "Serum and Gel",
+          "Facial Oil"
+        ],
+        "Sunscreen": [
+          "Sunscreen",
+          "Face Sunscreen",
+          "Body Sunscreen",
+          "Baby Sunscreen"
+        ],
+        "Moisturizer & Day Cream": [
+          "Day Cream",
+          "Moisturiser",
+          "Face Moisturiser",
+          "BB and CC Cream"
+        ],
+        "Night Cream": [
+          "Night Cream"
+        ],
+        "Toner & Mist": [
+          "Toner",
+          "Face Mist",
+          "Toner and Mist"
+        ],
+        "Face Scrub & Exfoliator": [
+          "Face Scrub and Exfoliator",
+          "Scrub"
+        ],
+        "Face Mask & Sheet Mask": [
+          "Sheet Masks",
+          "Mask and Peel",
+          "Face Pack",
+          "Eye Mask and Patches"
+        ],
+        "Lip Balm & Treatment": [
+          "Lip Balm",
+          "Lip Care",
+          "Lip Mask",
+          "Lip Scrub",
+          "Lip Oil"
+        ],
+        "Eye Cream & Serum": [
+          "Under Eye Cream",
+          "Under Eye Creams and Serums"
+        ],
+        "Body Lotion & Cream": [
+          "Body Cream and Lotion",
+          "Baby Lotions and Creams",
+          "Hand Cream",
+          "Foot Cream and Scrubs"
+        ],
+        "Body Wash & Shower Gel": [
+          "Body Wash and Shower Gel",
+          "Baby Body Wash and Soap",
+          "Bath Salt and Bubble Bath",
+          "Soap"
+        ]
+      }
+    },
+    "Perfumes": {
+      "displayName": "Perfumes",
+      "basePath": "personal-care",
+      "brands": [
+        "4711",
+        "ADIDAS",
+        "Afnan",
+        "AHMED AL MAGHRIBI",
+        "Ajmal",
+        "AL Hubb",
+        "Al-Nuaim",
+        "Arabiyat Prestige",
+        "Archies",
+        "Armaf",
+        "AXE",
+        "Azzaro",
+        "Bath & Body Works",
+        "BEARDO",
+        "Bella Vita Organic",
+        "Bombay Shaving Company",
+        "BRUT",
+        "Calvin Klein",
+        "Carolina Herrera",
+        "Coach",
+        "DAVIDOFF",
+        "Denver",
+        "DIESEL",
+        "Elizabeth Arden",
+        "EM5",
+        "Envy",
+        "Fastrack",
+        "Fogg",
+        "Forest Essentials",
+        "Franck Olivier",
+        "FRENCH ESSENCE",
+        "GUESS",
+        "HE",
+        "Hugo Boss",
+        "Issey Miyake",
+        "JAGUAR",
+        "Jimmy Choo",
+        "KAMA AYURVEDA",
+        "Lacoste",
+        "Lattafa",
+        "Marks & Spencer",
+        "Nautica",
+        "Nike Fragrances",
+        "Old Spice",
+        "Paco Rabanne",
+        "Park Avenue",
+        "Police",
+        "Prada",
+        "Ralph Lauren",
+        "Ramsons",
+        "Rasasi",
+        "SKINN",
+        "THE BODY SHOP",
+        "THE MAN COMPANY",
+        "Ustraa",
+        "Versace",
+        "Victoria's Secret",
+        "Wild stone",
+        "Yves Saint Laurent"
+      ],
+      "brandDetails": [
+        {
+          "brand": "4711",
+          "productCount": 19
+        },
+        {
+          "brand": "ADIDAS",
+          "productCount": 64
+        },
+        {
+          "brand": "Afnan",
+          "productCount": 51
+        },
+        {
+          "brand": "AHMED AL MAGHRIBI",
+          "productCount": 90
+        },
+        {
+          "brand": "Ajmal",
+          "productCount": 144
+        },
+        {
+          "brand": "AL Hubb",
+          "productCount": 49
+        },
+        {
+          "brand": "Al-Nuaim",
+          "productCount": 329
+        },
+        {
+          "brand": "Arabiyat Prestige",
+          "productCount": 49
+        },
+        {
+          "brand": "Archies",
+          "productCount": 106
+        },
+        {
+          "brand": "Armaf",
+          "productCount": 54
+        },
+        {
+          "brand": "AXE",
+          "productCount": 78
+        },
+        {
+          "brand": "Azzaro",
+          "productCount": 30
+        },
+        {
+          "brand": "Bath & Body Works",
+          "productCount": 398
+        },
+        {
+          "brand": "BEARDO",
+          "productCount": 342
+        },
+        {
+          "brand": "Bella Vita Organic",
+          "productCount": 298
+        },
+        {
+          "brand": "Bombay Shaving Company",
+          "productCount": 76
+        },
+        {
+          "brand": "BRUT",
+          "productCount": 7
+        },
+        {
+          "brand": "Calvin Klein",
+          "productCount": 58
+        },
+        {
+          "brand": "Carolina Herrera",
+          "productCount": 67
+        },
+        {
+          "brand": "Coach",
+          "productCount": 15
+        },
+        {
+          "brand": "DAVIDOFF",
+          "productCount": 33
+        },
+        {
+          "brand": "Denver",
+          "productCount": 292
+        },
+        {
+          "brand": "DIESEL",
+          "productCount": 22
+        },
+        {
+          "brand": "Elizabeth Arden",
+          "productCount": 74
+        },
+        {
+          "brand": "EM5",
+          "productCount": 136
+        },
+        {
+          "brand": "Envy",
+          "productCount": 117
+        },
+        {
+          "brand": "Fastrack",
+          "productCount": 33
+        },
+        {
+          "brand": "Fogg",
+          "productCount": 22
+        },
+        {
+          "brand": "Forest Essentials",
+          "productCount": 243
+        },
+        {
+          "brand": "Franck Olivier",
+          "productCount": 60
+        },
+        {
+          "brand": "FRENCH ESSENCE",
+          "productCount": 104
+        },
+        {
+          "brand": "GUESS",
+          "productCount": 119
+        },
+        {
+          "brand": "HE",
+          "productCount": 25
+        },
+        {
+          "brand": "Hugo Boss",
+          "productCount": 43
+        },
+        {
+          "brand": "Issey Miyake",
+          "productCount": 13
+        },
+        {
+          "brand": "JAGUAR",
+          "productCount": 30
+        },
+        {
+          "brand": "Jimmy Choo",
+          "productCount": 24
+        },
+        {
+          "brand": "KAMA AYURVEDA",
+          "productCount": 136
+        },
+        {
+          "brand": "Lacoste",
+          "productCount": 14
+        },
+        {
+          "brand": "Lattafa",
+          "productCount": 147
+        },
+        {
+          "brand": "Marks & Spencer",
+          "productCount": 100
+        },
+        {
+          "brand": "Nautica",
+          "productCount": 37
+        },
+        {
+          "brand": "Nike Fragrances",
+          "productCount": 170
+        },
+        {
+          "brand": "Old Spice",
+          "productCount": 17
+        },
+        {
+          "brand": "Paco Rabanne",
+          "productCount": 98
+        },
+        {
+          "brand": "Park Avenue",
+          "productCount": 78
+        },
+        {
+          "brand": "Police",
+          "productCount": 108
+        },
+        {
+          "brand": "Prada",
+          "productCount": 24
+        },
+        {
+          "brand": "Ralph Lauren",
+          "productCount": 16
+        },
+        {
+          "brand": "Ramsons",
+          "productCount": 159
+        },
+        {
+          "brand": "Rasasi",
+          "productCount": 43
+        },
+        {
+          "brand": "SKINN",
+          "productCount": 94
+        },
+        {
+          "brand": "THE BODY SHOP",
+          "productCount": 189
+        },
+        {
+          "brand": "THE MAN COMPANY",
+          "productCount": 214
+        },
+        {
+          "brand": "Ustraa",
+          "productCount": 106
+        },
+        {
+          "brand": "Versace",
+          "productCount": 47
+        },
+        {
+          "brand": "Victoria's Secret",
+          "productCount": 299
+        },
+        {
+          "brand": "Wild stone",
+          "productCount": 146
+        },
+        {
+          "brand": "Yves Saint Laurent",
+          "productCount": 34
+        }
+      ],
+      "productTypes": {
+        "Perfume (EDP / EDT)": [
+          "Perfume and EDT",
+          "Perfume"
+        ],
+        "Deodorant & Body Spray": [
+          "Deodorant",
+          "Body Spray"
+        ],
+        "Body Mist": [
+          "Body Mist"
+        ],
+        "Attar": [
+          "Attar"
+        ]
+      }
+    },
+    "Makeup": {
+      "displayName": "Makeup",
+      "basePath": "personal-care",
+      "brands": [
+        "ANASTASIA BEVERLY HILLS",
+        "bareMinerals",
+        "Blue Heaven",
+        "Bobbi Brown",
+        "Chambor",
+        "Character",
+        "Colorbar",
+        "Coloressence",
+        "Colors Queen",
+        "Daily Life Forever52",
+        "e.l.f.",
+        "ELLE 18",
+        "essence",
+        "Estee Lauder",
+        "ETUDE",
+        "FACES CANADA",
+        "FAE BEAUTY",
+        "FOCALLURE",
+        "Huda Beauty",
+        "Insight Cosmetics",
+        "L.A. Girl",
+        "Lakme",
+        "M.A.C",
+        "Makeup Revolution London",
+        "MARS",
+        "MATTLOOK",
+        "Maybelline",
+        "MILANI",
+        "MyGlamm",
+        "PAC",
+        "Plum",
+        "Recode",
+        "Renee",
+        "Revlon",
+        "Smashbox",
+        "SUGAR",
+        "SWISS BEAUTY",
+        "Wet n Wild"
+      ],
+      "brandDetails": [
+        {
+          "brand": "ANASTASIA BEVERLY HILLS",
+          "productCount": 161
+        },
+        {
+          "brand": "bareMinerals",
+          "productCount": 66
+        },
+        {
+          "brand": "Blue Heaven",
+          "productCount": 180
+        },
+        {
+          "brand": "Bobbi Brown",
+          "productCount": 197
+        },
+        {
+          "brand": "Chambor",
+          "productCount": 23
+        },
+        {
+          "brand": "Character",
+          "productCount": 273
+        },
+        {
+          "brand": "Colorbar",
+          "productCount": 195
+        },
+        {
+          "brand": "Coloressence",
+          "productCount": 345
+        },
+        {
+          "brand": "Colors Queen",
+          "productCount": 1168
+        },
+        {
+          "brand": "Daily Life Forever52",
+          "productCount": 558
+        },
+        {
+          "brand": "e.l.f.",
+          "productCount": 173
+        },
+        {
+          "brand": "ELLE 18",
+          "productCount": 317
+        },
+        {
+          "brand": "essence",
+          "productCount": 138
+        },
+        {
+          "brand": "Estee Lauder",
+          "productCount": 181
+        },
+        {
+          "brand": "ETUDE",
+          "productCount": 129
+        },
+        {
+          "brand": "FACES CANADA",
+          "productCount": 614
+        },
+        {
+          "brand": "FAE BEAUTY",
+          "productCount": 111
+        },
+        {
+          "brand": "FOCALLURE",
+          "productCount": 122
+        },
+        {
+          "brand": "Huda Beauty",
+          "productCount": 157
+        },
+        {
+          "brand": "Insight Cosmetics",
+          "productCount": 234
+        },
+        {
+          "brand": "L.A. Girl",
+          "productCount": 228
+        },
+        {
+          "brand": "Lakme",
+          "productCount": 1005
+        },
+        {
+          "brand": "M.A.C",
+          "productCount": 634
+        },
+        {
+          "brand": "Makeup Revolution London",
+          "productCount": 508
+        },
+        {
+          "brand": "MARS",
+          "productCount": 794
+        },
+        {
+          "brand": "MATTLOOK",
+          "productCount": 536
+        },
+        {
+          "brand": "Maybelline",
+          "productCount": 504
+        },
+        {
+          "brand": "MILANI",
+          "productCount": 139
+        },
+        {
+          "brand": "MyGlamm",
+          "productCount": 3
+        },
+        {
+          "brand": "PAC",
+          "productCount": 444
+        },
+        {
+          "brand": "Plum",
+          "productCount": 314
+        },
+        {
+          "brand": "Recode",
+          "productCount": 193
+        },
+        {
+          "brand": "Renee",
+          "productCount": 602
+        },
+        {
+          "brand": "Revlon",
+          "productCount": 355
+        },
+        {
+          "brand": "Smashbox",
+          "productCount": 104
+        },
+        {
+          "brand": "SUGAR",
+          "productCount": 173
+        },
+        {
+          "brand": "SWISS BEAUTY",
+          "productCount": 694
+        },
+        {
+          "brand": "Wet n Wild",
+          "productCount": 17
+        }
+      ],
+      "productTypes": {
+        "Lipstick & Lip Tint": [
+          "Lipstick",
+          "Liquid Lipstick",
+          "Lip Gloss",
+          "Lip Tint",
+          "Lip Liner"
+        ],
+        "Foundation & Concealer": [
+          "Foundation",
+          "Concealer",
+          "BB and CC Cream"
+        ],
+        "Kajal & Eyeliner": [
+          "Eyeliner",
+          "Kajal and Kohl"
+        ],
+        "Mascara & Brows": [
+          "Mascara",
+          "Eyebrow Enhancer",
+          "False Eyelashes"
+        ],
+        "Compact & Setting Powder": [
+          "Compact",
+          "Loose Powder",
+          "Setting Powder"
+        ],
+        "Blush, Highlighter & Bronzer": [
+          "Blush",
+          "Highlighter",
+          "Bronzer",
+          "Contour"
+        ],
+        "Eyeshadow & Palettes": [
+          "Eyeshadow",
+          "Makeup Palette"
+        ],
+        "Nail Care & Polish": [
+          "Nail Polish",
+          "Nail Polish Remover",
+          "Nail Care"
+        ]
+      }
+    }
+  }
+}
