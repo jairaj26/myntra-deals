@@ -41,7 +41,7 @@ javascript:(function(){const s=document.createElement('script');s.src='https://r
 1. Go to [Myntra.com](https://www.myntra.com).
 2. Click your `🔥 Myntra Deals` bookmark.
 3. A floating panel appears in the top-right corner.
-4. Select a category (`Haircare`, `Skincare`, `Perfumes`, `Makeup`, `Men Topwear`, `Men Bottomwear`, `Men Footwear`, `Men Innerwear`), pick your discount threshold (e.g. `65%+`), and click **Fetch Highest Discount Deals**.
+4. Select a category (`Haircare`, `Skincare`, `Perfumes`, `Makeup`, `Beauty Appliances`, `Baby Care`, `Men Topwear`, `Men Bottomwear`, `Men Footwear`, `Men Innerwear`, `Men Sportswear`), pick your discount threshold (e.g. `65%+`), and click **Fetch Highest Discount Deals**.
 5. It will query Myntra with your delivery pincode (`560032`), display deals sorted by steepest discount, and provide direct buy links.
 
 ---

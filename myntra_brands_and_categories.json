@@ -1,6 +1,6 @@
 {
   "title": "Myntra Multi-Category Deal Monitor Configuration",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "pincode": "560032",
   "bookmarkletMinDiscount": 65,
   "botMinDiscount": 70,
@@ -2741,6 +2741,405 @@
           "Thermal Set",
           "Thermal Bottoms",
           "Thermal Tops"
+        ]
+      }
+    },
+    "Men Sportswear": {
+      "displayName": "Men Sportswear",
+      "basePath": "men-sports-wear",
+      "brands": [
+        "ADIDAS",
+        "ADIDAS Originals",
+        "Alcis",
+        "ASICS",
+        "Columbia",
+        "Decathlon",
+        "FILA",
+        "HRX by Hrithik Roshan",
+        "hummel",
+        "Kappa",
+        "Lotto",
+        "New Balance",
+        "Nike",
+        "Puma",
+        "Red Tape",
+        "Reebok",
+        "Roadster",
+        "Skechers",
+        "Speedo",
+        "Technosport",
+        "UNDER ARMOUR",
+        "VECTOR X",
+        "Wildcraft",
+        "WROGN",
+        "WROGN ACTIVE"
+      ],
+      "brandDetails": [
+        {
+          "brand": "ADIDAS",
+          "productCount": 948
+        },
+        {
+          "brand": "ADIDAS Originals",
+          "productCount": 55
+        },
+        {
+          "brand": "Alcis",
+          "productCount": 611
+        },
+        {
+          "brand": "ASICS",
+          "productCount": 991
+        },
+        {
+          "brand": "Columbia",
+          "productCount": 371
+        },
+        {
+          "brand": "Decathlon",
+          "productCount": 616
+        },
+        {
+          "brand": "FILA",
+          "productCount": 4
+        },
+        {
+          "brand": "HRX by Hrithik Roshan",
+          "productCount": 6580
+        },
+        {
+          "brand": "hummel",
+          "productCount": 63
+        },
+        {
+          "brand": "Kappa",
+          "productCount": 157
+        },
+        {
+          "brand": "Lotto",
+          "productCount": 40
+        },
+        {
+          "brand": "New Balance",
+          "productCount": 353
+        },
+        {
+          "brand": "Nike",
+          "productCount": 400
+        },
+        {
+          "brand": "Puma",
+          "productCount": 2322
+        },
+        {
+          "brand": "Red Tape",
+          "productCount": 59
+        },
+        {
+          "brand": "Reebok",
+          "productCount": 892
+        },
+        {
+          "brand": "Roadster",
+          "productCount": 64
+        },
+        {
+          "brand": "Skechers",
+          "productCount": 108
+        },
+        {
+          "brand": "Speedo",
+          "productCount": 67
+        },
+        {
+          "brand": "Technosport",
+          "productCount": 1594
+        },
+        {
+          "brand": "UNDER ARMOUR",
+          "productCount": 1322
+        },
+        {
+          "brand": "VECTOR X",
+          "productCount": 73
+        },
+        {
+          "brand": "Wildcraft",
+          "productCount": 255
+        },
+        {
+          "brand": "WROGN",
+          "productCount": 37
+        },
+        {
+          "brand": "WROGN ACTIVE",
+          "productCount": 11
+        }
+      ],
+      "productTypes": {
+        "Track Pants & Joggers": [
+          "Track Pants",
+          "Tights"
+        ],
+        "Sports T-Shirts": [
+          "Tshirts",
+          "Tops"
+        ],
+        "Tracksuits & Sets": [
+          "Tracksuits",
+          "Clothing Set"
+        ],
+        "Sports Shorts": [
+          "Shorts"
+        ],
+        "Sports Jackets & Windcheaters": [
+          "Jackets",
+          "Sweatshirts"
+        ],
+        "Swimwear": [
+          "Swimwear",
+          "Swim Bottoms",
+          "Swim Tops"
+        ]
+      }
+    },
+    "Beauty Appliances": {
+      "displayName": "Beauty Appliances",
+      "basePath": "beauty-appliances",
+      "brands": [
+        "Agaro",
+        "Alan Truman",
+        "beurer",
+        "Bombay Shaving Company",
+        "Braun",
+        "dyson",
+        "GUBB",
+        "Havells",
+        "Ikonic",
+        "KEMEI",
+        "Lifelong",
+        "Morphy Richards",
+        "NOVA",
+        "Philips",
+        "Remington",
+        "VEGA",
+        "VEGA PROFESSIONAL",
+        "VGR",
+        "WAHL"
+      ],
+      "brandDetails": [
+        {
+          "brand": "Agaro",
+          "productCount": 27
+        },
+        {
+          "brand": "Alan Truman",
+          "productCount": 34
+        },
+        {
+          "brand": "beurer",
+          "productCount": 3
+        },
+        {
+          "brand": "Bombay Shaving Company",
+          "productCount": 15
+        },
+        {
+          "brand": "Braun",
+          "productCount": 11
+        },
+        {
+          "brand": "dyson",
+          "productCount": 11
+        },
+        {
+          "brand": "GUBB",
+          "productCount": 7
+        },
+        {
+          "brand": "Havells",
+          "productCount": 9
+        },
+        {
+          "brand": "Ikonic",
+          "productCount": 60
+        },
+        {
+          "brand": "KEMEI",
+          "productCount": 8
+        },
+        {
+          "brand": "Lifelong",
+          "productCount": 5
+        },
+        {
+          "brand": "Morphy Richards",
+          "productCount": 2
+        },
+        {
+          "brand": "NOVA",
+          "productCount": 10
+        },
+        {
+          "brand": "Philips",
+          "productCount": 40
+        },
+        {
+          "brand": "Remington",
+          "productCount": 1
+        },
+        {
+          "brand": "VEGA",
+          "productCount": 52
+        },
+        {
+          "brand": "VEGA PROFESSIONAL",
+          "productCount": 35
+        },
+        {
+          "brand": "VGR",
+          "productCount": 158
+        },
+        {
+          "brand": "WAHL",
+          "productCount": 6
+        }
+      ],
+      "productTypes": {
+        "Hair Dryers": [
+          "Dryers"
+        ],
+        "Hair Straighteners & Multi-Stylers": [
+          "Straighteners",
+          "Multi-Styler"
+        ],
+        "Hair Curlers & Crimpers": [
+          "Curling Iron and Crimpers"
+        ],
+        "Trimmers & Shavers": [
+          "Trimmer",
+          "Shavers",
+          "Body Groomer",
+          "Bikini Trimmers"
+        ],
+        "Epilators & Massagers": [
+          "Epilator",
+          "Face Epilator",
+          "Cleansing Tools and Massagers"
+        ]
+      }
+    },
+    "Baby Care": {
+      "displayName": "Baby Care",
+      "basePath": "personal-care",
+      "brands": [
+        "Aveeno Baby",
+        "Baby Dove",
+        "Babyhug",
+        "Cetaphil",
+        "Chicco",
+        "Dabur",
+        "Himalaya Baby",
+        "Johnsons",
+        "Mamaearth",
+        "MeeMee",
+        "mothercare",
+        "Mylo",
+        "Pigeon",
+        "Sebamed",
+        "Softsens",
+        "SuperBottoms",
+        "Tedibar"
+      ],
+      "brandDetails": [
+        {
+          "brand": "Aveeno Baby",
+          "productCount": 9
+        },
+        {
+          "brand": "Baby Dove",
+          "productCount": 1
+        },
+        {
+          "brand": "Babyhug",
+          "productCount": 39
+        },
+        {
+          "brand": "Cetaphil",
+          "productCount": 18
+        },
+        {
+          "brand": "Chicco",
+          "productCount": 32
+        },
+        {
+          "brand": "Dabur",
+          "productCount": 2
+        },
+        {
+          "brand": "Himalaya Baby",
+          "productCount": 91
+        },
+        {
+          "brand": "Johnsons",
+          "productCount": 39
+        },
+        {
+          "brand": "Mamaearth",
+          "productCount": 14
+        },
+        {
+          "brand": "MeeMee",
+          "productCount": 51
+        },
+        {
+          "brand": "mothercare",
+          "productCount": 14
+        },
+        {
+          "brand": "Mylo",
+          "productCount": 52
+        },
+        {
+          "brand": "Pigeon",
+          "productCount": 1
+        },
+        {
+          "brand": "Sebamed",
+          "productCount": 8
+        },
+        {
+          "brand": "Softsens",
+          "productCount": 43
+        },
+        {
+          "brand": "SuperBottoms",
+          "productCount": 407
+        },
+        {
+          "brand": "Tedibar",
+          "productCount": 56
+        }
+      ],
+      "productTypes": {
+        "Diapers & Wipes": [
+          "Diapers",
+          "Baby Wipes and Buds"
+        ],
+        "Baby Bath & Wash": [
+          "Baby Body Wash and Soap",
+          "Baby Shampoo and Conditioner"
+        ],
+        "Baby Skin Care & Lotions": [
+          "Baby Lotions and Creams",
+          "Baby Body Oil",
+          "Baby Powder",
+          "Rash Cream"
+        ],
+        "Baby Health & Sunscreen": [
+          "Baby Sunscreen",
+          "Baby Care Kit",
+          "Baby Hair Oil"
         ]
       }
     }

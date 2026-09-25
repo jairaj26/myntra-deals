@@ -548,6 +548,82 @@
               "WROGN",
               "XYXX"
           ]
+      },
+      "Men Sportswear": {
+          "basePath": "men-sports-wear",
+          "brands": [
+              "ADIDAS",
+              "ADIDAS Originals",
+              "Alcis",
+              "ASICS",
+              "Columbia",
+              "Decathlon",
+              "FILA",
+              "HRX by Hrithik Roshan",
+              "hummel",
+              "Kappa",
+              "Lotto",
+              "New Balance",
+              "Nike",
+              "Puma",
+              "Red Tape",
+              "Reebok",
+              "Roadster",
+              "Skechers",
+              "Speedo",
+              "Technosport",
+              "UNDER ARMOUR",
+              "VECTOR X",
+              "Wildcraft",
+              "WROGN",
+              "WROGN ACTIVE"
+          ]
+      },
+      "Beauty Appliances": {
+          "basePath": "beauty-appliances",
+          "brands": [
+              "Agaro",
+              "Alan Truman",
+              "beurer",
+              "Bombay Shaving Company",
+              "Braun",
+              "dyson",
+              "GUBB",
+              "Havells",
+              "Ikonic",
+              "KEMEI",
+              "Lifelong",
+              "Morphy Richards",
+              "NOVA",
+              "Philips",
+              "Remington",
+              "VEGA",
+              "VEGA PROFESSIONAL",
+              "VGR",
+              "WAHL"
+          ]
+      },
+      "Baby Care": {
+          "basePath": "personal-care",
+          "brands": [
+              "Aveeno Baby",
+              "Baby Dove",
+              "Babyhug",
+              "Cetaphil",
+              "Chicco",
+              "Dabur",
+              "Himalaya Baby",
+              "Johnsons",
+              "Mamaearth",
+              "MeeMee",
+              "mothercare",
+              "Mylo",
+              "Pigeon",
+              "Sebamed",
+              "Softsens",
+              "SuperBottoms",
+              "Tedibar"
+          ]
       }
   };
   // State
