@@ -211,7 +211,14 @@ def main():
                     continue
 
                 products = extract_products_from_html(resp.text)
-                print(f"  Extracted {len(products)} products from server response.")
+                if products:
+                    discounts = [round(((p.get("mrp", 0) - p.get("price", 0)) / p.get("mrp", 1)) * 100) for p in products if p.get("mrp", 0) > 0]
+                    max_d = max(discounts) if discounts else 0
+                    print(f"  Extracted {len(products)} products. Highest discount in batch: {max_d}% (Threshold: {MIN_DISCOUNT}%)")
+                else:
+                    print(f"  Extracted 0 products from response. Status: {resp.status_code}, HTML length: {len(resp.text)}")
+                    if "Access Denied" in resp.text or "Captcha" in resp.text:
+                        print("  [Warning] Myntra CDN blocked the request from this IP.")
 
                 for p in products:
                     pid = p.get("productId")
