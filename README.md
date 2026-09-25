@@ -34,7 +34,7 @@ Because the script is hosted on GitHub, you can use a **1-line loader bookmarkle
 4. Set **URL** to this code (replace `YOUR_GITHUB_USERNAME` and `YOUR_REPO` with your repository details):
 
 ```javascript
-javascript:(function(){const s=document.createElement('script');s.src='https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO/main/myntra_bookmarklet.js?t='+Date.now();document.body.appendChild(s);})();
+javascript:(function(){const s=document.createElement('script');s.src='https://raw.githubusercontent.com/jairaj26/myntra-deals/main/myntra_bookmarklet.js?t='+Date.now();document.body.appendChild(s);})();
 ```
 
 ### Step 2: Use It on Myntra
@@ -72,7 +72,7 @@ javascript:(function(){const s=document.createElement('script');s.src='https://r
    git add .
    git commit -m "feat: initial commit of Myntra Deal Sentinel"
    git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+   git remote add origin https://github.com/jairaj26/myntra-deals.git
    git push -u origin main
    ```
 
@@ -110,7 +110,7 @@ GitHub Actions has a built-in schedule (`*/30 * * * *`), but to ensure reliable,
    * Create an account on [cron-job.org](https://cron-job.org) $\rightarrow$ **Create Cronjob**.
    * **URL**:
      ```text
-     https://api.github.com/repos/YOUR_USERNAME/YOUR_REPO/actions/workflows/deal_sentinel.yml/dispatches
+     https://api.github.com/repos/jairaj26/myntra-deals/actions/workflows/deal_sentinel.yml/dispatches
      ```
    * **Method**: `POST`
    * **Request Headers**:
