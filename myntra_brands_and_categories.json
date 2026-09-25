@@ -1,6 +1,6 @@
 {
   "title": "Myntra Multi-Category Deal Monitor Configuration",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "pincode": "560032",
   "bookmarkletMinDiscount": 65,
   "botMinDiscount": 70,
@@ -1781,6 +1781,966 @@
         ],
         "Kurtas & Ethnic": [
           "Kurtas"
+        ]
+      }
+    },
+    "Men Bottomwear": {
+      "displayName": "Men Bottomwear",
+      "basePath": "men-bottomwear",
+      "brands": [
+        "ADIDAS",
+        "Allen Solly",
+        "AMERICAN EAGLE OUTFITTERS",
+        "Arrow",
+        "Arrow New York",
+        "Arrow Sport",
+        "Basics",
+        "Being Human",
+        "Blackberrys",
+        "Calvin Klein Jeans",
+        "Cantabil",
+        "Celio",
+        "ColorPlus",
+        "Columbia",
+        "Crimsoune Club",
+        "Dennis Lingo",
+        "DIESEL",
+        "Duke",
+        "Fabindia",
+        "FAHRENHEIT",
+        "FILA",
+        "Flying Machine",
+        "GAP",
+        "H&M",
+        "HERE&NOW",
+        "HIGHLANDER",
+        "House of Pataudi",
+        "HRX by Hrithik Roshan",
+        "Indian Terrain",
+        "INVICTUS",
+        "Jack & Jones",
+        "John Players",
+        "Kook N Keech",
+        "Lacoste",
+        "Lee",
+        "Lee Cooper",
+        "Levis",
+        "Linen Club",
+        "LOCOMOTIVE",
+        "Louis Philippe",
+        "Louis Philippe Jeans",
+        "Louis Philippe Sport",
+        "MANGO MAN",
+        "Marks & Spencer",
+        "Mast & Harbour",
+        "Metronaut",
+        "Monte Carlo",
+        "Mufti",
+        "Nautica",
+        "New Balance",
+        "Nike",
+        "Park Avenue",
+        "Parx",
+        "Pepe Jeans",
+        "Peter England",
+        "Peter England Casuals",
+        "Puma",
+        "RARE RABBIT",
+        "Raymond",
+        "Red Tape",
+        "Reebok",
+        "Roadster",
+        "SELECTED",
+        "Snitch",
+        "SPYKAR",
+        "Status Quo",
+        "THE BEAR HOUSE",
+        "The Indian Garage Co",
+        "The Souled Store",
+        "Tommy Hilfiger",
+        "U.S. Polo Assn.",
+        "U.S. Polo Assn. Denim Co.",
+        "UNDER ARMOUR",
+        "United Colors of Benetton",
+        "Van Heusen",
+        "Van Heusen Sport",
+        "Wildcraft",
+        "Wrangler",
+        "WROGN"
+      ],
+      "brandDetails": [
+        {
+          "brand": "ADIDAS",
+          "productCount": 382
+        },
+        {
+          "brand": "Allen Solly",
+          "productCount": 1705
+        },
+        {
+          "brand": "AMERICAN EAGLE OUTFITTERS",
+          "productCount": 614
+        },
+        {
+          "brand": "Arrow",
+          "productCount": 1602
+        },
+        {
+          "brand": "Arrow New York",
+          "productCount": 247
+        },
+        {
+          "brand": "Arrow Sport",
+          "productCount": 971
+        },
+        {
+          "brand": "Basics",
+          "productCount": 1063
+        },
+        {
+          "brand": "Being Human",
+          "productCount": 1281
+        },
+        {
+          "brand": "Blackberrys",
+          "productCount": 1162
+        },
+        {
+          "brand": "Calvin Klein Jeans",
+          "productCount": 539
+        },
+        {
+          "brand": "Cantabil",
+          "productCount": 1028
+        },
+        {
+          "brand": "Celio",
+          "productCount": 643
+        },
+        {
+          "brand": "ColorPlus",
+          "productCount": 499
+        },
+        {
+          "brand": "Columbia",
+          "productCount": 224
+        },
+        {
+          "brand": "Crimsoune Club",
+          "productCount": 1449
+        },
+        {
+          "brand": "Dennis Lingo",
+          "productCount": 135
+        },
+        {
+          "brand": "DIESEL",
+          "productCount": 152
+        },
+        {
+          "brand": "Duke",
+          "productCount": 701
+        },
+        {
+          "brand": "Fabindia",
+          "productCount": 65
+        },
+        {
+          "brand": "FAHRENHEIT",
+          "productCount": 16
+        },
+        {
+          "brand": "FILA",
+          "productCount": 23
+        },
+        {
+          "brand": "Flying Machine",
+          "productCount": 2903
+        },
+        {
+          "brand": "GAP",
+          "productCount": 452
+        },
+        {
+          "brand": "H&M",
+          "productCount": 611
+        },
+        {
+          "brand": "HERE&NOW",
+          "productCount": 5135
+        },
+        {
+          "brand": "HIGHLANDER",
+          "productCount": 2464
+        },
+        {
+          "brand": "House of Pataudi",
+          "productCount": 29
+        },
+        {
+          "brand": "HRX by Hrithik Roshan",
+          "productCount": 4685
+        },
+        {
+          "brand": "Indian Terrain",
+          "productCount": 644
+        },
+        {
+          "brand": "INVICTUS",
+          "productCount": 513
+        },
+        {
+          "brand": "Jack & Jones",
+          "productCount": 1328
+        },
+        {
+          "brand": "John Players",
+          "productCount": 291
+        },
+        {
+          "brand": "Kook N Keech",
+          "productCount": 880
+        },
+        {
+          "brand": "Lacoste",
+          "productCount": 66
+        },
+        {
+          "brand": "Lee",
+          "productCount": 271
+        },
+        {
+          "brand": "Lee Cooper",
+          "productCount": 105
+        },
+        {
+          "brand": "Levis",
+          "productCount": 1603
+        },
+        {
+          "brand": "Linen Club",
+          "productCount": 105
+        },
+        {
+          "brand": "LOCOMOTIVE",
+          "productCount": 114
+        },
+        {
+          "brand": "Louis Philippe",
+          "productCount": 1119
+        },
+        {
+          "brand": "Louis Philippe Jeans",
+          "productCount": 669
+        },
+        {
+          "brand": "Louis Philippe Sport",
+          "productCount": 539
+        },
+        {
+          "brand": "MANGO MAN",
+          "productCount": 556
+        },
+        {
+          "brand": "Marks & Spencer",
+          "productCount": 436
+        },
+        {
+          "brand": "Mast & Harbour",
+          "productCount": 2950
+        },
+        {
+          "brand": "Metronaut",
+          "productCount": 2432
+        },
+        {
+          "brand": "Monte Carlo",
+          "productCount": 321
+        },
+        {
+          "brand": "Mufti",
+          "productCount": 1137
+        },
+        {
+          "brand": "Nautica",
+          "productCount": 1170
+        },
+        {
+          "brand": "New Balance",
+          "productCount": 66
+        },
+        {
+          "brand": "Nike",
+          "productCount": 230
+        },
+        {
+          "brand": "Park Avenue",
+          "productCount": 961
+        },
+        {
+          "brand": "Parx",
+          "productCount": 921
+        },
+        {
+          "brand": "Pepe Jeans",
+          "productCount": 1612
+        },
+        {
+          "brand": "Peter England",
+          "productCount": 703
+        },
+        {
+          "brand": "Peter England Casuals",
+          "productCount": 1419
+        },
+        {
+          "brand": "Puma",
+          "productCount": 1208
+        },
+        {
+          "brand": "RARE RABBIT",
+          "productCount": 1113
+        },
+        {
+          "brand": "Raymond",
+          "productCount": 995
+        },
+        {
+          "brand": "Red Tape",
+          "productCount": 78
+        },
+        {
+          "brand": "Reebok",
+          "productCount": 369
+        },
+        {
+          "brand": "Roadster",
+          "productCount": 6937
+        },
+        {
+          "brand": "SELECTED",
+          "productCount": 200
+        },
+        {
+          "brand": "Snitch",
+          "productCount": 1937
+        },
+        {
+          "brand": "SPYKAR",
+          "productCount": 3097
+        },
+        {
+          "brand": "Status Quo",
+          "productCount": 457
+        },
+        {
+          "brand": "THE BEAR HOUSE",
+          "productCount": 647
+        },
+        {
+          "brand": "The Indian Garage Co",
+          "productCount": 2115
+        },
+        {
+          "brand": "The Souled Store",
+          "productCount": 443
+        },
+        {
+          "brand": "Tommy Hilfiger",
+          "productCount": 908
+        },
+        {
+          "brand": "U.S. Polo Assn.",
+          "productCount": 519
+        },
+        {
+          "brand": "U.S. Polo Assn. Denim Co.",
+          "productCount": 1446
+        },
+        {
+          "brand": "UNDER ARMOUR",
+          "productCount": 560
+        },
+        {
+          "brand": "United Colors of Benetton",
+          "productCount": 794
+        },
+        {
+          "brand": "Van Heusen",
+          "productCount": 1222
+        },
+        {
+          "brand": "Van Heusen Sport",
+          "productCount": 310
+        },
+        {
+          "brand": "Wildcraft",
+          "productCount": 303
+        },
+        {
+          "brand": "Wrangler",
+          "productCount": 62
+        },
+        {
+          "brand": "WROGN",
+          "productCount": 2400
+        }
+      ],
+      "productTypes": {
+        "Jeans": [
+          "Jeans"
+        ],
+        "Trousers & Chinos": [
+          "Trousers"
+        ],
+        "Shorts": [
+          "Shorts"
+        ],
+        "Track Pants & Joggers": [
+          "Track Pants"
+        ]
+      }
+    },
+    "Men Footwear": {
+      "displayName": "Men Footwear",
+      "basePath": "men-footwear",
+      "brands": [
+        "Action",
+        "ADIDAS",
+        "ADIDAS Originals",
+        "Aeropostale",
+        "ALDO",
+        "Allen Cooper",
+        "Arrow",
+        "ASICS",
+        "Bata",
+        "BERSACHE",
+        "Bond Street By Red Tape",
+        "Campus",
+        "Clarks",
+        "Columbia",
+        "Crocs",
+        "Duke",
+        "FAUSTO",
+        "FILA",
+        "Flying Machine",
+        "H&M",
+        "Hitz",
+        "House of Pataudi",
+        "HRX by Hrithik Roshan",
+        "Hush Puppies",
+        "Jack & Jones",
+        "Killer",
+        "Lacoste",
+        "Lee Cooper",
+        "Levis",
+        "Louis Philippe",
+        "LOUIS STITCH",
+        "Mast & Harbour",
+        "Metro",
+        "Mochi",
+        "Nautica",
+        "New Balance",
+        "Nike",
+        "Peter England",
+        "Puma",
+        "RARE RABBIT",
+        "Red Chief",
+        "Red Tape",
+        "Reebok",
+        "Roadster",
+        "Ruosh",
+        "San Frissco",
+        "Skechers",
+        "Sparx",
+        "Teakwood Leathers",
+        "The Indian Garage Co",
+        "Tommy Hilfiger",
+        "U.S. Polo Assn.",
+        "UNDER ARMOUR",
+        "United Colors of Benetton",
+        "Van Heusen",
+        "Wildcraft",
+        "Woodland",
+        "WROGN"
+      ],
+      "brandDetails": [
+        {
+          "brand": "Action",
+          "productCount": 1019
+        },
+        {
+          "brand": "ADIDAS",
+          "productCount": 1744
+        },
+        {
+          "brand": "ADIDAS Originals",
+          "productCount": 239
+        },
+        {
+          "brand": "Aeropostale",
+          "productCount": 63
+        },
+        {
+          "brand": "ALDO",
+          "productCount": 329
+        },
+        {
+          "brand": "Allen Cooper",
+          "productCount": 268
+        },
+        {
+          "brand": "Arrow",
+          "productCount": 119
+        },
+        {
+          "brand": "ASICS",
+          "productCount": 799
+        },
+        {
+          "brand": "Bata",
+          "productCount": 930
+        },
+        {
+          "brand": "BERSACHE",
+          "productCount": 1301
+        },
+        {
+          "brand": "Bond Street By Red Tape",
+          "productCount": 51
+        },
+        {
+          "brand": "Campus",
+          "productCount": 1242
+        },
+        {
+          "brand": "Clarks",
+          "productCount": 116
+        },
+        {
+          "brand": "Columbia",
+          "productCount": 107
+        },
+        {
+          "brand": "Crocs",
+          "productCount": 242
+        },
+        {
+          "brand": "Duke",
+          "productCount": 560
+        },
+        {
+          "brand": "FAUSTO",
+          "productCount": 2737
+        },
+        {
+          "brand": "FILA",
+          "productCount": 98
+        },
+        {
+          "brand": "Flying Machine",
+          "productCount": 121
+        },
+        {
+          "brand": "H&M",
+          "productCount": 20
+        },
+        {
+          "brand": "Hitz",
+          "productCount": 388
+        },
+        {
+          "brand": "House of Pataudi",
+          "productCount": 2544
+        },
+        {
+          "brand": "HRX by Hrithik Roshan",
+          "productCount": 2698
+        },
+        {
+          "brand": "Hush Puppies",
+          "productCount": 458
+        },
+        {
+          "brand": "Jack & Jones",
+          "productCount": 235
+        },
+        {
+          "brand": "Killer",
+          "productCount": 3298
+        },
+        {
+          "brand": "Lacoste",
+          "productCount": 14
+        },
+        {
+          "brand": "Lee Cooper",
+          "productCount": 864
+        },
+        {
+          "brand": "Levis",
+          "productCount": 28
+        },
+        {
+          "brand": "Louis Philippe",
+          "productCount": 300
+        },
+        {
+          "brand": "LOUIS STITCH",
+          "productCount": 1673
+        },
+        {
+          "brand": "Mast & Harbour",
+          "productCount": 1668
+        },
+        {
+          "brand": "Metro",
+          "productCount": 1099
+        },
+        {
+          "brand": "Mochi",
+          "productCount": 1089
+        },
+        {
+          "brand": "Nautica",
+          "productCount": 129
+        },
+        {
+          "brand": "New Balance",
+          "productCount": 738
+        },
+        {
+          "brand": "Nike",
+          "productCount": 878
+        },
+        {
+          "brand": "Peter England",
+          "productCount": 8
+        },
+        {
+          "brand": "Puma",
+          "productCount": 2696
+        },
+        {
+          "brand": "RARE RABBIT",
+          "productCount": 661
+        },
+        {
+          "brand": "Red Chief",
+          "productCount": 649
+        },
+        {
+          "brand": "Red Tape",
+          "productCount": 1726
+        },
+        {
+          "brand": "Reebok",
+          "productCount": 1882
+        },
+        {
+          "brand": "Roadster",
+          "productCount": 5939
+        },
+        {
+          "brand": "Ruosh",
+          "productCount": 300
+        },
+        {
+          "brand": "San Frissco",
+          "productCount": 488
+        },
+        {
+          "brand": "Skechers",
+          "productCount": 1179
+        },
+        {
+          "brand": "Sparx",
+          "productCount": 1432
+        },
+        {
+          "brand": "Teakwood Leathers",
+          "productCount": 295
+        },
+        {
+          "brand": "The Indian Garage Co",
+          "productCount": 26
+        },
+        {
+          "brand": "Tommy Hilfiger",
+          "productCount": 115
+        },
+        {
+          "brand": "U.S. Polo Assn.",
+          "productCount": 1252
+        },
+        {
+          "brand": "UNDER ARMOUR",
+          "productCount": 362
+        },
+        {
+          "brand": "United Colors of Benetton",
+          "productCount": 185
+        },
+        {
+          "brand": "Van Heusen",
+          "productCount": 235
+        },
+        {
+          "brand": "Wildcraft",
+          "productCount": 95
+        },
+        {
+          "brand": "Woodland",
+          "productCount": 1592
+        },
+        {
+          "brand": "WROGN",
+          "productCount": 485
+        }
+      ],
+      "productTypes": {
+        "Casual Shoes & Sneakers": [
+          "Casual Shoes"
+        ],
+        "Sports & Running Shoes": [
+          "Sports Shoes"
+        ],
+        "Formal Shoes": [
+          "Formal Shoes"
+        ],
+        "Sandals & Floaters": [
+          "Sandals"
+        ],
+        "Flip Flops & Slides": [
+          "Flip Flops"
+        ],
+        "Boots": [
+          "Boots"
+        ]
+      }
+    },
+    "Men Innerwear": {
+      "displayName": "Men Innerwear",
+      "basePath": "men-innerwear",
+      "brands": [
+        "ADIDAS",
+        "AMUL COMFY",
+        "Bodycare",
+        "Calvin Klein Underwear",
+        "Chromozome",
+        "COLORS by Rupa Frontline",
+        "Dollar",
+        "Dollar Bigboss",
+        "FCUK",
+        "Force NXT",
+        "French Connection",
+        "H&M",
+        "Jack & Jones",
+        "Jockey",
+        "Kook N Keech",
+        "Levis",
+        "Lux Cozi",
+        "LUX NITRO",
+        "Macroman",
+        "Marks & Spencer",
+        "Mast & Harbour",
+        "Monte Carlo",
+        "ONN",
+        "Park Avenue",
+        "Pepe Jeans",
+        "Peter England",
+        "Puma",
+        "Red Tape",
+        "Roadster",
+        "Rupa",
+        "Rupa Frontline",
+        "Rupa Jon",
+        "Sporto by Macho",
+        "Tommy Hilfiger",
+        "U.S. Polo Assn.",
+        "UnderJeans by Spykar",
+        "Van Heusen",
+        "VIP",
+        "WROGN",
+        "XYXX"
+      ],
+      "brandDetails": [
+        {
+          "brand": "ADIDAS",
+          "productCount": 15
+        },
+        {
+          "brand": "AMUL COMFY",
+          "productCount": 1634
+        },
+        {
+          "brand": "Bodycare",
+          "productCount": 11
+        },
+        {
+          "brand": "Calvin Klein Underwear",
+          "productCount": 445
+        },
+        {
+          "brand": "Chromozome",
+          "productCount": 93
+        },
+        {
+          "brand": "COLORS by Rupa Frontline",
+          "productCount": 5549
+        },
+        {
+          "brand": "Dollar",
+          "productCount": 521
+        },
+        {
+          "brand": "Dollar Bigboss",
+          "productCount": 1090
+        },
+        {
+          "brand": "FCUK",
+          "productCount": 122
+        },
+        {
+          "brand": "Force NXT",
+          "productCount": 1251
+        },
+        {
+          "brand": "French Connection",
+          "productCount": 18
+        },
+        {
+          "brand": "H&M",
+          "productCount": 65
+        },
+        {
+          "brand": "Jack & Jones",
+          "productCount": 135
+        },
+        {
+          "brand": "Jockey",
+          "productCount": 2329
+        },
+        {
+          "brand": "Kook N Keech",
+          "productCount": 7
+        },
+        {
+          "brand": "Levis",
+          "productCount": 738
+        },
+        {
+          "brand": "Lux Cozi",
+          "productCount": 958
+        },
+        {
+          "brand": "LUX NITRO",
+          "productCount": 134
+        },
+        {
+          "brand": "Macroman",
+          "productCount": 153
+        },
+        {
+          "brand": "Marks & Spencer",
+          "productCount": 70
+        },
+        {
+          "brand": "Mast & Harbour",
+          "productCount": 424
+        },
+        {
+          "brand": "Monte Carlo",
+          "productCount": 75
+        },
+        {
+          "brand": "ONN",
+          "productCount": 314
+        },
+        {
+          "brand": "Park Avenue",
+          "productCount": 162
+        },
+        {
+          "brand": "Pepe Jeans",
+          "productCount": 576
+        },
+        {
+          "brand": "Peter England",
+          "productCount": 49
+        },
+        {
+          "brand": "Puma",
+          "productCount": 143
+        },
+        {
+          "brand": "Red Tape",
+          "productCount": 58
+        },
+        {
+          "brand": "Roadster",
+          "productCount": 2100
+        },
+        {
+          "brand": "Rupa",
+          "productCount": 184
+        },
+        {
+          "brand": "Rupa Frontline",
+          "productCount": 171
+        },
+        {
+          "brand": "Rupa Jon",
+          "productCount": 135
+        },
+        {
+          "brand": "Sporto by Macho",
+          "productCount": 1672
+        },
+        {
+          "brand": "Tommy Hilfiger",
+          "productCount": 135
+        },
+        {
+          "brand": "U.S. Polo Assn.",
+          "productCount": 1226
+        },
+        {
+          "brand": "UnderJeans by Spykar",
+          "productCount": 674
+        },
+        {
+          "brand": "Van Heusen",
+          "productCount": 198
+        },
+        {
+          "brand": "VIP",
+          "productCount": 410
+        },
+        {
+          "brand": "WROGN",
+          "productCount": 44
+        },
+        {
+          "brand": "XYXX",
+          "productCount": 1241
+        }
+      ],
+      "productTypes": {
+        "Boxers": [
+          "Boxers"
+        ],
+        "Briefs & Trunks": [
+          "Briefs",
+          "Trunk"
+        ],
+        "Innerwear Vests": [
+          "Innerwear Vests"
+        ],
+        "Thermals & Winterwear": [
+          "Thermal Set",
+          "Thermal Bottoms",
+          "Thermal Tops"
         ]
       }
     }
