@@ -4,9 +4,9 @@ on:
   # Allows external trigger via cron-job.org or manual run from GitHub UI
   workflow_dispatch:
 
-  # Built-in fallback schedule (runs every 30 minutes)
+  # Built-in schedule (runs every 1 hour from 12:00 PM to 12:00 AM IST / 06:30 to 18:30 UTC)
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '30 6-18 * * *'
 
 # Permissions required to commit and push updated seen_deals.json
 permissions:

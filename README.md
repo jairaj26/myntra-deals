@@ -41,7 +41,7 @@ javascript:(function(){const s=document.createElement('script');s.src='https://r
 1. Go to [Myntra.com](https://www.myntra.com).
 2. Click your `🔥 Myntra Deals` bookmark.
 3. A floating panel appears in the top-right corner.
-4. Select a category (`Haircare`, `Skincare`, `Perfumes`, `Makeup`), pick your discount threshold (e.g. `65%+`), and click **Fetch Highest Discount Deals**.
+4. Select a category (`Haircare`, `Skincare`, `Perfumes`, `Makeup`, `Men Topwear`), pick your discount threshold (e.g. `65%+`), and click **Fetch Highest Discount Deals**.
 5. It will query Myntra with your delivery pincode (`560032`), display deals sorted by steepest discount, and provide direct buy links.
 
 ---
@@ -99,9 +99,17 @@ javascript:(function(){const s=document.createElement('script');s.src='https://r
 
 ---
 
-## ⏰ Part 4: Scheduling with cron-job.org
+## ⏰ Part 4: Scheduling (Every 1 Hour from 12:00 PM to 12:00 AM IST)
 
-GitHub Actions has a built-in schedule (`*/30 * * * *`), but to ensure reliable, punctual execution every 15–30 minutes, you can trigger it via [cron-job.org](https://cron-job.org):
+### Option A: Built-in GitHub Actions Schedule
+The GitHub Actions workflow is scheduled to run every 1 hour from 12:00 PM to 12:00 AM IST:
+```yaml
+schedule:
+  - cron: '30 6-18 * * *'  # Runs at minute 30 of every hour from 06:30 to 18:30 UTC (12:00 PM to 12:00 AM IST)
+```
+
+### Option B: Triggering via cron-job.org
+GitHub Actions scheduled runs can experience queue delays during peak GitHub load. Using [cron-job.org](https://cron-job.org) triggers the workflow via GitHub's API on the exact minute:
 
 1. **Create a GitHub Personal Access Token (PAT)**:
    * Go to GitHub $\rightarrow$ **Settings** $\rightarrow$ **Developer settings** $\rightarrow$ **Personal access tokens** $\rightarrow$ **Tokens (classic)**.
@@ -121,7 +129,10 @@ GitHub Actions has a built-in schedule (`*/30 * * * *`), but to ensure reliable,
      ```json
      {"ref":"main"}
      ```
-   * **Schedule**: Every 15 minutes, 30 minutes, or 1 hour.
+   * **Schedule**:
+     * Timezone: **Asia/Kolkata (IST)**
+     * Execution interval: **Hourly**
+     * Active hours: **12:00 PM to 12:00 AM** (or `0 12-23,0 * * *`)
 
 ---
 
