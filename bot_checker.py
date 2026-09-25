@@ -184,11 +184,12 @@ def main():
     for cat_name, cat_data in categories.items():
         base_path = cat_data.get("basePath", "personal-care")
         brands = cat_data.get("brands", [])
+        cat_threshold = int(cat_data.get("botMinDiscount", cat_data.get("minDiscount", MIN_DISCOUNT)))
 
         if not brands:
             continue
 
-        print(f"\nScanning Category: [{cat_name}] ({len(brands)} brands configured)")
+        print(f"\nScanning Category: [{cat_name}] ({len(brands)} brands configured, Min Discount: {cat_threshold}%)")
 
         # Chunk brands into batches
         brand_batches = [brands[i:i + BATCH_SIZE] for i in range(0, len(brands), BATCH_SIZE)]
@@ -214,7 +215,7 @@ def main():
                 if products:
                     discounts = [round(((p.get("mrp", 0) - p.get("price", 0)) / p.get("mrp", 1)) * 100) for p in products if p.get("mrp", 0) > 0]
                     max_d = max(discounts) if discounts else 0
-                    print(f"  Extracted {len(products)} products. Highest discount in batch: {max_d}% (Threshold: {MIN_DISCOUNT}%)")
+                    print(f"  Extracted {len(products)} products. Highest discount in batch: {max_d}% (Threshold: {cat_threshold}%)")
                 else:
                     print(f"  Extracted 0 products from response. Status: {resp.status_code}, HTML length: {len(resp.text)}")
                     if "Access Denied" in resp.text or "Captcha" in resp.text:
@@ -231,7 +232,7 @@ def main():
                         continue
 
                     discount_pct = round(((mrp - price) / mrp) * 100)
-                    if discount_pct >= MIN_DISCOUNT:
+                    if discount_pct >= cat_threshold:
                         print(f"  ⭐ NEW DEAL! {p.get('brand')} - {p.get('product')[:40]}... ({discount_pct}% OFF - Rs.{price})")
                         success = send_telegram_alert(p, discount_pct)
                         seen_ids.add(pid)

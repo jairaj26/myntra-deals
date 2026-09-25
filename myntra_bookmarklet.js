@@ -1,6 +1,6 @@
 /**
  * Myntra Deal Sentinel - Interactive Bookmarklet
- * Version: 2.2.0
+ * Version: 2.4.0
  * 
  * Injects a floating deal-hunting panel directly on Myntra.
  * Fetches server-filtered deals for curated brands sorted by highest discount.
@@ -624,6 +624,121 @@
               "SuperBottoms",
               "Tedibar"
           ]
+      },
+      "Gadgets": {
+          "basePath": "gadgets",
+          "brands": [
+              "boAt",
+              "Fastrack",
+              "Fire-Boltt",
+              "GOBOULT",
+              "JBL",
+              "NOISE",
+              "OnePlus",
+              "Portronics",
+              "Realme",
+              "Skullcandy",
+              "Sony",
+              "Timex",
+              "ZEBRONICS"
+          ],
+          "minDiscount": 80
+      },
+      "Mens Watches": {
+          "basePath": "mens-watches",
+          "brands": [
+              "Armani Exchange",
+              "Calvin Klein",
+              "CASIO",
+              "Citizen",
+              "Daniel Klein",
+              "DIESEL",
+              "Emporio Armani",
+              "Fastrack",
+              "Fossil",
+              "French Connection",
+              "GIORDANO",
+              "GUESS",
+              "Helix",
+              "Kenneth Cole",
+              "Lacoste",
+              "Michael Kors",
+              "Nautica",
+              "Police",
+              "Sonata",
+              "Ted Baker",
+              "Timex",
+              "Titan",
+              "Tommy Hilfiger"
+          ],
+          "minDiscount": 80
+      },
+      "Men Personal Care": {
+          "basePath": "men-personal-care",
+          "brands": [
+              "AXE",
+              "BEARDO",
+              "Biotique",
+              "Bombay Shaving Company",
+              "CINTHOL",
+              "Denver",
+              "Dettol",
+              "Fogg",
+              "Gillette",
+              "Himalaya",
+              "Khadi Natural",
+              "LOreal",
+              "Mamaearth",
+              "Man Matters",
+              "Nivea",
+              "Old Spice",
+              "Park Avenue",
+              "Pears",
+              "Set Wet",
+              "THE MAN COMPANY",
+              "Ustraa",
+              "Vaseline",
+              "Wild stone"
+          ],
+          "minDiscount": 80
+      },
+      "Men Accessories": {
+          "basePath": "men-accessories",
+          "brands": [
+              "Allen Solly",
+              "AMERICAN TOURISTER",
+              "Arrow",
+              "Calvin Klein",
+              "Fastrack",
+              "Flying Machine",
+              "Fossil",
+              "Hidesign",
+              "HRX by Hrithik Roshan",
+              "Jack & Jones",
+              "Levis",
+              "Louis Philippe",
+              "Nautica",
+              "Nike",
+              "Park Avenue",
+              "Peter England",
+              "Polaroid",
+              "Police",
+              "Puma",
+              "Ray-Ban",
+              "Red Tape",
+              "Roadster",
+              "Safari",
+              "Skybags",
+              "Titan",
+              "Tommy Hilfiger",
+              "U.S. Polo Assn.",
+              "Van Heusen",
+              "Wildcraft",
+              "WildHorn",
+              "Woodland",
+              "WROGN"
+          ],
+          "minDiscount": 80
       }
   };
   // State
@@ -785,6 +900,10 @@
       catBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       selectedCategory = btn.dataset.cat;
+      const catConfig = CATEGORY_DATA[selectedCategory];
+      if (catConfig && catConfig.minDiscount) {
+        discountSelect.value = String(catConfig.minDiscount);
+      }
     };
   });
 

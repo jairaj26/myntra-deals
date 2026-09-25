@@ -1,6 +1,6 @@
 {
   "title": "Myntra Multi-Category Deal Monitor Configuration",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "pincode": "560032",
   "bookmarkletMinDiscount": 65,
   "botMinDiscount": 70,
@@ -3140,6 +3140,210 @@
           "Baby Sunscreen",
           "Baby Care Kit",
           "Baby Hair Oil"
+        ]
+      }
+    },
+    "Gadgets": {
+      "displayName": "Gadgets",
+      "basePath": "gadgets",
+      "minDiscount": 80,
+      "botMinDiscount": 80,
+      "bookmarkletMinDiscount": 80,
+      "brands": [
+        "boAt",
+        "Fastrack",
+        "Fire-Boltt",
+        "GOBOULT",
+        "JBL",
+        "NOISE",
+        "OnePlus",
+        "Portronics",
+        "Realme",
+        "Skullcandy",
+        "Sony",
+        "Timex",
+        "ZEBRONICS"
+      ],
+      "productTypes": {
+        "Smart Watches & Bands": [
+          "Smart Watches",
+          "Fitness Bands"
+        ],
+        "Headphones & Earphones": [
+          "Headphones"
+        ],
+        "Speakers": [
+          "Speakers"
+        ]
+      }
+    },
+    "Mens Watches": {
+      "displayName": "Mens Watches",
+      "basePath": "mens-watches",
+      "minDiscount": 80,
+      "botMinDiscount": 80,
+      "bookmarkletMinDiscount": 80,
+      "brands": [
+        "Armani Exchange",
+        "Calvin Klein",
+        "CASIO",
+        "Citizen",
+        "Daniel Klein",
+        "DIESEL",
+        "Emporio Armani",
+        "Fastrack",
+        "Fossil",
+        "French Connection",
+        "GIORDANO",
+        "GUESS",
+        "Helix",
+        "Kenneth Cole",
+        "Lacoste",
+        "Michael Kors",
+        "Nautica",
+        "Police",
+        "Sonata",
+        "Ted Baker",
+        "Timex",
+        "Titan",
+        "Tommy Hilfiger"
+      ],
+      "productTypes": {
+        "Analogue & Chronograph Watches": [
+          "Watches"
+        ],
+        "Watch Gift Sets": [
+          "Watch Gift Set"
+        ],
+        "Watch Accessories & Straps": [
+          "Watch Straps",
+          "Watch Organiser"
+        ]
+      }
+    },
+    "Men Personal Care": {
+      "displayName": "Men Personal Care",
+      "basePath": "men-personal-care",
+      "minDiscount": 80,
+      "botMinDiscount": 80,
+      "bookmarkletMinDiscount": 80,
+      "brands": [
+        "AXE",
+        "BEARDO",
+        "Biotique",
+        "Bombay Shaving Company",
+        "CINTHOL",
+        "Denver",
+        "Dettol",
+        "Fogg",
+        "Gillette",
+        "Himalaya",
+        "Khadi Natural",
+        "LOreal",
+        "Mamaearth",
+        "Man Matters",
+        "Nivea",
+        "Old Spice",
+        "Park Avenue",
+        "Pears",
+        "Set Wet",
+        "THE MAN COMPANY",
+        "Ustraa",
+        "Vaseline",
+        "Wild stone"
+      ],
+      "productTypes": {
+        "Beard Grooming & Shaving": [
+          "Beard Serum and Oil",
+          "Beard Wash",
+          "Shaving Cream and Foam",
+          "After Shave Lotion and Balm",
+          "Razors and Cartridges"
+        ],
+        "Men Deodorants & Perfumes": [
+          "Deodorant",
+          "Perfume",
+          "Body Mist and Spray",
+          "Attar"
+        ],
+        "Men Hair & Face Care": [
+          "Hair Gels and Wax",
+          "Hair Oil",
+          "Shampoo",
+          "Face Wash and Cleanser"
+        ],
+        "Men Bath & Shower": [
+          "Soap",
+          "Body Wash and Shower Gel"
+        ]
+      }
+    },
+    "Men Accessories": {
+      "displayName": "Men Accessories",
+      "basePath": "men-accessories",
+      "minDiscount": 80,
+      "botMinDiscount": 80,
+      "bookmarkletMinDiscount": 80,
+      "brands": [
+        "Allen Solly",
+        "AMERICAN TOURISTER",
+        "Arrow",
+        "Calvin Klein",
+        "Fastrack",
+        "Flying Machine",
+        "Fossil",
+        "Hidesign",
+        "HRX by Hrithik Roshan",
+        "Jack & Jones",
+        "Levis",
+        "Louis Philippe",
+        "Nautica",
+        "Nike",
+        "Park Avenue",
+        "Peter England",
+        "Polaroid",
+        "Police",
+        "Puma",
+        "Ray-Ban",
+        "Red Tape",
+        "Roadster",
+        "Safari",
+        "Skybags",
+        "Titan",
+        "Tommy Hilfiger",
+        "U.S. Polo Assn.",
+        "Van Heusen",
+        "Wildcraft",
+        "WildHorn",
+        "Woodland",
+        "WROGN"
+      ],
+      "productTypes": {
+        "Wallets & Card Holders": [
+          "Wallets",
+          "Card Holder"
+        ],
+        "Belts": [
+          "Belts"
+        ],
+        "Sunglasses & Eyewear": [
+          "Sunglasses",
+          "Eye Glasses"
+        ],
+        "Bags, Backpacks & Luggage": [
+          "Backpacks",
+          "Trolley Bag",
+          "Duffle Bag",
+          "Messenger Bag"
+        ],
+        "Caps & Hats": [
+          "Caps",
+          "Hats"
+        ],
+        "Ties & Cufflinks": [
+          "Ties",
+          "Cufflinks",
+          "Pocket Square"
         ]
       }
     }

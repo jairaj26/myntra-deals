@@ -41,7 +41,7 @@ javascript:(function(){const s=document.createElement('script');s.src='https://r
 1. Go to [Myntra.com](https://www.myntra.com).
 2. Click your `🔥 Myntra Deals` bookmark.
 3. A floating panel appears in the top-right corner.
-4. Select a category (`Haircare`, `Skincare`, `Perfumes`, `Makeup`, `Beauty Appliances`, `Baby Care`, `Men Topwear`, `Men Bottomwear`, `Men Footwear`, `Men Innerwear`, `Men Sportswear`), pick your discount threshold (e.g. `65%+`), and click **Fetch Highest Discount Deals**.
+4. Select a category (`Haircare`, `Skincare`, `Perfumes`, `Makeup`, `Beauty Appliances`, `Baby Care`, `Men Topwear`, `Men Bottomwear`, `Men Footwear`, `Men Innerwear`, `Men Sportswear`, `Gadgets`, `Mens Watches`, `Men Personal Care`, `Men Accessories`), pick your discount threshold (default 65%–70%, auto-switches to 80% for Gadgets, Watches & Accessories), and click **Fetch Highest Discount Deals**.
 5. It will query Myntra with your delivery pincode (`560032`), display deals sorted by steepest discount, and provide direct buy links.
 
 ---
@@ -102,10 +102,10 @@ javascript:(function(){const s=document.createElement('script');s.src='https://r
 ## ⏰ Part 4: Scheduling (Every 1 Hour from 12:00 PM to 12:00 AM IST)
 
 ### Option A: Built-in GitHub Actions Schedule
-The GitHub Actions workflow is scheduled to run every 1 hour from 12:00 PM to 12:00 AM IST:
+*(Currently **PAUSED** to prevent alert flooding while refining brand lists. To re-enable, uncomment the schedule block in `.github/workflows/deal_sentinel.yml`)*:
 ```yaml
-schedule:
-  - cron: '30 6-18 * * *'  # Runs at minute 30 of every hour from 06:30 to 18:30 UTC (12:00 PM to 12:00 AM IST)
+# schedule:
+#   - cron: '30 6-18 * * *'  # Runs at minute 30 of every hour from 06:30 to 18:30 UTC (12:00 PM to 12:00 AM IST)
 ```
 
 ### Option B: Triggering via cron-job.org
