@@ -1,6 +1,6 @@
 /**
  * Myntra Deal Sentinel - Interactive Bookmarklet
- * Version: 2.8.0
+ * Version: 2.9.0
  * 
  * Injects a floating deal-hunting panel directly on Myntra.
  * Fetches server-filtered deals for curated brands sorted by highest discount.
@@ -2231,327 +2231,6 @@
         "botMinDiscount": 80,
         "bookmarkletMinDiscount": 80
     },
-    "Men Footwear": {
-        "displayName": "Men Footwear",
-        "basePath": "men-footwear",
-        "brands": [
-            "Action",
-            "ADIDAS",
-            "ADIDAS Originals",
-            "Aeropostale",
-            "ALDO",
-            "Allen Cooper",
-            "Arrow",
-            "ASICS",
-            "Bata",
-            "BERSACHE",
-            "Bond Street By Red Tape",
-            "Campus",
-            "Clarks",
-            "Columbia",
-            "Crocs",
-            "Duke",
-            "FAUSTO",
-            "FILA",
-            "Flying Machine",
-            "H&M",
-            "Hitz",
-            "House of Pataudi",
-            "HRX by Hrithik Roshan",
-            "Hush Puppies",
-            "Jack & Jones",
-            "Killer",
-            "Lacoste",
-            "Lee Cooper",
-            "Levis",
-            "Louis Philippe",
-            "LOUIS STITCH",
-            "Mast & Harbour",
-            "Metro",
-            "Mochi",
-            "Nautica",
-            "New Balance",
-            "Nike",
-            "Peter England",
-            "Puma",
-            "RARE RABBIT",
-            "Red Chief",
-            "Red Tape",
-            "Reebok",
-            "Roadster",
-            "Ruosh",
-            "San Frissco",
-            "Skechers",
-            "Sparx",
-            "Teakwood Leathers",
-            "The Indian Garage Co",
-            "Tommy Hilfiger",
-            "U.S. Polo Assn.",
-            "UNDER ARMOUR",
-            "United Colors of Benetton",
-            "Van Heusen",
-            "Wildcraft",
-            "Woodland",
-            "WROGN"
-        ],
-        "brandDetails": [
-            {
-                "brand": "Action",
-                "productCount": 1019
-            },
-            {
-                "brand": "ADIDAS",
-                "productCount": 1744
-            },
-            {
-                "brand": "ADIDAS Originals",
-                "productCount": 239
-            },
-            {
-                "brand": "Aeropostale",
-                "productCount": 63
-            },
-            {
-                "brand": "ALDO",
-                "productCount": 329
-            },
-            {
-                "brand": "Allen Cooper",
-                "productCount": 268
-            },
-            {
-                "brand": "Arrow",
-                "productCount": 119
-            },
-            {
-                "brand": "ASICS",
-                "productCount": 799
-            },
-            {
-                "brand": "Bata",
-                "productCount": 930
-            },
-            {
-                "brand": "BERSACHE",
-                "productCount": 1301
-            },
-            {
-                "brand": "Bond Street By Red Tape",
-                "productCount": 51
-            },
-            {
-                "brand": "Campus",
-                "productCount": 1242
-            },
-            {
-                "brand": "Clarks",
-                "productCount": 116
-            },
-            {
-                "brand": "Columbia",
-                "productCount": 107
-            },
-            {
-                "brand": "Crocs",
-                "productCount": 242
-            },
-            {
-                "brand": "Duke",
-                "productCount": 560
-            },
-            {
-                "brand": "FAUSTO",
-                "productCount": 2737
-            },
-            {
-                "brand": "FILA",
-                "productCount": 98
-            },
-            {
-                "brand": "Flying Machine",
-                "productCount": 121
-            },
-            {
-                "brand": "H&M",
-                "productCount": 20
-            },
-            {
-                "brand": "Hitz",
-                "productCount": 388
-            },
-            {
-                "brand": "House of Pataudi",
-                "productCount": 2544
-            },
-            {
-                "brand": "HRX by Hrithik Roshan",
-                "productCount": 2698
-            },
-            {
-                "brand": "Hush Puppies",
-                "productCount": 458
-            },
-            {
-                "brand": "Jack & Jones",
-                "productCount": 235
-            },
-            {
-                "brand": "Killer",
-                "productCount": 3298
-            },
-            {
-                "brand": "Lacoste",
-                "productCount": 14
-            },
-            {
-                "brand": "Lee Cooper",
-                "productCount": 864
-            },
-            {
-                "brand": "Levis",
-                "productCount": 28
-            },
-            {
-                "brand": "Louis Philippe",
-                "productCount": 300
-            },
-            {
-                "brand": "LOUIS STITCH",
-                "productCount": 1673
-            },
-            {
-                "brand": "Mast & Harbour",
-                "productCount": 1668
-            },
-            {
-                "brand": "Metro",
-                "productCount": 1099
-            },
-            {
-                "brand": "Mochi",
-                "productCount": 1089
-            },
-            {
-                "brand": "Nautica",
-                "productCount": 129
-            },
-            {
-                "brand": "New Balance",
-                "productCount": 738
-            },
-            {
-                "brand": "Nike",
-                "productCount": 878
-            },
-            {
-                "brand": "Peter England",
-                "productCount": 8
-            },
-            {
-                "brand": "Puma",
-                "productCount": 2696
-            },
-            {
-                "brand": "RARE RABBIT",
-                "productCount": 661
-            },
-            {
-                "brand": "Red Chief",
-                "productCount": 649
-            },
-            {
-                "brand": "Red Tape",
-                "productCount": 1726
-            },
-            {
-                "brand": "Reebok",
-                "productCount": 1882
-            },
-            {
-                "brand": "Roadster",
-                "productCount": 5939
-            },
-            {
-                "brand": "Ruosh",
-                "productCount": 300
-            },
-            {
-                "brand": "San Frissco",
-                "productCount": 488
-            },
-            {
-                "brand": "Skechers",
-                "productCount": 1179
-            },
-            {
-                "brand": "Sparx",
-                "productCount": 1432
-            },
-            {
-                "brand": "Teakwood Leathers",
-                "productCount": 295
-            },
-            {
-                "brand": "The Indian Garage Co",
-                "productCount": 26
-            },
-            {
-                "brand": "Tommy Hilfiger",
-                "productCount": 115
-            },
-            {
-                "brand": "U.S. Polo Assn.",
-                "productCount": 1252
-            },
-            {
-                "brand": "UNDER ARMOUR",
-                "productCount": 362
-            },
-            {
-                "brand": "United Colors of Benetton",
-                "productCount": 185
-            },
-            {
-                "brand": "Van Heusen",
-                "productCount": 235
-            },
-            {
-                "brand": "Wildcraft",
-                "productCount": 95
-            },
-            {
-                "brand": "Woodland",
-                "productCount": 1592
-            },
-            {
-                "brand": "WROGN",
-                "productCount": 485
-            }
-        ],
-        "productTypes": {
-            "Casual Shoes & Sneakers": [
-                "Casual Shoes"
-            ],
-            "Sports & Running Shoes": [
-                "Sports Shoes"
-            ],
-            "Formal Shoes": [
-                "Formal Shoes"
-            ],
-            "Sandals & Floaters": [
-                "Sandals"
-            ],
-            "Flip Flops & Slides": [
-                "Flip Flops"
-            ],
-            "Boots": [
-                "Boots"
-            ]
-        },
-        "minDiscount": 80,
-        "botMinDiscount": 80,
-        "bookmarkletMinDiscount": 80
-    },
     "Men Innerwear": {
         "displayName": "Men Innerwear",
         "basePath": "men-innerwear",
@@ -3664,6 +3343,64 @@
             "HOKIPO",
             "Lushomes",
             "DeoDap"
+        ]
+    },
+    "Footwear": {
+        "basePath": "footwear",
+        "minDiscount": 89,
+        "botMinDiscount": 89,
+        "brands": [
+            "Nike",
+            "ADIDAS",
+            "Puma",
+            "Reebok",
+            "Skechers",
+            "ASICS",
+            "New Balance",
+            "UNDER ARMOUR",
+            "Woodland",
+            "Crocs",
+            "Bata",
+            "Hush Puppies",
+            "Clarks",
+            "Metro",
+            "Mochi",
+            "Red Chief",
+            "U.S. Polo Assn.",
+            "Birkenstock",
+            "ALDO",
+            "Cole Haan",
+            "Geox",
+            "Tommy Hilfiger",
+            "Calvin Klein",
+            "Saint G",
+            "Inc 5",
+            "Carlton London",
+            "CHARLES & KEITH",
+            "Catwalk",
+            "mothercare",
+            "Campus",
+            "Sparx",
+            "Liberty",
+            "Khadims",
+            "Action",
+            "Provogue",
+            "Shoetopia",
+            "Denill",
+            "Marc Loire",
+            "London Rag",
+            "ERIDANI",
+            "Moda Rapido",
+            "DressBerry",
+            "CORSICA",
+            "Anouk",
+            "House of Pataudi",
+            "LOUIS STITCH",
+            "Stylestry",
+            "SZN",
+            "Try Me",
+            "Fulkari",
+            "Dollphin"
         ]
     }
 };
