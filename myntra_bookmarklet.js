@@ -1,6 +1,6 @@
 /**
  * Myntra Deal Sentinel - Interactive Bookmarklet
- * Version: 2.4.0
+ * Version: 2.8.0
  * 
  * Injects a floating deal-hunting panel directly on Myntra.
  * Fetches server-filtered deals for curated brands sorted by highest discount.
@@ -20,813 +20,3653 @@
 
   // Embedded Curated Brand Lists (Modular by Category)
   const CATEGORY_DATA = {
-      "Haircare": {
-          "basePath": "personal-care",
-          "brands": [
-              "&honey",
-              "2.Oh!",
-              "ARATA",
-              "Bare Anatomy",
-              "BBLUNT",
-              "Biolage",
-              "BIOTOP PROFESSIONAL",
-              "BRILLARE",
-              "Dabur",
-              "Dove",
-              "Dr. Batras",
-              "Earth Rhythm",
-              "Fix My Curls",
-              "Garnier",
-              "Head & Shoulders",
-              "indulekha",
-              "Kesh King",
-              "Khadi Natural",
-              "LOreal",
-              "LOreal Professionnel",
-              "Mamaearth",
-              "MATRIX",
-              "MOROCCANOIL",
-              "Nat Habit",
-              "Neutrogena",
-              "OGX",
-              "OLAPLEX",
-              "Pantene",
-              "Pilgrim",
-              "Plum",
-              "Schwarzkopf",
-              "Schwarzkopf PROFESSIONAL",
-              "Streax",
-              "Streax Professional",
-              "Sunsilk",
-              "THE BODY SHOP",
-              "TRESemme",
-              "TRICHUP",
-              "VEDIX",
-              "WELLA PROFESSIONALS",
-              "WishCare",
-              "WOW SKIN SCIENCE"
-          ]
-      },
-      "Skincare": {
-          "basePath": "personal-care",
-          "brands": [
-              "Anua",
-              "Aqualogica",
-              "Aroma Magic",
-              "Aveeno",
-              "Aveeno Baby",
-              "Avene",
-              "Axis-Y",
-              "AYUR HERBALS",
-              "Be Bodywise",
-              "Beauty of Joseon",
-              "Bella Vita Organic",
-              "BIODERMA",
-              "Biotique",
-              "Blue Nectar",
-              "BOROLINE",
-              "BOROPLUS",
-              "Burt's Bees",
-              "Celimax",
-              "CeraVe",
-              "Cetaphil",
-              "Chemist at Play",
-              "CLARINS",
-              "Clinique",
-              "Conscious Chemist",
-              "COSRX",
-              "deconstruct",
-              "Dermalogica",
-              "Dettol",
-              "DOT & KEY",
-              "DR. SHETHS",
-              "Earth Rhythm",
-              "Elizabeth Arden",
-              "Estee Lauder",
-              "ETUDE",
-              "Eucerin",
-              "Eveline Cosmetics",
-              "everyuth Naturals",
-              "FIXDERMA",
-              "Forest Essentials",
-              "FoxTale",
-              "Garnier",
-              "GHAR SOAPS",
-              "Haruharu Wonder",
-              "Himalaya",
-              "Innisfree",
-              "ISNTREE",
-              "Jovees",
-              "JOY",
-              "Just Herbs",
-              "KAMA AYURVEDA",
-              "Khadi Natural",
-              "Lakme",
-              "LANEIGE",
-              "Lotus Botanicals",
-              "Lotus Herbals",
-              "Love Beauty & Planet",
-              "Mamaearth",
-              "MCaffeine",
-              "Minimalist",
-              "Neutrogena",
-              "Nivea",
-              "Olay",
-              "Origins Nutra",
-              "Pears",
-              "Pilgrim",
-              "Plum",
-              "Ponds",
-              "Sanfe",
-              "Sebamed",
-              "Simple",
-              "SKINFOOD",
-              "Sulwhasoo",
-              "THE BODY SHOP",
-              "The Derma co.",
-              "The Face Shop",
-              "THE ORDINARY",
-              "Torriden",
-              "Vaseline",
-              "VLCC",
-              "WishCare",
-              "WOW SKIN SCIENCE"
-          ]
-      },
-      "Perfumes": {
-          "basePath": "personal-care",
-          "brands": [
-              "4711",
-              "ADIDAS",
-              "Afnan",
-              "AHMED AL MAGHRIBI",
-              "Ajmal",
-              "AL Hubb",
-              "Al-Nuaim",
-              "Arabiyat Prestige",
-              "Archies",
-              "Armaf",
-              "AXE",
-              "Azzaro",
-              "Bath & Body Works",
-              "BEARDO",
-              "Bella Vita Organic",
-              "Bombay Shaving Company",
-              "BRUT",
-              "Calvin Klein",
-              "Carolina Herrera",
-              "Coach",
-              "DAVIDOFF",
-              "Denver",
-              "DIESEL",
-              "Elizabeth Arden",
-              "EM5",
-              "Envy",
-              "Fastrack",
-              "Fogg",
-              "Forest Essentials",
-              "Franck Olivier",
-              "FRENCH ESSENCE",
-              "GUESS",
-              "HE",
-              "Hugo Boss",
-              "Issey Miyake",
-              "JAGUAR",
-              "Jimmy Choo",
-              "KAMA AYURVEDA",
-              "Lacoste",
-              "Lattafa",
-              "Marks & Spencer",
-              "Nautica",
-              "Nike Fragrances",
-              "Old Spice",
-              "Paco Rabanne",
-              "Park Avenue",
-              "Police",
-              "Prada",
-              "Ralph Lauren",
-              "Ramsons",
-              "Rasasi",
-              "SKINN",
-              "THE BODY SHOP",
-              "THE MAN COMPANY",
-              "Ustraa",
-              "Versace",
-              "Victoria's Secret",
-              "Wild stone",
-              "Yves Saint Laurent"
-          ],
-          "minDiscount": 80
-      },
-      "Makeup": {
-          "basePath": "personal-care",
-          "brands": [
-              "ANASTASIA BEVERLY HILLS",
-              "bareMinerals",
-              "Blue Heaven",
-              "Bobbi Brown",
-              "Chambor",
-              "Character",
-              "Colorbar",
-              "Coloressence",
-              "Colors Queen",
-              "Daily Life Forever52",
-              "e.l.f.",
-              "ELLE 18",
-              "essence",
-              "Estee Lauder",
-              "ETUDE",
-              "FACES CANADA",
-              "FAE BEAUTY",
-              "FOCALLURE",
-              "Huda Beauty",
-              "Insight Cosmetics",
-              "L.A. Girl",
-              "Lakme",
-              "M.A.C",
-              "Makeup Revolution London",
-              "MARS",
-              "MATTLOOK",
-              "Maybelline",
-              "MILANI",
-              "MyGlamm",
-              "PAC",
-              "Plum",
-              "Recode",
-              "Renee",
-              "Revlon",
-              "Smashbox",
-              "SUGAR",
-              "SWISS BEAUTY",
-              "Wet n Wild"
-          ],
-          "minDiscount": 80
-      },
-      "Men Topwear": {
-          "basePath": "men-topwear",
-          "brands": [
-              "ADIDAS",
-              "Aeropostale",
-              "Allen Solly",
-              "Allen Solly Sport",
-              "AMERICAN EAGLE OUTFITTERS",
-              "Andamen",
-              "Antony Morato",
-              "Arrow",
-              "Arrow New York",
-              "Arrow Sport",
-              "Basics",
-              "Being Human",
-              "Bewakoof",
-              "Blackberrys",
-              "Calvin Klein Jeans",
-              "Cantabil",
-              "Celio",
-              "Classic Polo",
-              "ColorPlus",
-              "Columbia",
-              "Crimsoune Club",
-              "Dennis Lingo",
-              "DIESEL",
-              "Difference of Opinion",
-              "Duke",
-              "Fabindia",
-              "FAHRENHEIT",
-              "FILA",
-              "Flying Machine",
-              "FOREVER 21",
-              "French Connection",
-              "GANT",
-              "GAP",
-              "GUESS",
-              "H&M",
-              "HERE&NOW",
-              "HIGHLANDER",
-              "House of Pataudi",
-              "HRX by Hrithik Roshan",
-              "Indian Terrain",
-              "INVICTUS",
-              "Jack & Jones",
-              "John Players",
-              "Kook N Keech",
-              "Lacoste",
-              "Lee",
-              "Lee Cooper",
-              "Levis",
-              "Linen Club",
-              "LOCOMOTIVE",
-              "Louis Philippe",
-              "Louis Philippe Jeans",
-              "Louis Philippe Sport",
-              "MANGO MAN",
-              "Marks & Spencer",
-              "Mast & Harbour",
-              "Metronaut",
-              "Monte Carlo",
-              "Mufti",
-              "Nautica",
-              "New Balance",
-              "Nike",
-              "Park Avenue",
-              "Parx",
-              "Pepe Jeans",
-              "Peter England",
-              "Peter England Casuals",
-              "Powerlook",
-              "Puma",
-              "RARE RABBIT",
-              "Raymond",
-              "Red Tape",
-              "Reebok",
-              "Roadster",
-              "SELECTED",
-              "Snitch",
-              "SPYKAR",
-              "Status Quo",
-              "Ted Baker",
-              "THE BEAR HOUSE",
-              "The Indian Garage Co",
-              "The Souled Store",
-              "Tommy Hilfiger",
-              "U.S. Polo Assn.",
-              "U.S. Polo Assn. Denim Co.",
-              "UNDER ARMOUR",
-              "United Colors of Benetton",
-              "Van Heusen",
-              "Van Heusen Sport",
-              "Wildcraft",
-              "Wrangler",
-              "WROGN"
-          ],
-          "minDiscount": 80
-      },
-      "Men Bottomwear": {
-          "basePath": "men-bottomwear",
-          "brands": [
-              "ADIDAS",
-              "Allen Solly",
-              "AMERICAN EAGLE OUTFITTERS",
-              "Arrow",
-              "Arrow New York",
-              "Arrow Sport",
-              "Basics",
-              "Being Human",
-              "Blackberrys",
-              "Calvin Klein Jeans",
-              "Cantabil",
-              "Celio",
-              "ColorPlus",
-              "Columbia",
-              "Crimsoune Club",
-              "Dennis Lingo",
-              "DIESEL",
-              "Duke",
-              "Fabindia",
-              "FAHRENHEIT",
-              "FILA",
-              "Flying Machine",
-              "GAP",
-              "H&M",
-              "HERE&NOW",
-              "HIGHLANDER",
-              "House of Pataudi",
-              "HRX by Hrithik Roshan",
-              "Indian Terrain",
-              "INVICTUS",
-              "Jack & Jones",
-              "John Players",
-              "Kook N Keech",
-              "Lacoste",
-              "Lee",
-              "Lee Cooper",
-              "Levis",
-              "Linen Club",
-              "LOCOMOTIVE",
-              "Louis Philippe",
-              "Louis Philippe Jeans",
-              "Louis Philippe Sport",
-              "MANGO MAN",
-              "Marks & Spencer",
-              "Mast & Harbour",
-              "Metronaut",
-              "Monte Carlo",
-              "Mufti",
-              "Nautica",
-              "New Balance",
-              "Nike",
-              "Park Avenue",
-              "Parx",
-              "Pepe Jeans",
-              "Peter England",
-              "Peter England Casuals",
-              "Puma",
-              "RARE RABBIT",
-              "Raymond",
-              "Red Tape",
-              "Reebok",
-              "Roadster",
-              "SELECTED",
-              "Snitch",
-              "SPYKAR",
-              "Status Quo",
-              "THE BEAR HOUSE",
-              "The Indian Garage Co",
-              "The Souled Store",
-              "Tommy Hilfiger",
-              "U.S. Polo Assn.",
-              "U.S. Polo Assn. Denim Co.",
-              "UNDER ARMOUR",
-              "United Colors of Benetton",
-              "Van Heusen",
-              "Van Heusen Sport",
-              "Wildcraft",
-              "Wrangler",
-              "WROGN"
-          ],
-          "minDiscount": 80
-      },
-      "Men Footwear": {
-          "basePath": "men-footwear",
-          "brands": [
-              "Action",
-              "ADIDAS",
-              "ADIDAS Originals",
-              "Aeropostale",
-              "ALDO",
-              "Allen Cooper",
-              "Arrow",
-              "ASICS",
-              "Bata",
-              "BERSACHE",
-              "Bond Street By Red Tape",
-              "Campus",
-              "Clarks",
-              "Columbia",
-              "Crocs",
-              "Duke",
-              "FAUSTO",
-              "FILA",
-              "Flying Machine",
-              "H&M",
-              "Hitz",
-              "House of Pataudi",
-              "HRX by Hrithik Roshan",
-              "Hush Puppies",
-              "Jack & Jones",
-              "Killer",
-              "Lacoste",
-              "Lee Cooper",
-              "Levis",
-              "Louis Philippe",
-              "LOUIS STITCH",
-              "Mast & Harbour",
-              "Metro",
-              "Mochi",
-              "Nautica",
-              "New Balance",
-              "Nike",
-              "Peter England",
-              "Puma",
-              "RARE RABBIT",
-              "Red Chief",
-              "Red Tape",
-              "Reebok",
-              "Roadster",
-              "Ruosh",
-              "San Frissco",
-              "Skechers",
-              "Sparx",
-              "Teakwood Leathers",
-              "The Indian Garage Co",
-              "Tommy Hilfiger",
-              "U.S. Polo Assn.",
-              "UNDER ARMOUR",
-              "United Colors of Benetton",
-              "Van Heusen",
-              "Wildcraft",
-              "Woodland",
-              "WROGN"
-          ],
-          "minDiscount": 80
-      },
-      "Men Innerwear": {
-          "basePath": "men-innerwear",
-          "brands": [
-              "ADIDAS",
-              "AMUL COMFY",
-              "Bodycare",
-              "Calvin Klein Underwear",
-              "Chromozome",
-              "COLORS by Rupa Frontline",
-              "Dollar",
-              "Dollar Bigboss",
-              "FCUK",
-              "Force NXT",
-              "French Connection",
-              "H&M",
-              "Jack & Jones",
-              "Jockey",
-              "Kook N Keech",
-              "Levis",
-              "Lux Cozi",
-              "LUX NITRO",
-              "Macroman",
-              "Marks & Spencer",
-              "Mast & Harbour",
-              "Monte Carlo",
-              "ONN",
-              "Park Avenue",
-              "Pepe Jeans",
-              "Peter England",
-              "Puma",
-              "Red Tape",
-              "Roadster",
-              "Rupa",
-              "Rupa Frontline",
-              "Rupa Jon",
-              "Sporto by Macho",
-              "Tommy Hilfiger",
-              "U.S. Polo Assn.",
-              "UnderJeans by Spykar",
-              "Van Heusen",
-              "VIP",
-              "WROGN",
-              "XYXX"
-          ],
-          "minDiscount": 80
-      },
-      "Men Sportswear": {
-          "basePath": "men-sports-wear",
-          "brands": [
-              "ADIDAS",
-              "ADIDAS Originals",
-              "Alcis",
-              "ASICS",
-              "Columbia",
-              "Decathlon",
-              "FILA",
-              "HRX by Hrithik Roshan",
-              "hummel",
-              "Kappa",
-              "Lotto",
-              "New Balance",
-              "Nike",
-              "Puma",
-              "Red Tape",
-              "Reebok",
-              "Roadster",
-              "Skechers",
-              "Speedo",
-              "Technosport",
-              "UNDER ARMOUR",
-              "VECTOR X",
-              "Wildcraft",
-              "WROGN",
-              "WROGN ACTIVE"
-          ],
-          "minDiscount": 80
-      },
-      "Beauty Appliances": {
-          "basePath": "beauty-appliances",
-          "brands": [
-              "Agaro",
-              "Alan Truman",
-              "beurer",
-              "Bombay Shaving Company",
-              "Braun",
-              "dyson",
-              "GUBB",
-              "Havells",
-              "Ikonic",
-              "KEMEI",
-              "Lifelong",
-              "Morphy Richards",
-              "NOVA",
-              "Philips",
-              "Remington",
-              "VEGA",
-              "VEGA PROFESSIONAL",
-              "VGR",
-              "WAHL"
-          ],
-          "minDiscount": 80
-      },
-      "Baby Care": {
-          "basePath": "personal-care",
-          "brands": [
-              "Aveeno Baby",
-              "Baby Dove",
-              "Babyhug",
-              "Cetaphil",
-              "Chicco",
-              "Dabur",
-              "Himalaya Baby",
-              "Johnsons",
-              "Mamaearth",
-              "MeeMee",
-              "mothercare",
-              "Mylo",
-              "Pigeon",
-              "Sebamed",
-              "Softsens",
-              "SuperBottoms",
-              "Tedibar"
-          ]
-      },
-      "Gadgets": {
-          "basePath": "gadgets",
-          "brands": [
-              "boAt",
-              "Fastrack",
-              "Fire-Boltt",
-              "GOBOULT",
-              "JBL",
-              "NOISE",
-              "OnePlus",
-              "Portronics",
-              "Realme",
-              "Skullcandy",
-              "Sony",
-              "Timex",
-              "ZEBRONICS"
-          ],
-          "minDiscount": 80
-      },
-      "Mens Watches": {
-          "basePath": "mens-watches",
-          "brands": [
-              "Armani Exchange",
-              "Calvin Klein",
-              "CASIO",
-              "Citizen",
-              "Daniel Klein",
-              "DIESEL",
-              "Emporio Armani",
-              "Fastrack",
-              "Fossil",
-              "French Connection",
-              "GIORDANO",
-              "GUESS",
-              "Helix",
-              "Kenneth Cole",
-              "Lacoste",
-              "Michael Kors",
-              "Nautica",
-              "Police",
-              "Sonata",
-              "Ted Baker",
-              "Timex",
-              "Titan",
-              "Tommy Hilfiger"
-          ],
-          "minDiscount": 80
-      },
-      "Men Personal Care": {
-          "basePath": "men-personal-care",
-          "brands": [
-              "AXE",
-              "BEARDO",
-              "Biotique",
-              "Bombay Shaving Company",
-              "CINTHOL",
-              "Denver",
-              "Dettol",
-              "Fogg",
-              "Gillette",
-              "Himalaya",
-              "Khadi Natural",
-              "LOreal",
-              "Mamaearth",
-              "Man Matters",
-              "Nivea",
-              "Old Spice",
-              "Park Avenue",
-              "Pears",
-              "Set Wet",
-              "THE MAN COMPANY",
-              "Ustraa",
-              "Vaseline",
-              "Wild stone"
-          ],
-          "minDiscount": 80
-      },
-      "Men Accessories": {
-          "basePath": "men-accessories",
-          "brands": [
-              "Allen Solly",
-              "AMERICAN TOURISTER",
-              "Arrow",
-              "Calvin Klein",
-              "Fastrack",
-              "Flying Machine",
-              "Fossil",
-              "Hidesign",
-              "HRX by Hrithik Roshan",
-              "Jack & Jones",
-              "Levis",
-              "Louis Philippe",
-              "Nautica",
-              "Nike",
-              "Park Avenue",
-              "Peter England",
-              "Polaroid",
-              "Police",
-              "Puma",
-              "Ray-Ban",
-              "Red Tape",
-              "Roadster",
-              "Safari",
-              "Skybags",
-              "Titan",
-              "Tommy Hilfiger",
-              "U.S. Polo Assn.",
-              "Van Heusen",
-              "Wildcraft",
-              "WildHorn",
-              "Woodland",
-              "WROGN"
-          ],
-          "minDiscount": 80
-      },
-      "Bedding": {
-          "basePath": "bedding",
-          "brands": [
-              "Arrabi",
-              "Aura",
-              "BIANCA",
-              "BOMBAY DYEING",
-              "Boutique Living India",
-              "CHHAVI INDIA",
-              "Cortina",
-              "DDecor",
-              "DECENT HOME",
-              "FABINALIV",
-              "Fabindia",
-              "H&M",
-              "Home Centre",
-              "Huesland",
-              "IWS",
-              "JAIPUR FABRIC",
-              "JC HOME",
-              "KLOTTHE",
-              "Layers",
-              "MAFATLAL",
-              "MASPAR",
-              "MYTRIDENT",
-              "Monte Carlo",
-              "Portico",
-              "Pure Decor",
-              "Raymond Home",
-              "SPACES",
-              "SWAYAM",
-              "Saral Home",
-              "Stoa Paris",
-              "Story@home",
-              "Trance Home Linen",
-              "URBAN SPACE",
-              "Welspun",
-              "haus & kinder"
-],
-          "minDiscount": 70
-      },
-      "Bath": {
-          "basePath": "home-furnishing-menu?f=Categories%3ABath%20Robe%2CBath%20Rugs%2CBath%20Towels%2CBathroom%20Accessories%2CBeach%20Towels%2CFace%20Towels%2CHand%20Towels%2CShower%20Curtains%2CTowel%20Set",
-          "brands": [
-              "Arrabi",
-              "Athom Living",
-              "Athom Trendz",
-              "Aura",
-              "BIANCA",
-              "BOMBAY DYEING",
-              "CASA-NEST",
-              "DEMARK",
-              "Decathlon",
-              "Doctor Towels",
-              "Fabindia",
-              "Fezora",
-              "H&M",
-              "Himeya",
-              "Home Centre",
-              "KLOTTHE",
-              "Kuber Industries",
-              "Layers",
-              "MARKET99",
-              "MASPAR",
-              "MYTRIDENT",
-              "Monte Carlo",
-              "OBSESSIONS",
-              "QUARCK",
-              "Raymond Home",
-              "SPACES",
-              "Saral Home",
-              "Softspun Microfiber",
-              "UMAI",
-              "Welspun",
-              "haus & kinder"
-],
-          "minDiscount": 70
-      }
-  };
+    "Haircare": {
+        "displayName": "Haircare",
+        "basePath": "personal-care",
+        "brands": [
+            "&honey",
+            "2.Oh!",
+            "ARATA",
+            "Bare Anatomy",
+            "BBLUNT",
+            "Biolage",
+            "BIOTOP PROFESSIONAL",
+            "BRILLARE",
+            "Dabur",
+            "Dove",
+            "Dr. Batras",
+            "Earth Rhythm",
+            "Fix My Curls",
+            "Garnier",
+            "Head & Shoulders",
+            "indulekha",
+            "Kesh King",
+            "Khadi Natural",
+            "LOreal",
+            "LOreal Professionnel",
+            "Mamaearth",
+            "MATRIX",
+            "MOROCCANOIL",
+            "Nat Habit",
+            "Neutrogena",
+            "OGX",
+            "OLAPLEX",
+            "Pantene",
+            "Pilgrim",
+            "Plum",
+            "Schwarzkopf",
+            "Schwarzkopf PROFESSIONAL",
+            "Streax",
+            "Streax Professional",
+            "Sunsilk",
+            "THE BODY SHOP",
+            "TRESemme",
+            "TRICHUP",
+            "VEDIX",
+            "WELLA PROFESSIONALS",
+            "WishCare",
+            "WOW SKIN SCIENCE"
+        ],
+        "brandDetails": [
+            {
+                "brand": "&honey",
+                "productCount": 14
+            },
+            {
+                "brand": "2.Oh!",
+                "productCount": 44
+            },
+            {
+                "brand": "ARATA",
+                "productCount": 46
+            },
+            {
+                "brand": "Bare Anatomy",
+                "productCount": 95
+            },
+            {
+                "brand": "BBLUNT",
+                "productCount": 96
+            },
+            {
+                "brand": "Biolage",
+                "productCount": 29
+            },
+            {
+                "brand": "BIOTOP PROFESSIONAL",
+                "productCount": 53
+            },
+            {
+                "brand": "BRILLARE",
+                "productCount": 129
+            },
+            {
+                "brand": "Dabur",
+                "productCount": 51
+            },
+            {
+                "brand": "Dove",
+                "productCount": 225
+            },
+            {
+                "brand": "Dr. Batras",
+                "productCount": 122
+            },
+            {
+                "brand": "Earth Rhythm",
+                "productCount": 83
+            },
+            {
+                "brand": "Fix My Curls",
+                "productCount": 49
+            },
+            {
+                "brand": "Garnier",
+                "productCount": 177
+            },
+            {
+                "brand": "Head & Shoulders",
+                "productCount": 65
+            },
+            {
+                "brand": "indulekha",
+                "productCount": 17
+            },
+            {
+                "brand": "Kesh King",
+                "productCount": 27
+            },
+            {
+                "brand": "Khadi Natural",
+                "productCount": 264
+            },
+            {
+                "brand": "LOreal",
+                "productCount": 330
+            },
+            {
+                "brand": "LOreal Professionnel",
+                "productCount": 49
+            },
+            {
+                "brand": "Mamaearth",
+                "productCount": 457
+            },
+            {
+                "brand": "MATRIX",
+                "productCount": 26
+            },
+            {
+                "brand": "MOROCCANOIL",
+                "productCount": 154
+            },
+            {
+                "brand": "Nat Habit",
+                "productCount": 384
+            },
+            {
+                "brand": "Neutrogena",
+                "productCount": 28
+            },
+            {
+                "brand": "OGX",
+                "productCount": 8
+            },
+            {
+                "brand": "OLAPLEX",
+                "productCount": 17
+            },
+            {
+                "brand": "Pantene",
+                "productCount": 50
+            },
+            {
+                "brand": "Pilgrim",
+                "productCount": 265
+            },
+            {
+                "brand": "Plum",
+                "productCount": 314
+            },
+            {
+                "brand": "Schwarzkopf",
+                "productCount": 37
+            },
+            {
+                "brand": "Schwarzkopf PROFESSIONAL",
+                "productCount": 110
+            },
+            {
+                "brand": "Streax",
+                "productCount": 80
+            },
+            {
+                "brand": "Streax Professional",
+                "productCount": 32
+            },
+            {
+                "brand": "Sunsilk",
+                "productCount": 23
+            },
+            {
+                "brand": "THE BODY SHOP",
+                "productCount": 189
+            },
+            {
+                "brand": "TRESemme",
+                "productCount": 106
+            },
+            {
+                "brand": "TRICHUP",
+                "productCount": 52
+            },
+            {
+                "brand": "VEDIX",
+                "productCount": 75
+            },
+            {
+                "brand": "WELLA PROFESSIONALS",
+                "productCount": 124
+            },
+            {
+                "brand": "WishCare",
+                "productCount": 103
+            },
+            {
+                "brand": "WOW SKIN SCIENCE",
+                "productCount": 56
+            }
+        ],
+        "productTypes": {
+            "Shampoo": [
+                "Shampoo",
+                "Dry Shampoo",
+                "Baby Shampoo and Conditioner"
+            ],
+            "Conditioner": [
+                "Conditioner"
+            ],
+            "Hair Oil": [
+                "Hair Oil",
+                "Baby Hair Oil"
+            ],
+            "Hair Serum": [
+                "Hair Serum"
+            ],
+            "Hair Mask": [
+                "Hair Masks"
+            ],
+            "Hair Styling & Treatment": [
+                "Hair Gels and Wax",
+                "Hair Spray",
+                "Hair Spa",
+                "Hair Cream and Mask",
+                "Hair Tonic"
+            ],
+            "Hair Color": [
+                "Hair Colour",
+                "Hair Color",
+                "Beard Colour"
+            ]
+        }
+    },
+    "Skincare": {
+        "displayName": "Skincare",
+        "basePath": "personal-care",
+        "brands": [
+            "Anua",
+            "Aqualogica",
+            "Aroma Magic",
+            "Aveeno",
+            "Aveeno Baby",
+            "Avene",
+            "Axis-Y",
+            "AYUR HERBALS",
+            "Be Bodywise",
+            "Beauty of Joseon",
+            "Bella Vita Organic",
+            "BIODERMA",
+            "Biotique",
+            "Blue Nectar",
+            "BOROLINE",
+            "BOROPLUS",
+            "Burt's Bees",
+            "Celimax",
+            "CeraVe",
+            "Cetaphil",
+            "Chemist at Play",
+            "CLARINS",
+            "Clinique",
+            "Conscious Chemist",
+            "COSRX",
+            "deconstruct",
+            "Dermalogica",
+            "Dettol",
+            "DOT & KEY",
+            "DR. SHETHS",
+            "Earth Rhythm",
+            "Elizabeth Arden",
+            "Estee Lauder",
+            "ETUDE",
+            "Eucerin",
+            "Eveline Cosmetics",
+            "everyuth Naturals",
+            "FIXDERMA",
+            "Forest Essentials",
+            "FoxTale",
+            "Garnier",
+            "GHAR SOAPS",
+            "Haruharu Wonder",
+            "Himalaya",
+            "Innisfree",
+            "ISNTREE",
+            "Jovees",
+            "JOY",
+            "Just Herbs",
+            "KAMA AYURVEDA",
+            "Khadi Natural",
+            "Lakme",
+            "LANEIGE",
+            "Lotus Botanicals",
+            "Lotus Herbals",
+            "Love Beauty & Planet",
+            "Mamaearth",
+            "MCaffeine",
+            "Minimalist",
+            "Neutrogena",
+            "Nivea",
+            "Olay",
+            "Origins Nutra",
+            "Pears",
+            "Pilgrim",
+            "Plum",
+            "Ponds",
+            "Sanfe",
+            "Sebamed",
+            "Simple",
+            "SKINFOOD",
+            "Sulwhasoo",
+            "THE BODY SHOP",
+            "The Derma co.",
+            "The Face Shop",
+            "THE ORDINARY",
+            "Torriden",
+            "Vaseline",
+            "VLCC",
+            "WishCare",
+            "WOW SKIN SCIENCE"
+        ],
+        "brandDetails": [
+            {
+                "brand": "Anua",
+                "productCount": 18
+            },
+            {
+                "brand": "Aqualogica",
+                "productCount": 98
+            },
+            {
+                "brand": "Aroma Magic",
+                "productCount": 3
+            },
+            {
+                "brand": "Aveeno",
+                "productCount": 2
+            },
+            {
+                "brand": "Aveeno Baby",
+                "productCount": 9
+            },
+            {
+                "brand": "Avene",
+                "productCount": 29
+            },
+            {
+                "brand": "Axis-Y",
+                "productCount": 16
+            },
+            {
+                "brand": "AYUR HERBALS",
+                "productCount": 49
+            },
+            {
+                "brand": "Be Bodywise",
+                "productCount": 153
+            },
+            {
+                "brand": "Beauty of Joseon",
+                "productCount": 35
+            },
+            {
+                "brand": "Bella Vita Organic",
+                "productCount": 298
+            },
+            {
+                "brand": "BIODERMA",
+                "productCount": 68
+            },
+            {
+                "brand": "Biotique",
+                "productCount": 196
+            },
+            {
+                "brand": "Blue Nectar",
+                "productCount": 203
+            },
+            {
+                "brand": "BOROLINE",
+                "productCount": 30
+            },
+            {
+                "brand": "BOROPLUS",
+                "productCount": 55
+            },
+            {
+                "brand": "Burt's Bees",
+                "productCount": 14
+            },
+            {
+                "brand": "Celimax",
+                "productCount": 24
+            },
+            {
+                "brand": "CeraVe",
+                "productCount": 46
+            },
+            {
+                "brand": "Cetaphil",
+                "productCount": 92
+            },
+            {
+                "brand": "Chemist at Play",
+                "productCount": 85
+            },
+            {
+                "brand": "CLARINS",
+                "productCount": 48
+            },
+            {
+                "brand": "Clinique",
+                "productCount": 348
+            },
+            {
+                "brand": "Conscious Chemist",
+                "productCount": 73
+            },
+            {
+                "brand": "COSRX",
+                "productCount": 4
+            },
+            {
+                "brand": "deconstruct",
+                "productCount": 63
+            },
+            {
+                "brand": "Dermalogica",
+                "productCount": 16
+            },
+            {
+                "brand": "Dettol",
+                "productCount": 17
+            },
+            {
+                "brand": "DOT & KEY",
+                "productCount": 176
+            },
+            {
+                "brand": "DR. SHETHS",
+                "productCount": 73
+            },
+            {
+                "brand": "Earth Rhythm",
+                "productCount": 83
+            },
+            {
+                "brand": "Elizabeth Arden",
+                "productCount": 74
+            },
+            {
+                "brand": "Estee Lauder",
+                "productCount": 181
+            },
+            {
+                "brand": "ETUDE",
+                "productCount": 129
+            },
+            {
+                "brand": "Eucerin",
+                "productCount": 26
+            },
+            {
+                "brand": "Eveline Cosmetics",
+                "productCount": 99
+            },
+            {
+                "brand": "everyuth Naturals",
+                "productCount": 34
+            },
+            {
+                "brand": "FIXDERMA",
+                "productCount": 142
+            },
+            {
+                "brand": "Forest Essentials",
+                "productCount": 243
+            },
+            {
+                "brand": "FoxTale",
+                "productCount": 204
+            },
+            {
+                "brand": "Garnier",
+                "productCount": 177
+            },
+            {
+                "brand": "GHAR SOAPS",
+                "productCount": 29
+            },
+            {
+                "brand": "Haruharu Wonder",
+                "productCount": 30
+            },
+            {
+                "brand": "Himalaya",
+                "productCount": 226
+            },
+            {
+                "brand": "Innisfree",
+                "productCount": 107
+            },
+            {
+                "brand": "ISNTREE",
+                "productCount": 35
+            },
+            {
+                "brand": "Jovees",
+                "productCount": 158
+            },
+            {
+                "brand": "JOY",
+                "productCount": 158
+            },
+            {
+                "brand": "Just Herbs",
+                "productCount": 184
+            },
+            {
+                "brand": "KAMA AYURVEDA",
+                "productCount": 136
+            },
+            {
+                "brand": "Khadi Natural",
+                "productCount": 264
+            },
+            {
+                "brand": "Lakme",
+                "productCount": 1005
+            },
+            {
+                "brand": "LANEIGE",
+                "productCount": 70
+            },
+            {
+                "brand": "Lotus Botanicals",
+                "productCount": 110
+            },
+            {
+                "brand": "Lotus Herbals",
+                "productCount": 426
+            },
+            {
+                "brand": "Love Beauty & Planet",
+                "productCount": 64
+            },
+            {
+                "brand": "Mamaearth",
+                "productCount": 457
+            },
+            {
+                "brand": "MCaffeine",
+                "productCount": 151
+            },
+            {
+                "brand": "Minimalist",
+                "productCount": 119
+            },
+            {
+                "brand": "Neutrogena",
+                "productCount": 28
+            },
+            {
+                "brand": "Nivea",
+                "productCount": 280
+            },
+            {
+                "brand": "Olay",
+                "productCount": 45
+            },
+            {
+                "brand": "Origins Nutra",
+                "productCount": 38
+            },
+            {
+                "brand": "Pears",
+                "productCount": 40
+            },
+            {
+                "brand": "Pilgrim",
+                "productCount": 265
+            },
+            {
+                "brand": "Plum",
+                "productCount": 314
+            },
+            {
+                "brand": "Ponds",
+                "productCount": 165
+            },
+            {
+                "brand": "Sanfe",
+                "productCount": 187
+            },
+            {
+                "brand": "Sebamed",
+                "productCount": 43
+            },
+            {
+                "brand": "Simple",
+                "productCount": 31
+            },
+            {
+                "brand": "SKINFOOD",
+                "productCount": 39
+            },
+            {
+                "brand": "Sulwhasoo",
+                "productCount": 23
+            },
+            {
+                "brand": "THE BODY SHOP",
+                "productCount": 189
+            },
+            {
+                "brand": "The Derma co.",
+                "productCount": 155
+            },
+            {
+                "brand": "The Face Shop",
+                "productCount": 103
+            },
+            {
+                "brand": "THE ORDINARY",
+                "productCount": 66
+            },
+            {
+                "brand": "Torriden",
+                "productCount": 4
+            },
+            {
+                "brand": "Vaseline",
+                "productCount": 109
+            },
+            {
+                "brand": "VLCC",
+                "productCount": 240
+            },
+            {
+                "brand": "WishCare",
+                "productCount": 103
+            },
+            {
+                "brand": "WOW SKIN SCIENCE",
+                "productCount": 56
+            }
+        ],
+        "productTypes": {
+            "Facewash & Cleanser": [
+                "Face Wash and Cleanser",
+                "Facial Wipes",
+                "Face Cleanser"
+            ],
+            "Serum & Essence": [
+                "Serum",
+                "Serum and Gel",
+                "Facial Oil"
+            ],
+            "Sunscreen": [
+                "Sunscreen",
+                "Face Sunscreen",
+                "Body Sunscreen",
+                "Baby Sunscreen"
+            ],
+            "Moisturizer & Day Cream": [
+                "Day Cream",
+                "Moisturiser",
+                "Face Moisturiser",
+                "BB and CC Cream"
+            ],
+            "Night Cream": [
+                "Night Cream"
+            ],
+            "Toner & Mist": [
+                "Toner",
+                "Face Mist",
+                "Toner and Mist"
+            ],
+            "Face Scrub & Exfoliator": [
+                "Face Scrub and Exfoliator",
+                "Scrub"
+            ],
+            "Face Mask & Sheet Mask": [
+                "Sheet Masks",
+                "Mask and Peel",
+                "Face Pack",
+                "Eye Mask and Patches"
+            ],
+            "Lip Balm & Treatment": [
+                "Lip Balm",
+                "Lip Care",
+                "Lip Mask",
+                "Lip Scrub",
+                "Lip Oil"
+            ],
+            "Eye Cream & Serum": [
+                "Under Eye Cream",
+                "Under Eye Creams and Serums"
+            ],
+            "Body Lotion & Cream": [
+                "Body Cream and Lotion",
+                "Baby Lotions and Creams",
+                "Hand Cream",
+                "Foot Cream and Scrubs"
+            ],
+            "Body Wash & Shower Gel": [
+                "Body Wash and Shower Gel",
+                "Baby Body Wash and Soap",
+                "Bath Salt and Bubble Bath",
+                "Soap"
+            ]
+        },
+        "minDiscount": 70,
+        "botMinDiscount": 70,
+        "bookmarkletMinDiscount": 70
+    },
+    "Perfumes": {
+        "displayName": "Perfumes",
+        "basePath": "personal-care",
+        "brands": [
+            "4711",
+            "ADIDAS",
+            "Afnan",
+            "AHMED AL MAGHRIBI",
+            "Ajmal",
+            "AL Hubb",
+            "Al-Nuaim",
+            "Arabiyat Prestige",
+            "Archies",
+            "Armaf",
+            "AXE",
+            "Azzaro",
+            "Bath & Body Works",
+            "BEARDO",
+            "Bella Vita Organic",
+            "Bombay Shaving Company",
+            "BRUT",
+            "Calvin Klein",
+            "Carolina Herrera",
+            "Coach",
+            "DAVIDOFF",
+            "Denver",
+            "DIESEL",
+            "Elizabeth Arden",
+            "EM5",
+            "Envy",
+            "Fastrack",
+            "Fogg",
+            "Forest Essentials",
+            "Franck Olivier",
+            "FRENCH ESSENCE",
+            "GUESS",
+            "HE",
+            "Hugo Boss",
+            "Issey Miyake",
+            "JAGUAR",
+            "Jimmy Choo",
+            "KAMA AYURVEDA",
+            "Lacoste",
+            "Lattafa",
+            "Marks & Spencer",
+            "Nautica",
+            "Nike Fragrances",
+            "Old Spice",
+            "Paco Rabanne",
+            "Park Avenue",
+            "Police",
+            "Prada",
+            "Ralph Lauren",
+            "Ramsons",
+            "Rasasi",
+            "SKINN",
+            "THE BODY SHOP",
+            "THE MAN COMPANY",
+            "Ustraa",
+            "Versace",
+            "Victoria's Secret",
+            "Wild stone",
+            "Yves Saint Laurent"
+        ],
+        "brandDetails": [
+            {
+                "brand": "4711",
+                "productCount": 19
+            },
+            {
+                "brand": "ADIDAS",
+                "productCount": 64
+            },
+            {
+                "brand": "Afnan",
+                "productCount": 51
+            },
+            {
+                "brand": "AHMED AL MAGHRIBI",
+                "productCount": 90
+            },
+            {
+                "brand": "Ajmal",
+                "productCount": 144
+            },
+            {
+                "brand": "AL Hubb",
+                "productCount": 49
+            },
+            {
+                "brand": "Al-Nuaim",
+                "productCount": 329
+            },
+            {
+                "brand": "Arabiyat Prestige",
+                "productCount": 49
+            },
+            {
+                "brand": "Archies",
+                "productCount": 106
+            },
+            {
+                "brand": "Armaf",
+                "productCount": 54
+            },
+            {
+                "brand": "AXE",
+                "productCount": 78
+            },
+            {
+                "brand": "Azzaro",
+                "productCount": 30
+            },
+            {
+                "brand": "Bath & Body Works",
+                "productCount": 398
+            },
+            {
+                "brand": "BEARDO",
+                "productCount": 342
+            },
+            {
+                "brand": "Bella Vita Organic",
+                "productCount": 298
+            },
+            {
+                "brand": "Bombay Shaving Company",
+                "productCount": 76
+            },
+            {
+                "brand": "BRUT",
+                "productCount": 7
+            },
+            {
+                "brand": "Calvin Klein",
+                "productCount": 58
+            },
+            {
+                "brand": "Carolina Herrera",
+                "productCount": 67
+            },
+            {
+                "brand": "Coach",
+                "productCount": 15
+            },
+            {
+                "brand": "DAVIDOFF",
+                "productCount": 33
+            },
+            {
+                "brand": "Denver",
+                "productCount": 292
+            },
+            {
+                "brand": "DIESEL",
+                "productCount": 22
+            },
+            {
+                "brand": "Elizabeth Arden",
+                "productCount": 74
+            },
+            {
+                "brand": "EM5",
+                "productCount": 136
+            },
+            {
+                "brand": "Envy",
+                "productCount": 117
+            },
+            {
+                "brand": "Fastrack",
+                "productCount": 33
+            },
+            {
+                "brand": "Fogg",
+                "productCount": 22
+            },
+            {
+                "brand": "Forest Essentials",
+                "productCount": 243
+            },
+            {
+                "brand": "Franck Olivier",
+                "productCount": 60
+            },
+            {
+                "brand": "FRENCH ESSENCE",
+                "productCount": 104
+            },
+            {
+                "brand": "GUESS",
+                "productCount": 119
+            },
+            {
+                "brand": "HE",
+                "productCount": 25
+            },
+            {
+                "brand": "Hugo Boss",
+                "productCount": 43
+            },
+            {
+                "brand": "Issey Miyake",
+                "productCount": 13
+            },
+            {
+                "brand": "JAGUAR",
+                "productCount": 30
+            },
+            {
+                "brand": "Jimmy Choo",
+                "productCount": 24
+            },
+            {
+                "brand": "KAMA AYURVEDA",
+                "productCount": 136
+            },
+            {
+                "brand": "Lacoste",
+                "productCount": 14
+            },
+            {
+                "brand": "Lattafa",
+                "productCount": 147
+            },
+            {
+                "brand": "Marks & Spencer",
+                "productCount": 100
+            },
+            {
+                "brand": "Nautica",
+                "productCount": 37
+            },
+            {
+                "brand": "Nike Fragrances",
+                "productCount": 170
+            },
+            {
+                "brand": "Old Spice",
+                "productCount": 17
+            },
+            {
+                "brand": "Paco Rabanne",
+                "productCount": 98
+            },
+            {
+                "brand": "Park Avenue",
+                "productCount": 78
+            },
+            {
+                "brand": "Police",
+                "productCount": 108
+            },
+            {
+                "brand": "Prada",
+                "productCount": 24
+            },
+            {
+                "brand": "Ralph Lauren",
+                "productCount": 16
+            },
+            {
+                "brand": "Ramsons",
+                "productCount": 159
+            },
+            {
+                "brand": "Rasasi",
+                "productCount": 43
+            },
+            {
+                "brand": "SKINN",
+                "productCount": 94
+            },
+            {
+                "brand": "THE BODY SHOP",
+                "productCount": 189
+            },
+            {
+                "brand": "THE MAN COMPANY",
+                "productCount": 214
+            },
+            {
+                "brand": "Ustraa",
+                "productCount": 106
+            },
+            {
+                "brand": "Versace",
+                "productCount": 47
+            },
+            {
+                "brand": "Victoria's Secret",
+                "productCount": 299
+            },
+            {
+                "brand": "Wild stone",
+                "productCount": 146
+            },
+            {
+                "brand": "Yves Saint Laurent",
+                "productCount": 34
+            }
+        ],
+        "productTypes": {
+            "Perfume (EDP / EDT)": [
+                "Perfume and EDT",
+                "Perfume"
+            ],
+            "Deodorant & Body Spray": [
+                "Deodorant",
+                "Body Spray"
+            ],
+            "Body Mist": [
+                "Body Mist"
+            ],
+            "Attar": [
+                "Attar"
+            ]
+        },
+        "minDiscount": 80,
+        "botMinDiscount": 80,
+        "bookmarkletMinDiscount": 80
+    },
+    "Makeup": {
+        "displayName": "Makeup",
+        "basePath": "personal-care",
+        "brands": [
+            "ANASTASIA BEVERLY HILLS",
+            "bareMinerals",
+            "Blue Heaven",
+            "Bobbi Brown",
+            "Chambor",
+            "Character",
+            "Colorbar",
+            "Coloressence",
+            "Colors Queen",
+            "Daily Life Forever52",
+            "e.l.f.",
+            "ELLE 18",
+            "essence",
+            "Estee Lauder",
+            "ETUDE",
+            "FACES CANADA",
+            "FAE BEAUTY",
+            "FOCALLURE",
+            "Huda Beauty",
+            "Insight Cosmetics",
+            "L.A. Girl",
+            "Lakme",
+            "M.A.C",
+            "Makeup Revolution London",
+            "MARS",
+            "MATTLOOK",
+            "Maybelline",
+            "MILANI",
+            "MyGlamm",
+            "PAC",
+            "Plum",
+            "Recode",
+            "Renee",
+            "Revlon",
+            "Smashbox",
+            "SUGAR",
+            "SWISS BEAUTY",
+            "Wet n Wild"
+        ],
+        "brandDetails": [
+            {
+                "brand": "ANASTASIA BEVERLY HILLS",
+                "productCount": 161
+            },
+            {
+                "brand": "bareMinerals",
+                "productCount": 66
+            },
+            {
+                "brand": "Blue Heaven",
+                "productCount": 180
+            },
+            {
+                "brand": "Bobbi Brown",
+                "productCount": 197
+            },
+            {
+                "brand": "Chambor",
+                "productCount": 23
+            },
+            {
+                "brand": "Character",
+                "productCount": 273
+            },
+            {
+                "brand": "Colorbar",
+                "productCount": 195
+            },
+            {
+                "brand": "Coloressence",
+                "productCount": 345
+            },
+            {
+                "brand": "Colors Queen",
+                "productCount": 1168
+            },
+            {
+                "brand": "Daily Life Forever52",
+                "productCount": 558
+            },
+            {
+                "brand": "e.l.f.",
+                "productCount": 173
+            },
+            {
+                "brand": "ELLE 18",
+                "productCount": 317
+            },
+            {
+                "brand": "essence",
+                "productCount": 138
+            },
+            {
+                "brand": "Estee Lauder",
+                "productCount": 181
+            },
+            {
+                "brand": "ETUDE",
+                "productCount": 129
+            },
+            {
+                "brand": "FACES CANADA",
+                "productCount": 614
+            },
+            {
+                "brand": "FAE BEAUTY",
+                "productCount": 111
+            },
+            {
+                "brand": "FOCALLURE",
+                "productCount": 122
+            },
+            {
+                "brand": "Huda Beauty",
+                "productCount": 157
+            },
+            {
+                "brand": "Insight Cosmetics",
+                "productCount": 234
+            },
+            {
+                "brand": "L.A. Girl",
+                "productCount": 228
+            },
+            {
+                "brand": "Lakme",
+                "productCount": 1005
+            },
+            {
+                "brand": "M.A.C",
+                "productCount": 634
+            },
+            {
+                "brand": "Makeup Revolution London",
+                "productCount": 508
+            },
+            {
+                "brand": "MARS",
+                "productCount": 794
+            },
+            {
+                "brand": "MATTLOOK",
+                "productCount": 536
+            },
+            {
+                "brand": "Maybelline",
+                "productCount": 504
+            },
+            {
+                "brand": "MILANI",
+                "productCount": 139
+            },
+            {
+                "brand": "MyGlamm",
+                "productCount": 3
+            },
+            {
+                "brand": "PAC",
+                "productCount": 444
+            },
+            {
+                "brand": "Plum",
+                "productCount": 314
+            },
+            {
+                "brand": "Recode",
+                "productCount": 193
+            },
+            {
+                "brand": "Renee",
+                "productCount": 602
+            },
+            {
+                "brand": "Revlon",
+                "productCount": 355
+            },
+            {
+                "brand": "Smashbox",
+                "productCount": 104
+            },
+            {
+                "brand": "SUGAR",
+                "productCount": 173
+            },
+            {
+                "brand": "SWISS BEAUTY",
+                "productCount": 694
+            },
+            {
+                "brand": "Wet n Wild",
+                "productCount": 17
+            }
+        ],
+        "productTypes": {
+            "Lipstick & Lip Tint": [
+                "Lipstick",
+                "Liquid Lipstick",
+                "Lip Gloss",
+                "Lip Tint",
+                "Lip Liner"
+            ],
+            "Foundation & Concealer": [
+                "Foundation",
+                "Concealer",
+                "BB and CC Cream"
+            ],
+            "Kajal & Eyeliner": [
+                "Eyeliner",
+                "Kajal and Kohl"
+            ],
+            "Mascara & Brows": [
+                "Mascara",
+                "Eyebrow Enhancer",
+                "False Eyelashes"
+            ],
+            "Compact & Setting Powder": [
+                "Compact",
+                "Loose Powder",
+                "Setting Powder"
+            ],
+            "Blush, Highlighter & Bronzer": [
+                "Blush",
+                "Highlighter",
+                "Bronzer",
+                "Contour"
+            ],
+            "Eyeshadow & Palettes": [
+                "Eyeshadow",
+                "Makeup Palette"
+            ],
+            "Nail Care & Polish": [
+                "Nail Polish",
+                "Nail Polish Remover",
+                "Nail Care"
+            ]
+        },
+        "minDiscount": 80,
+        "botMinDiscount": 80,
+        "bookmarkletMinDiscount": 80
+    },
+    "Men Topwear": {
+        "displayName": "Men Topwear",
+        "basePath": "men-topwear",
+        "brands": [
+            "ADIDAS",
+            "Aeropostale",
+            "Allen Solly",
+            "Allen Solly Sport",
+            "AMERICAN EAGLE OUTFITTERS",
+            "Andamen",
+            "Antony Morato",
+            "Arrow",
+            "Arrow New York",
+            "Arrow Sport",
+            "Basics",
+            "Being Human",
+            "Bewakoof",
+            "Blackberrys",
+            "Calvin Klein Jeans",
+            "Cantabil",
+            "Celio",
+            "Classic Polo",
+            "ColorPlus",
+            "Columbia",
+            "Crimsoune Club",
+            "Dennis Lingo",
+            "DIESEL",
+            "Difference of Opinion",
+            "Duke",
+            "Fabindia",
+            "FAHRENHEIT",
+            "FILA",
+            "Flying Machine",
+            "FOREVER 21",
+            "French Connection",
+            "GANT",
+            "GAP",
+            "GUESS",
+            "H&M",
+            "HERE&NOW",
+            "HIGHLANDER",
+            "House of Pataudi",
+            "HRX by Hrithik Roshan",
+            "Indian Terrain",
+            "INVICTUS",
+            "Jack & Jones",
+            "John Players",
+            "Kook N Keech",
+            "Lacoste",
+            "Lee",
+            "Lee Cooper",
+            "Levis",
+            "Linen Club",
+            "LOCOMOTIVE",
+            "Louis Philippe",
+            "Louis Philippe Jeans",
+            "Louis Philippe Sport",
+            "MANGO MAN",
+            "Marks & Spencer",
+            "Mast & Harbour",
+            "Metronaut",
+            "Monte Carlo",
+            "Mufti",
+            "Nautica",
+            "New Balance",
+            "Nike",
+            "Park Avenue",
+            "Parx",
+            "Pepe Jeans",
+            "Peter England",
+            "Peter England Casuals",
+            "Powerlook",
+            "Puma",
+            "RARE RABBIT",
+            "Raymond",
+            "Red Tape",
+            "Reebok",
+            "Roadster",
+            "SELECTED",
+            "Snitch",
+            "SPYKAR",
+            "Status Quo",
+            "Ted Baker",
+            "THE BEAR HOUSE",
+            "The Indian Garage Co",
+            "The Souled Store",
+            "Tommy Hilfiger",
+            "U.S. Polo Assn.",
+            "U.S. Polo Assn. Denim Co.",
+            "UNDER ARMOUR",
+            "United Colors of Benetton",
+            "Van Heusen",
+            "Van Heusen Sport",
+            "Wildcraft",
+            "Wrangler",
+            "WROGN"
+        ],
+        "brandDetails": [
+            {
+                "brand": "ADIDAS",
+                "productCount": 1148
+            },
+            {
+                "brand": "Aeropostale",
+                "productCount": 1490
+            },
+            {
+                "brand": "Allen Solly",
+                "productCount": 6803
+            },
+            {
+                "brand": "Allen Solly Sport",
+                "productCount": 908
+            },
+            {
+                "brand": "AMERICAN EAGLE OUTFITTERS",
+                "productCount": 1380
+            },
+            {
+                "brand": "Andamen",
+                "productCount": 1312
+            },
+            {
+                "brand": "Antony Morato",
+                "productCount": 233
+            },
+            {
+                "brand": "Arrow",
+                "productCount": 5819
+            },
+            {
+                "brand": "Arrow New York",
+                "productCount": 1008
+            },
+            {
+                "brand": "Arrow Sport",
+                "productCount": 4017
+            },
+            {
+                "brand": "Basics",
+                "productCount": 3545
+            },
+            {
+                "brand": "Being Human",
+                "productCount": 4429
+            },
+            {
+                "brand": "Bewakoof",
+                "productCount": 1720
+            },
+            {
+                "brand": "Blackberrys",
+                "productCount": 1800
+            },
+            {
+                "brand": "Calvin Klein Jeans",
+                "productCount": 2717
+            },
+            {
+                "brand": "Cantabil",
+                "productCount": 2288
+            },
+            {
+                "brand": "Celio",
+                "productCount": 1501
+            },
+            {
+                "brand": "Classic Polo",
+                "productCount": 1069
+            },
+            {
+                "brand": "ColorPlus",
+                "productCount": 2546
+            },
+            {
+                "brand": "Columbia",
+                "productCount": 844
+            },
+            {
+                "brand": "Crimsoune Club",
+                "productCount": 9567
+            },
+            {
+                "brand": "Dennis Lingo",
+                "productCount": 476
+            },
+            {
+                "brand": "DIESEL",
+                "productCount": 260
+            },
+            {
+                "brand": "Difference of Opinion",
+                "productCount": 316
+            },
+            {
+                "brand": "Duke",
+                "productCount": 1953
+            },
+            {
+                "brand": "Fabindia",
+                "productCount": 1740
+            },
+            {
+                "brand": "FAHRENHEIT",
+                "productCount": 322
+            },
+            {
+                "brand": "FILA",
+                "productCount": 52
+            },
+            {
+                "brand": "Flying Machine",
+                "productCount": 4689
+            },
+            {
+                "brand": "FOREVER 21",
+                "productCount": 29
+            },
+            {
+                "brand": "French Connection",
+                "productCount": 1002
+            },
+            {
+                "brand": "GANT",
+                "productCount": 1313
+            },
+            {
+                "brand": "GAP",
+                "productCount": 1319
+            },
+            {
+                "brand": "GUESS",
+                "productCount": 1152
+            },
+            {
+                "brand": "H&M",
+                "productCount": 1441
+            },
+            {
+                "brand": "HERE&NOW",
+                "productCount": 14290
+            },
+            {
+                "brand": "HIGHLANDER",
+                "productCount": 12847
+            },
+            {
+                "brand": "House of Pataudi",
+                "productCount": 3490
+            },
+            {
+                "brand": "HRX by Hrithik Roshan",
+                "productCount": 5974
+            },
+            {
+                "brand": "Indian Terrain",
+                "productCount": 2328
+            },
+            {
+                "brand": "INVICTUS",
+                "productCount": 3572
+            },
+            {
+                "brand": "Jack & Jones",
+                "productCount": 3231
+            },
+            {
+                "brand": "John Players",
+                "productCount": 550
+            },
+            {
+                "brand": "Kook N Keech",
+                "productCount": 6349
+            },
+            {
+                "brand": "Lacoste",
+                "productCount": 1010
+            },
+            {
+                "brand": "Lee",
+                "productCount": 474
+            },
+            {
+                "brand": "Lee Cooper",
+                "productCount": 159
+            },
+            {
+                "brand": "Levis",
+                "productCount": 1901
+            },
+            {
+                "brand": "Linen Club",
+                "productCount": 513
+            },
+            {
+                "brand": "LOCOMOTIVE",
+                "productCount": 2629
+            },
+            {
+                "brand": "Louis Philippe",
+                "productCount": 4222
+            },
+            {
+                "brand": "Louis Philippe Jeans",
+                "productCount": 1375
+            },
+            {
+                "brand": "Louis Philippe Sport",
+                "productCount": 2815
+            },
+            {
+                "brand": "MANGO MAN",
+                "productCount": 1433
+            },
+            {
+                "brand": "Marks & Spencer",
+                "productCount": 1115
+            },
+            {
+                "brand": "Mast & Harbour",
+                "productCount": 10721
+            },
+            {
+                "brand": "Metronaut",
+                "productCount": 5457
+            },
+            {
+                "brand": "Monte Carlo",
+                "productCount": 2969
+            },
+            {
+                "brand": "Mufti",
+                "productCount": 4135
+            },
+            {
+                "brand": "Nautica",
+                "productCount": 2771
+            },
+            {
+                "brand": "New Balance",
+                "productCount": 371
+            },
+            {
+                "brand": "Nike",
+                "productCount": 476
+            },
+            {
+                "brand": "Park Avenue",
+                "productCount": 3222
+            },
+            {
+                "brand": "Parx",
+                "productCount": 2487
+            },
+            {
+                "brand": "Pepe Jeans",
+                "productCount": 2978
+            },
+            {
+                "brand": "Peter England",
+                "productCount": 2957
+            },
+            {
+                "brand": "Peter England Casuals",
+                "productCount": 2681
+            },
+            {
+                "brand": "Powerlook",
+                "productCount": 1302
+            },
+            {
+                "brand": "Puma",
+                "productCount": 3377
+            },
+            {
+                "brand": "RARE RABBIT",
+                "productCount": 4869
+            },
+            {
+                "brand": "Raymond",
+                "productCount": 2495
+            },
+            {
+                "brand": "Red Tape",
+                "productCount": 982
+            },
+            {
+                "brand": "Reebok",
+                "productCount": 1229
+            },
+            {
+                "brand": "Roadster",
+                "productCount": 18886
+            },
+            {
+                "brand": "SELECTED",
+                "productCount": 667
+            },
+            {
+                "brand": "Snitch",
+                "productCount": 5254
+            },
+            {
+                "brand": "SPYKAR",
+                "productCount": 4837
+            },
+            {
+                "brand": "Status Quo",
+                "productCount": 3028
+            },
+            {
+                "brand": "Ted Baker",
+                "productCount": 180
+            },
+            {
+                "brand": "THE BEAR HOUSE",
+                "productCount": 3675
+            },
+            {
+                "brand": "The Indian Garage Co",
+                "productCount": 6581
+            },
+            {
+                "brand": "The Souled Store",
+                "productCount": 2494
+            },
+            {
+                "brand": "Tommy Hilfiger",
+                "productCount": 6208
+            },
+            {
+                "brand": "U.S. Polo Assn.",
+                "productCount": 5668
+            },
+            {
+                "brand": "U.S. Polo Assn. Denim Co.",
+                "productCount": 3174
+            },
+            {
+                "brand": "UNDER ARMOUR",
+                "productCount": 1203
+            },
+            {
+                "brand": "United Colors of Benetton",
+                "productCount": 3079
+            },
+            {
+                "brand": "Van Heusen",
+                "productCount": 5695
+            },
+            {
+                "brand": "Van Heusen Sport",
+                "productCount": 1766
+            },
+            {
+                "brand": "Wildcraft",
+                "productCount": 1055
+            },
+            {
+                "brand": "Wrangler",
+                "productCount": 423
+            },
+            {
+                "brand": "WROGN",
+                "productCount": 5959
+            }
+        ],
+        "productTypes": {
+            "T-Shirts": [
+                "Tshirts"
+            ],
+            "Casual & Formal Shirts": [
+                "Shirts"
+            ],
+            "Sweatshirts & Hoodies": [
+                "Sweatshirts"
+            ],
+            "Jackets & Coats": [
+                "Jackets"
+            ],
+            "Sweaters & Cardigans": [
+                "Sweaters"
+            ],
+            "Blazers & Waistcoats": [
+                "Blazers"
+            ],
+            "Kurtas & Ethnic": [
+                "Kurtas"
+            ]
+        },
+        "minDiscount": 80,
+        "botMinDiscount": 80,
+        "bookmarkletMinDiscount": 80
+    },
+    "Men Bottomwear": {
+        "displayName": "Men Bottomwear",
+        "basePath": "men-bottomwear",
+        "brands": [
+            "ADIDAS",
+            "Allen Solly",
+            "AMERICAN EAGLE OUTFITTERS",
+            "Arrow",
+            "Arrow New York",
+            "Arrow Sport",
+            "Basics",
+            "Being Human",
+            "Blackberrys",
+            "Calvin Klein Jeans",
+            "Cantabil",
+            "Celio",
+            "ColorPlus",
+            "Columbia",
+            "Crimsoune Club",
+            "Dennis Lingo",
+            "DIESEL",
+            "Duke",
+            "Fabindia",
+            "FAHRENHEIT",
+            "FILA",
+            "Flying Machine",
+            "GAP",
+            "H&M",
+            "HERE&NOW",
+            "HIGHLANDER",
+            "House of Pataudi",
+            "HRX by Hrithik Roshan",
+            "Indian Terrain",
+            "INVICTUS",
+            "Jack & Jones",
+            "John Players",
+            "Kook N Keech",
+            "Lacoste",
+            "Lee",
+            "Lee Cooper",
+            "Levis",
+            "Linen Club",
+            "LOCOMOTIVE",
+            "Louis Philippe",
+            "Louis Philippe Jeans",
+            "Louis Philippe Sport",
+            "MANGO MAN",
+            "Marks & Spencer",
+            "Mast & Harbour",
+            "Metronaut",
+            "Monte Carlo",
+            "Mufti",
+            "Nautica",
+            "New Balance",
+            "Nike",
+            "Park Avenue",
+            "Parx",
+            "Pepe Jeans",
+            "Peter England",
+            "Peter England Casuals",
+            "Puma",
+            "RARE RABBIT",
+            "Raymond",
+            "Red Tape",
+            "Reebok",
+            "Roadster",
+            "SELECTED",
+            "Snitch",
+            "SPYKAR",
+            "Status Quo",
+            "THE BEAR HOUSE",
+            "The Indian Garage Co",
+            "The Souled Store",
+            "Tommy Hilfiger",
+            "U.S. Polo Assn.",
+            "U.S. Polo Assn. Denim Co.",
+            "UNDER ARMOUR",
+            "United Colors of Benetton",
+            "Van Heusen",
+            "Van Heusen Sport",
+            "Wildcraft",
+            "Wrangler",
+            "WROGN"
+        ],
+        "brandDetails": [
+            {
+                "brand": "ADIDAS",
+                "productCount": 382
+            },
+            {
+                "brand": "Allen Solly",
+                "productCount": 1705
+            },
+            {
+                "brand": "AMERICAN EAGLE OUTFITTERS",
+                "productCount": 614
+            },
+            {
+                "brand": "Arrow",
+                "productCount": 1602
+            },
+            {
+                "brand": "Arrow New York",
+                "productCount": 247
+            },
+            {
+                "brand": "Arrow Sport",
+                "productCount": 971
+            },
+            {
+                "brand": "Basics",
+                "productCount": 1063
+            },
+            {
+                "brand": "Being Human",
+                "productCount": 1281
+            },
+            {
+                "brand": "Blackberrys",
+                "productCount": 1162
+            },
+            {
+                "brand": "Calvin Klein Jeans",
+                "productCount": 539
+            },
+            {
+                "brand": "Cantabil",
+                "productCount": 1028
+            },
+            {
+                "brand": "Celio",
+                "productCount": 643
+            },
+            {
+                "brand": "ColorPlus",
+                "productCount": 499
+            },
+            {
+                "brand": "Columbia",
+                "productCount": 224
+            },
+            {
+                "brand": "Crimsoune Club",
+                "productCount": 1449
+            },
+            {
+                "brand": "Dennis Lingo",
+                "productCount": 135
+            },
+            {
+                "brand": "DIESEL",
+                "productCount": 152
+            },
+            {
+                "brand": "Duke",
+                "productCount": 701
+            },
+            {
+                "brand": "Fabindia",
+                "productCount": 65
+            },
+            {
+                "brand": "FAHRENHEIT",
+                "productCount": 16
+            },
+            {
+                "brand": "FILA",
+                "productCount": 23
+            },
+            {
+                "brand": "Flying Machine",
+                "productCount": 2903
+            },
+            {
+                "brand": "GAP",
+                "productCount": 452
+            },
+            {
+                "brand": "H&M",
+                "productCount": 611
+            },
+            {
+                "brand": "HERE&NOW",
+                "productCount": 5135
+            },
+            {
+                "brand": "HIGHLANDER",
+                "productCount": 2464
+            },
+            {
+                "brand": "House of Pataudi",
+                "productCount": 29
+            },
+            {
+                "brand": "HRX by Hrithik Roshan",
+                "productCount": 4685
+            },
+            {
+                "brand": "Indian Terrain",
+                "productCount": 644
+            },
+            {
+                "brand": "INVICTUS",
+                "productCount": 513
+            },
+            {
+                "brand": "Jack & Jones",
+                "productCount": 1328
+            },
+            {
+                "brand": "John Players",
+                "productCount": 291
+            },
+            {
+                "brand": "Kook N Keech",
+                "productCount": 880
+            },
+            {
+                "brand": "Lacoste",
+                "productCount": 66
+            },
+            {
+                "brand": "Lee",
+                "productCount": 271
+            },
+            {
+                "brand": "Lee Cooper",
+                "productCount": 105
+            },
+            {
+                "brand": "Levis",
+                "productCount": 1603
+            },
+            {
+                "brand": "Linen Club",
+                "productCount": 105
+            },
+            {
+                "brand": "LOCOMOTIVE",
+                "productCount": 114
+            },
+            {
+                "brand": "Louis Philippe",
+                "productCount": 1119
+            },
+            {
+                "brand": "Louis Philippe Jeans",
+                "productCount": 669
+            },
+            {
+                "brand": "Louis Philippe Sport",
+                "productCount": 539
+            },
+            {
+                "brand": "MANGO MAN",
+                "productCount": 556
+            },
+            {
+                "brand": "Marks & Spencer",
+                "productCount": 436
+            },
+            {
+                "brand": "Mast & Harbour",
+                "productCount": 2950
+            },
+            {
+                "brand": "Metronaut",
+                "productCount": 2432
+            },
+            {
+                "brand": "Monte Carlo",
+                "productCount": 321
+            },
+            {
+                "brand": "Mufti",
+                "productCount": 1137
+            },
+            {
+                "brand": "Nautica",
+                "productCount": 1170
+            },
+            {
+                "brand": "New Balance",
+                "productCount": 66
+            },
+            {
+                "brand": "Nike",
+                "productCount": 230
+            },
+            {
+                "brand": "Park Avenue",
+                "productCount": 961
+            },
+            {
+                "brand": "Parx",
+                "productCount": 921
+            },
+            {
+                "brand": "Pepe Jeans",
+                "productCount": 1612
+            },
+            {
+                "brand": "Peter England",
+                "productCount": 703
+            },
+            {
+                "brand": "Peter England Casuals",
+                "productCount": 1419
+            },
+            {
+                "brand": "Puma",
+                "productCount": 1208
+            },
+            {
+                "brand": "RARE RABBIT",
+                "productCount": 1113
+            },
+            {
+                "brand": "Raymond",
+                "productCount": 995
+            },
+            {
+                "brand": "Red Tape",
+                "productCount": 78
+            },
+            {
+                "brand": "Reebok",
+                "productCount": 369
+            },
+            {
+                "brand": "Roadster",
+                "productCount": 6937
+            },
+            {
+                "brand": "SELECTED",
+                "productCount": 200
+            },
+            {
+                "brand": "Snitch",
+                "productCount": 1937
+            },
+            {
+                "brand": "SPYKAR",
+                "productCount": 3097
+            },
+            {
+                "brand": "Status Quo",
+                "productCount": 457
+            },
+            {
+                "brand": "THE BEAR HOUSE",
+                "productCount": 647
+            },
+            {
+                "brand": "The Indian Garage Co",
+                "productCount": 2115
+            },
+            {
+                "brand": "The Souled Store",
+                "productCount": 443
+            },
+            {
+                "brand": "Tommy Hilfiger",
+                "productCount": 908
+            },
+            {
+                "brand": "U.S. Polo Assn.",
+                "productCount": 519
+            },
+            {
+                "brand": "U.S. Polo Assn. Denim Co.",
+                "productCount": 1446
+            },
+            {
+                "brand": "UNDER ARMOUR",
+                "productCount": 560
+            },
+            {
+                "brand": "United Colors of Benetton",
+                "productCount": 794
+            },
+            {
+                "brand": "Van Heusen",
+                "productCount": 1222
+            },
+            {
+                "brand": "Van Heusen Sport",
+                "productCount": 310
+            },
+            {
+                "brand": "Wildcraft",
+                "productCount": 303
+            },
+            {
+                "brand": "Wrangler",
+                "productCount": 62
+            },
+            {
+                "brand": "WROGN",
+                "productCount": 2400
+            }
+        ],
+        "productTypes": {
+            "Jeans": [
+                "Jeans"
+            ],
+            "Trousers & Chinos": [
+                "Trousers"
+            ],
+            "Shorts": [
+                "Shorts"
+            ],
+            "Track Pants & Joggers": [
+                "Track Pants"
+            ]
+        },
+        "minDiscount": 80,
+        "botMinDiscount": 80,
+        "bookmarkletMinDiscount": 80
+    },
+    "Men Footwear": {
+        "displayName": "Men Footwear",
+        "basePath": "men-footwear",
+        "brands": [
+            "Action",
+            "ADIDAS",
+            "ADIDAS Originals",
+            "Aeropostale",
+            "ALDO",
+            "Allen Cooper",
+            "Arrow",
+            "ASICS",
+            "Bata",
+            "BERSACHE",
+            "Bond Street By Red Tape",
+            "Campus",
+            "Clarks",
+            "Columbia",
+            "Crocs",
+            "Duke",
+            "FAUSTO",
+            "FILA",
+            "Flying Machine",
+            "H&M",
+            "Hitz",
+            "House of Pataudi",
+            "HRX by Hrithik Roshan",
+            "Hush Puppies",
+            "Jack & Jones",
+            "Killer",
+            "Lacoste",
+            "Lee Cooper",
+            "Levis",
+            "Louis Philippe",
+            "LOUIS STITCH",
+            "Mast & Harbour",
+            "Metro",
+            "Mochi",
+            "Nautica",
+            "New Balance",
+            "Nike",
+            "Peter England",
+            "Puma",
+            "RARE RABBIT",
+            "Red Chief",
+            "Red Tape",
+            "Reebok",
+            "Roadster",
+            "Ruosh",
+            "San Frissco",
+            "Skechers",
+            "Sparx",
+            "Teakwood Leathers",
+            "The Indian Garage Co",
+            "Tommy Hilfiger",
+            "U.S. Polo Assn.",
+            "UNDER ARMOUR",
+            "United Colors of Benetton",
+            "Van Heusen",
+            "Wildcraft",
+            "Woodland",
+            "WROGN"
+        ],
+        "brandDetails": [
+            {
+                "brand": "Action",
+                "productCount": 1019
+            },
+            {
+                "brand": "ADIDAS",
+                "productCount": 1744
+            },
+            {
+                "brand": "ADIDAS Originals",
+                "productCount": 239
+            },
+            {
+                "brand": "Aeropostale",
+                "productCount": 63
+            },
+            {
+                "brand": "ALDO",
+                "productCount": 329
+            },
+            {
+                "brand": "Allen Cooper",
+                "productCount": 268
+            },
+            {
+                "brand": "Arrow",
+                "productCount": 119
+            },
+            {
+                "brand": "ASICS",
+                "productCount": 799
+            },
+            {
+                "brand": "Bata",
+                "productCount": 930
+            },
+            {
+                "brand": "BERSACHE",
+                "productCount": 1301
+            },
+            {
+                "brand": "Bond Street By Red Tape",
+                "productCount": 51
+            },
+            {
+                "brand": "Campus",
+                "productCount": 1242
+            },
+            {
+                "brand": "Clarks",
+                "productCount": 116
+            },
+            {
+                "brand": "Columbia",
+                "productCount": 107
+            },
+            {
+                "brand": "Crocs",
+                "productCount": 242
+            },
+            {
+                "brand": "Duke",
+                "productCount": 560
+            },
+            {
+                "brand": "FAUSTO",
+                "productCount": 2737
+            },
+            {
+                "brand": "FILA",
+                "productCount": 98
+            },
+            {
+                "brand": "Flying Machine",
+                "productCount": 121
+            },
+            {
+                "brand": "H&M",
+                "productCount": 20
+            },
+            {
+                "brand": "Hitz",
+                "productCount": 388
+            },
+            {
+                "brand": "House of Pataudi",
+                "productCount": 2544
+            },
+            {
+                "brand": "HRX by Hrithik Roshan",
+                "productCount": 2698
+            },
+            {
+                "brand": "Hush Puppies",
+                "productCount": 458
+            },
+            {
+                "brand": "Jack & Jones",
+                "productCount": 235
+            },
+            {
+                "brand": "Killer",
+                "productCount": 3298
+            },
+            {
+                "brand": "Lacoste",
+                "productCount": 14
+            },
+            {
+                "brand": "Lee Cooper",
+                "productCount": 864
+            },
+            {
+                "brand": "Levis",
+                "productCount": 28
+            },
+            {
+                "brand": "Louis Philippe",
+                "productCount": 300
+            },
+            {
+                "brand": "LOUIS STITCH",
+                "productCount": 1673
+            },
+            {
+                "brand": "Mast & Harbour",
+                "productCount": 1668
+            },
+            {
+                "brand": "Metro",
+                "productCount": 1099
+            },
+            {
+                "brand": "Mochi",
+                "productCount": 1089
+            },
+            {
+                "brand": "Nautica",
+                "productCount": 129
+            },
+            {
+                "brand": "New Balance",
+                "productCount": 738
+            },
+            {
+                "brand": "Nike",
+                "productCount": 878
+            },
+            {
+                "brand": "Peter England",
+                "productCount": 8
+            },
+            {
+                "brand": "Puma",
+                "productCount": 2696
+            },
+            {
+                "brand": "RARE RABBIT",
+                "productCount": 661
+            },
+            {
+                "brand": "Red Chief",
+                "productCount": 649
+            },
+            {
+                "brand": "Red Tape",
+                "productCount": 1726
+            },
+            {
+                "brand": "Reebok",
+                "productCount": 1882
+            },
+            {
+                "brand": "Roadster",
+                "productCount": 5939
+            },
+            {
+                "brand": "Ruosh",
+                "productCount": 300
+            },
+            {
+                "brand": "San Frissco",
+                "productCount": 488
+            },
+            {
+                "brand": "Skechers",
+                "productCount": 1179
+            },
+            {
+                "brand": "Sparx",
+                "productCount": 1432
+            },
+            {
+                "brand": "Teakwood Leathers",
+                "productCount": 295
+            },
+            {
+                "brand": "The Indian Garage Co",
+                "productCount": 26
+            },
+            {
+                "brand": "Tommy Hilfiger",
+                "productCount": 115
+            },
+            {
+                "brand": "U.S. Polo Assn.",
+                "productCount": 1252
+            },
+            {
+                "brand": "UNDER ARMOUR",
+                "productCount": 362
+            },
+            {
+                "brand": "United Colors of Benetton",
+                "productCount": 185
+            },
+            {
+                "brand": "Van Heusen",
+                "productCount": 235
+            },
+            {
+                "brand": "Wildcraft",
+                "productCount": 95
+            },
+            {
+                "brand": "Woodland",
+                "productCount": 1592
+            },
+            {
+                "brand": "WROGN",
+                "productCount": 485
+            }
+        ],
+        "productTypes": {
+            "Casual Shoes & Sneakers": [
+                "Casual Shoes"
+            ],
+            "Sports & Running Shoes": [
+                "Sports Shoes"
+            ],
+            "Formal Shoes": [
+                "Formal Shoes"
+            ],
+            "Sandals & Floaters": [
+                "Sandals"
+            ],
+            "Flip Flops & Slides": [
+                "Flip Flops"
+            ],
+            "Boots": [
+                "Boots"
+            ]
+        },
+        "minDiscount": 80,
+        "botMinDiscount": 80,
+        "bookmarkletMinDiscount": 80
+    },
+    "Men Innerwear": {
+        "displayName": "Men Innerwear",
+        "basePath": "men-innerwear",
+        "brands": [
+            "ADIDAS",
+            "AMUL COMFY",
+            "Bodycare",
+            "Calvin Klein Underwear",
+            "Chromozome",
+            "COLORS by Rupa Frontline",
+            "Dollar",
+            "Dollar Bigboss",
+            "FCUK",
+            "Force NXT",
+            "French Connection",
+            "H&M",
+            "Jack & Jones",
+            "Jockey",
+            "Kook N Keech",
+            "Levis",
+            "Lux Cozi",
+            "LUX NITRO",
+            "Macroman",
+            "Marks & Spencer",
+            "Mast & Harbour",
+            "Monte Carlo",
+            "ONN",
+            "Park Avenue",
+            "Pepe Jeans",
+            "Peter England",
+            "Puma",
+            "Red Tape",
+            "Roadster",
+            "Rupa",
+            "Rupa Frontline",
+            "Rupa Jon",
+            "Sporto by Macho",
+            "Tommy Hilfiger",
+            "U.S. Polo Assn.",
+            "UnderJeans by Spykar",
+            "Van Heusen",
+            "VIP",
+            "WROGN",
+            "XYXX"
+        ],
+        "brandDetails": [
+            {
+                "brand": "ADIDAS",
+                "productCount": 15
+            },
+            {
+                "brand": "AMUL COMFY",
+                "productCount": 1634
+            },
+            {
+                "brand": "Bodycare",
+                "productCount": 11
+            },
+            {
+                "brand": "Calvin Klein Underwear",
+                "productCount": 445
+            },
+            {
+                "brand": "Chromozome",
+                "productCount": 93
+            },
+            {
+                "brand": "COLORS by Rupa Frontline",
+                "productCount": 5549
+            },
+            {
+                "brand": "Dollar",
+                "productCount": 521
+            },
+            {
+                "brand": "Dollar Bigboss",
+                "productCount": 1090
+            },
+            {
+                "brand": "FCUK",
+                "productCount": 122
+            },
+            {
+                "brand": "Force NXT",
+                "productCount": 1251
+            },
+            {
+                "brand": "French Connection",
+                "productCount": 18
+            },
+            {
+                "brand": "H&M",
+                "productCount": 65
+            },
+            {
+                "brand": "Jack & Jones",
+                "productCount": 135
+            },
+            {
+                "brand": "Jockey",
+                "productCount": 2329
+            },
+            {
+                "brand": "Kook N Keech",
+                "productCount": 7
+            },
+            {
+                "brand": "Levis",
+                "productCount": 738
+            },
+            {
+                "brand": "Lux Cozi",
+                "productCount": 958
+            },
+            {
+                "brand": "LUX NITRO",
+                "productCount": 134
+            },
+            {
+                "brand": "Macroman",
+                "productCount": 153
+            },
+            {
+                "brand": "Marks & Spencer",
+                "productCount": 70
+            },
+            {
+                "brand": "Mast & Harbour",
+                "productCount": 424
+            },
+            {
+                "brand": "Monte Carlo",
+                "productCount": 75
+            },
+            {
+                "brand": "ONN",
+                "productCount": 314
+            },
+            {
+                "brand": "Park Avenue",
+                "productCount": 162
+            },
+            {
+                "brand": "Pepe Jeans",
+                "productCount": 576
+            },
+            {
+                "brand": "Peter England",
+                "productCount": 49
+            },
+            {
+                "brand": "Puma",
+                "productCount": 143
+            },
+            {
+                "brand": "Red Tape",
+                "productCount": 58
+            },
+            {
+                "brand": "Roadster",
+                "productCount": 2100
+            },
+            {
+                "brand": "Rupa",
+                "productCount": 184
+            },
+            {
+                "brand": "Rupa Frontline",
+                "productCount": 171
+            },
+            {
+                "brand": "Rupa Jon",
+                "productCount": 135
+            },
+            {
+                "brand": "Sporto by Macho",
+                "productCount": 1672
+            },
+            {
+                "brand": "Tommy Hilfiger",
+                "productCount": 135
+            },
+            {
+                "brand": "U.S. Polo Assn.",
+                "productCount": 1226
+            },
+            {
+                "brand": "UnderJeans by Spykar",
+                "productCount": 674
+            },
+            {
+                "brand": "Van Heusen",
+                "productCount": 198
+            },
+            {
+                "brand": "VIP",
+                "productCount": 410
+            },
+            {
+                "brand": "WROGN",
+                "productCount": 44
+            },
+            {
+                "brand": "XYXX",
+                "productCount": 1241
+            }
+        ],
+        "productTypes": {
+            "Boxers": [
+                "Boxers"
+            ],
+            "Briefs & Trunks": [
+                "Briefs",
+                "Trunk"
+            ],
+            "Innerwear Vests": [
+                "Innerwear Vests"
+            ],
+            "Thermals & Winterwear": [
+                "Thermal Set",
+                "Thermal Bottoms",
+                "Thermal Tops"
+            ]
+        },
+        "minDiscount": 80,
+        "botMinDiscount": 80,
+        "bookmarkletMinDiscount": 80
+    },
+    "Men Sportswear": {
+        "displayName": "Men Sportswear",
+        "basePath": "men-sports-wear",
+        "brands": [
+            "ADIDAS",
+            "ADIDAS Originals",
+            "Alcis",
+            "ASICS",
+            "Columbia",
+            "Decathlon",
+            "FILA",
+            "HRX by Hrithik Roshan",
+            "hummel",
+            "Kappa",
+            "Lotto",
+            "New Balance",
+            "Nike",
+            "Puma",
+            "Red Tape",
+            "Reebok",
+            "Roadster",
+            "Skechers",
+            "Speedo",
+            "Technosport",
+            "UNDER ARMOUR",
+            "VECTOR X",
+            "Wildcraft",
+            "WROGN",
+            "WROGN ACTIVE"
+        ],
+        "brandDetails": [
+            {
+                "brand": "ADIDAS",
+                "productCount": 948
+            },
+            {
+                "brand": "ADIDAS Originals",
+                "productCount": 55
+            },
+            {
+                "brand": "Alcis",
+                "productCount": 611
+            },
+            {
+                "brand": "ASICS",
+                "productCount": 991
+            },
+            {
+                "brand": "Columbia",
+                "productCount": 371
+            },
+            {
+                "brand": "Decathlon",
+                "productCount": 616
+            },
+            {
+                "brand": "FILA",
+                "productCount": 4
+            },
+            {
+                "brand": "HRX by Hrithik Roshan",
+                "productCount": 6580
+            },
+            {
+                "brand": "hummel",
+                "productCount": 63
+            },
+            {
+                "brand": "Kappa",
+                "productCount": 157
+            },
+            {
+                "brand": "Lotto",
+                "productCount": 40
+            },
+            {
+                "brand": "New Balance",
+                "productCount": 353
+            },
+            {
+                "brand": "Nike",
+                "productCount": 400
+            },
+            {
+                "brand": "Puma",
+                "productCount": 2322
+            },
+            {
+                "brand": "Red Tape",
+                "productCount": 59
+            },
+            {
+                "brand": "Reebok",
+                "productCount": 892
+            },
+            {
+                "brand": "Roadster",
+                "productCount": 64
+            },
+            {
+                "brand": "Skechers",
+                "productCount": 108
+            },
+            {
+                "brand": "Speedo",
+                "productCount": 67
+            },
+            {
+                "brand": "Technosport",
+                "productCount": 1594
+            },
+            {
+                "brand": "UNDER ARMOUR",
+                "productCount": 1322
+            },
+            {
+                "brand": "VECTOR X",
+                "productCount": 73
+            },
+            {
+                "brand": "Wildcraft",
+                "productCount": 255
+            },
+            {
+                "brand": "WROGN",
+                "productCount": 37
+            },
+            {
+                "brand": "WROGN ACTIVE",
+                "productCount": 11
+            }
+        ],
+        "productTypes": {
+            "Track Pants & Joggers": [
+                "Track Pants",
+                "Tights"
+            ],
+            "Sports T-Shirts": [
+                "Tshirts",
+                "Tops"
+            ],
+            "Tracksuits & Sets": [
+                "Tracksuits",
+                "Clothing Set"
+            ],
+            "Sports Shorts": [
+                "Shorts"
+            ],
+            "Sports Jackets & Windcheaters": [
+                "Jackets",
+                "Sweatshirts"
+            ],
+            "Swimwear": [
+                "Swimwear",
+                "Swim Bottoms",
+                "Swim Tops"
+            ]
+        },
+        "minDiscount": 80,
+        "botMinDiscount": 80,
+        "bookmarkletMinDiscount": 80
+    },
+    "Beauty Appliances": {
+        "displayName": "Beauty Appliances",
+        "basePath": "beauty-appliances",
+        "brands": [
+            "Agaro",
+            "Alan Truman",
+            "beurer",
+            "Bombay Shaving Company",
+            "Braun",
+            "dyson",
+            "GUBB",
+            "Havells",
+            "Ikonic",
+            "KEMEI",
+            "Lifelong",
+            "Morphy Richards",
+            "NOVA",
+            "Philips",
+            "Remington",
+            "VEGA",
+            "VEGA PROFESSIONAL",
+            "VGR",
+            "WAHL"
+        ],
+        "brandDetails": [
+            {
+                "brand": "Agaro",
+                "productCount": 27
+            },
+            {
+                "brand": "Alan Truman",
+                "productCount": 34
+            },
+            {
+                "brand": "beurer",
+                "productCount": 3
+            },
+            {
+                "brand": "Bombay Shaving Company",
+                "productCount": 15
+            },
+            {
+                "brand": "Braun",
+                "productCount": 11
+            },
+            {
+                "brand": "dyson",
+                "productCount": 11
+            },
+            {
+                "brand": "GUBB",
+                "productCount": 7
+            },
+            {
+                "brand": "Havells",
+                "productCount": 9
+            },
+            {
+                "brand": "Ikonic",
+                "productCount": 60
+            },
+            {
+                "brand": "KEMEI",
+                "productCount": 8
+            },
+            {
+                "brand": "Lifelong",
+                "productCount": 5
+            },
+            {
+                "brand": "Morphy Richards",
+                "productCount": 2
+            },
+            {
+                "brand": "NOVA",
+                "productCount": 10
+            },
+            {
+                "brand": "Philips",
+                "productCount": 40
+            },
+            {
+                "brand": "Remington",
+                "productCount": 1
+            },
+            {
+                "brand": "VEGA",
+                "productCount": 52
+            },
+            {
+                "brand": "VEGA PROFESSIONAL",
+                "productCount": 35
+            },
+            {
+                "brand": "VGR",
+                "productCount": 158
+            },
+            {
+                "brand": "WAHL",
+                "productCount": 6
+            }
+        ],
+        "productTypes": {
+            "Hair Dryers": [
+                "Dryers"
+            ],
+            "Hair Straighteners & Multi-Stylers": [
+                "Straighteners",
+                "Multi-Styler"
+            ],
+            "Hair Curlers & Crimpers": [
+                "Curling Iron and Crimpers"
+            ],
+            "Trimmers & Shavers": [
+                "Trimmer",
+                "Shavers",
+                "Body Groomer",
+                "Bikini Trimmers"
+            ],
+            "Epilators & Massagers": [
+                "Epilator",
+                "Face Epilator",
+                "Cleansing Tools and Massagers"
+            ]
+        },
+        "minDiscount": 80,
+        "botMinDiscount": 80,
+        "bookmarkletMinDiscount": 80
+    },
+    "Baby Care": {
+        "displayName": "Baby Care",
+        "basePath": "personal-care",
+        "brands": [
+            "Aveeno Baby",
+            "Baby Dove",
+            "Babyhug",
+            "Cetaphil",
+            "Chicco",
+            "Dabur",
+            "Himalaya Baby",
+            "Johnsons",
+            "Mamaearth",
+            "MeeMee",
+            "mothercare",
+            "Mylo",
+            "Pigeon",
+            "Sebamed",
+            "Softsens",
+            "SuperBottoms",
+            "Tedibar"
+        ],
+        "brandDetails": [
+            {
+                "brand": "Aveeno Baby",
+                "productCount": 9
+            },
+            {
+                "brand": "Baby Dove",
+                "productCount": 1
+            },
+            {
+                "brand": "Babyhug",
+                "productCount": 39
+            },
+            {
+                "brand": "Cetaphil",
+                "productCount": 18
+            },
+            {
+                "brand": "Chicco",
+                "productCount": 32
+            },
+            {
+                "brand": "Dabur",
+                "productCount": 2
+            },
+            {
+                "brand": "Himalaya Baby",
+                "productCount": 91
+            },
+            {
+                "brand": "Johnsons",
+                "productCount": 39
+            },
+            {
+                "brand": "Mamaearth",
+                "productCount": 14
+            },
+            {
+                "brand": "MeeMee",
+                "productCount": 51
+            },
+            {
+                "brand": "mothercare",
+                "productCount": 14
+            },
+            {
+                "brand": "Mylo",
+                "productCount": 52
+            },
+            {
+                "brand": "Pigeon",
+                "productCount": 1
+            },
+            {
+                "brand": "Sebamed",
+                "productCount": 8
+            },
+            {
+                "brand": "Softsens",
+                "productCount": 43
+            },
+            {
+                "brand": "SuperBottoms",
+                "productCount": 407
+            },
+            {
+                "brand": "Tedibar",
+                "productCount": 56
+            }
+        ],
+        "productTypes": {
+            "Diapers & Wipes": [
+                "Diapers",
+                "Baby Wipes and Buds"
+            ],
+            "Baby Bath & Wash": [
+                "Baby Body Wash and Soap",
+                "Baby Shampoo and Conditioner"
+            ],
+            "Baby Skin Care & Lotions": [
+                "Baby Lotions and Creams",
+                "Baby Body Oil",
+                "Baby Powder",
+                "Rash Cream"
+            ],
+            "Baby Health & Sunscreen": [
+                "Baby Sunscreen",
+                "Baby Care Kit",
+                "Baby Hair Oil"
+            ]
+        }
+    },
+    "Gadgets": {
+        "displayName": "Gadgets",
+        "basePath": "gadgets",
+        "minDiscount": 80,
+        "botMinDiscount": 80,
+        "bookmarkletMinDiscount": 80,
+        "brands": [
+            "Fastrack",
+            "Fire-Boltt",
+            "GOBOULT",
+            "JBL",
+            "NOISE",
+            "OnePlus",
+            "Portronics",
+            "Realme",
+            "Sennheiser",
+            "Skullcandy",
+            "Sony",
+            "Timex",
+            "ZEBRONICS",
+            "boAt"
+        ],
+        "productTypes": {
+            "Smart Watches & Bands": [
+                "Smart Watches",
+                "Fitness Bands"
+            ],
+            "Headphones & Earphones": [
+                "Headphones"
+            ],
+            "Speakers": [
+                "Speakers"
+            ]
+        }
+    },
+    "Mens Watches": {
+        "displayName": "Mens Watches",
+        "basePath": "mens-watches",
+        "minDiscount": 80,
+        "botMinDiscount": 80,
+        "bookmarkletMinDiscount": 80,
+        "brands": [
+            "Armani Exchange",
+            "Calvin Klein",
+            "CASIO",
+            "Citizen",
+            "Daniel Klein",
+            "DIESEL",
+            "Emporio Armani",
+            "Fastrack",
+            "Fossil",
+            "French Connection",
+            "GIORDANO",
+            "GUESS",
+            "Helix",
+            "Kenneth Cole",
+            "Lacoste",
+            "Michael Kors",
+            "Nautica",
+            "Police",
+            "Sonata",
+            "Ted Baker",
+            "Timex",
+            "Titan",
+            "Tommy Hilfiger"
+        ],
+        "productTypes": {
+            "Analogue & Chronograph Watches": [
+                "Watches"
+            ],
+            "Watch Gift Sets": [
+                "Watch Gift Set"
+            ],
+            "Watch Accessories & Straps": [
+                "Watch Straps",
+                "Watch Organiser"
+            ]
+        }
+    },
+    "Men Personal Care": {
+        "displayName": "Men Personal Care",
+        "basePath": "men-personal-care",
+        "minDiscount": 80,
+        "botMinDiscount": 80,
+        "bookmarkletMinDiscount": 80,
+        "brands": [
+            "AXE",
+            "BEARDO",
+            "Biotique",
+            "Bombay Shaving Company",
+            "CINTHOL",
+            "Denver",
+            "Dettol",
+            "Fogg",
+            "Gillette",
+            "Himalaya",
+            "Khadi Natural",
+            "LOreal",
+            "Mamaearth",
+            "Man Matters",
+            "Nivea",
+            "Old Spice",
+            "Park Avenue",
+            "Pears",
+            "Set Wet",
+            "THE MAN COMPANY",
+            "Ustraa",
+            "Vaseline",
+            "Wild stone"
+        ],
+        "productTypes": {
+            "Beard Grooming & Shaving": [
+                "Beard Serum and Oil",
+                "Beard Wash",
+                "Shaving Cream and Foam",
+                "After Shave Lotion and Balm",
+                "Razors and Cartridges"
+            ],
+            "Men Deodorants & Perfumes": [
+                "Deodorant",
+                "Perfume",
+                "Body Mist and Spray",
+                "Attar"
+            ],
+            "Men Hair & Face Care": [
+                "Hair Gels and Wax",
+                "Hair Oil",
+                "Shampoo",
+                "Face Wash and Cleanser"
+            ],
+            "Men Bath & Shower": [
+                "Soap",
+                "Body Wash and Shower Gel"
+            ]
+        }
+    },
+    "Men Accessories": {
+        "displayName": "Men Accessories",
+        "basePath": "men-accessories",
+        "minDiscount": 80,
+        "botMinDiscount": 80,
+        "bookmarkletMinDiscount": 80,
+        "brands": [
+            "Allen Solly",
+            "AMERICAN TOURISTER",
+            "Arrow",
+            "Calvin Klein",
+            "Fastrack",
+            "Flying Machine",
+            "Fossil",
+            "Hidesign",
+            "HRX by Hrithik Roshan",
+            "Jack & Jones",
+            "Levis",
+            "Louis Philippe",
+            "Nautica",
+            "Nike",
+            "Park Avenue",
+            "Peter England",
+            "Polaroid",
+            "Police",
+            "Puma",
+            "Ray-Ban",
+            "Red Tape",
+            "Roadster",
+            "Safari",
+            "Skybags",
+            "Titan",
+            "Tommy Hilfiger",
+            "U.S. Polo Assn.",
+            "Van Heusen",
+            "Wildcraft",
+            "WildHorn",
+            "Woodland",
+            "WROGN"
+        ],
+        "productTypes": {
+            "Wallets & Card Holders": [
+                "Wallets",
+                "Card Holder"
+            ],
+            "Belts": [
+                "Belts"
+            ],
+            "Sunglasses & Eyewear": [
+                "Sunglasses",
+                "Eye Glasses"
+            ],
+            "Bags, Backpacks & Luggage": [
+                "Backpacks",
+                "Trolley Bag",
+                "Duffle Bag",
+                "Messenger Bag"
+            ],
+            "Caps & Hats": [
+                "Caps",
+                "Hats"
+            ],
+            "Ties & Cufflinks": [
+                "Ties",
+                "Cufflinks",
+                "Pocket Square"
+            ]
+        }
+    },
+    "Bedding": {
+        "displayName": "Bedding",
+        "basePath": "bedding",
+        "minDiscount": 70,
+        "botMinDiscount": 70,
+        "bookmarkletMinDiscount": 70,
+        "brands": [
+            "Arrabi",
+            "Aura",
+            "BIANCA",
+            "BOMBAY DYEING",
+            "Boutique Living India",
+            "CHHAVI INDIA",
+            "Cortina",
+            "DDecor",
+            "DECENT HOME",
+            "FABINALIV",
+            "Fabindia",
+            "H&M",
+            "Home Centre",
+            "Huesland",
+            "IWS",
+            "JAIPUR FABRIC",
+            "JC HOME",
+            "KLOTTHE",
+            "Layers",
+            "MAFATLAL",
+            "MASPAR",
+            "MYTRIDENT",
+            "Monte Carlo",
+            "Portico",
+            "Pure Decor",
+            "Raymond Home",
+            "SPACES",
+            "SWAYAM",
+            "Saral Home",
+            "Stoa Paris",
+            "Story@home",
+            "Trance Home Linen",
+            "URBAN SPACE",
+            "Welspun",
+            "haus & kinder"
+        ],
+        "productTypes": {
+            "Bedsheets & Sets": [
+                "Bedsheets",
+                "Bedding Set",
+                "Bed Covers",
+                "Duvet Cover"
+            ],
+            "Blankets & Quilts": [
+                "Blankets",
+                "Quilts",
+                "Dohars",
+                "Comforters"
+            ],
+            "Pillows & Protectors": [
+                "Pillows",
+                "Pillow Covers",
+                "Mattress Protector"
+            ]
+        }
+    },
+    "Bath": {
+        "displayName": "Bath",
+        "basePath": "home-furnishing-menu?f=Categories%3ABath%20Robe%2CBath%20Rugs%2CBath%20Towels%2CBathroom%20Accessories%2CBeach%20Towels%2CFace%20Towels%2CHand%20Towels%2CShower%20Curtains%2CTowel%20Set",
+        "minDiscount": 70,
+        "botMinDiscount": 70,
+        "bookmarkletMinDiscount": 70,
+        "brands": [
+            "Arrabi",
+            "Athom Living",
+            "Athom Trendz",
+            "Aura",
+            "BIANCA",
+            "BOMBAY DYEING",
+            "CASA-NEST",
+            "DEMARK",
+            "Decathlon",
+            "Doctor Towels",
+            "Fabindia",
+            "Fezora",
+            "H&M",
+            "Himeya",
+            "Home Centre",
+            "KLOTTHE",
+            "Kuber Industries",
+            "Layers",
+            "MARKET99",
+            "MASPAR",
+            "MYTRIDENT",
+            "Monte Carlo",
+            "OBSESSIONS",
+            "QUARCK",
+            "Raymond Home",
+            "SPACES",
+            "Saral Home",
+            "Softspun Microfiber",
+            "UMAI",
+            "Welspun",
+            "haus & kinder"
+        ],
+        "productTypes": {
+            "Towels": [
+                "Bath Towels",
+                "Towel Set",
+                "Hand Towels",
+                "Face Towels",
+                "Beach Towels"
+            ],
+            "Bath Robes & Mats": [
+                "Bath Robe and Wraps",
+                "Bath Rugs",
+                "Bath Mats"
+            ],
+            "Bathroom Accessories": [
+                "Bathroom Accessories",
+                "Shower Curtains",
+                "Bath Sets"
+            ]
+        }
+    },
+    "Curtains & Furnishings": {
+        "basePath": "home-furnishing-menu?f=Categories%3ACurtains%20and%20Sheers%2CCushion%20Covers%2CCushions%2CSofa%20Covers%2CDiwan%20Set%2CThrows",
+        "minDiscount": 70,
+        "botMinDiscount": 70,
+        "brands": [
+            "DDecor",
+            "SPACES",
+            "SWAYAM",
+            "Portico",
+            "BOMBAY DYEING",
+            "URBAN SPACE",
+            "ROMEE",
+            "Cortina",
+            "SEJ by Nisha Gupta",
+            "Saral Home",
+            "MASPAR",
+            "Chumbak",
+            "Fabindia",
+            "Home Centre",
+            "Aura",
+            "JC HOME",
+            "KLOTTHE",
+            "Pure Decor",
+            "Arrabi",
+            "CHHAVI INDIA",
+            "FABINALIV",
+            "The Furnishing Tree",
+            "Kuber Industries",
+            "VAASINI",
+            "Yellow Weaves",
+            "STITCHNEST",
+            "THROWPILLOW",
+            "HOMEMONDE",
+            "Story@home"
+        ]
+    },
+    "Lamps & Lighting": {
+        "basePath": "lamps-and-lighting",
+        "minDiscount": 70,
+        "botMinDiscount": 70,
+        "brands": [
+            "Philips",
+            "Homesake",
+            "ExclusiveLane",
+            "Chumbak",
+            "Pure Home and Living",
+            "Havells",
+            "Wipro",
+            "Fos Lighting",
+            "Home Centre",
+            "Iris",
+            "SOMIL",
+            "Tu Casa",
+            "eCraftIndia",
+            "HOSLEY",
+            "Artisyn",
+            "DeoDap",
+            "TAYHAA"
+        ]
+    },
+    "Kitchen & Dining": {
+        "basePath": "kitchen-and-dining",
+        "minDiscount": 70,
+        "botMinDiscount": 70,
+        "brands": [
+            "BOROSIL",
+            "Prestige",
+            "Hawkins",
+            "Milton",
+            "Wonderchef",
+            "MEYER",
+            "Corelle",
+            "Cello",
+            "SignoraWare",
+            "BERGNER",
+            "Vinod",
+            "CLAY CRAFT",
+            "Laopala",
+            "Servewell",
+            "Femora",
+            "MIAH Decor",
+            "VarEesha",
+            "ExclusiveLane",
+            "Fabindia",
+            "Home Centre",
+            "Kuber Industries",
+            "Aapno Rajasthan",
+            "DeoDap",
+            "NFI essentials",
+            "Dynore",
+            "Unravel India"
+        ]
+    },
+    "Home Decor": {
+        "basePath": "home-decor",
+        "minDiscount": 70,
+        "botMinDiscount": 70,
+        "brands": [
+            "Titan",
+            "Ajanta",
+            "ExclusiveLane",
+            "Chumbak",
+            "Pure Home and Living",
+            "ellementry",
+            "SEJ by Nisha Gupta",
+            "Nestasia",
+            "The Wishing Chair",
+            "Home Centre",
+            "Art Street",
+            "RANDOM",
+            "eCraftIndia",
+            "TAYHAA",
+            "Fabindia",
+            "Whats Your Kick",
+            "1ST TIME",
+            "Devansh",
+            "SAF",
+            "999Store",
+            "Wallpics",
+            "Kotart",
+            "Myntra Elegant Homes",
+            "DeoDap",
+            "UNIVERSITY TRENDZ",
+            "HOSLEY",
+            "Artisyn",
+            "Indianshelf"
+        ]
+    },
+    "Floor Covering & Organisers": {
+        "basePath": "floor-mats-dhurries-carpets",
+        "minDiscount": 70,
+        "botMinDiscount": 70,
+        "brands": [
+            "Saral Home",
+            "Status",
+            "OBSESSIONS",
+            "Chumbak",
+            "Home Centre",
+            "Ekam",
+            "SPACES",
+            "Mona B",
+            "HOUSE OF QUIRK",
+            "prettykrafts",
+            "Safiya Carpet",
+            "HOMEMONDE",
+            "Stylista",
+            "PnF",
+            "Kuber Industries",
+            "COATCASE",
+            "HOKIPO",
+            "Lushomes",
+            "DeoDap"
+        ]
+    }
+};
   // State
   let currentProducts = [];
   let isFetching = false;
