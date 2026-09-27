@@ -93,7 +93,7 @@ def extract_products_from_html(html_text):
 
     return []
 
-def get_product_threshold(product, cat_data):
+def get_product_threshold(product, cat_data, cat_name=""):
     """Calculates effective minimum discount threshold using category defaults,
     brand tier overrides (both exclusive lower-threshold brands and heavy discounters),
     and articleType overrides (e.g. Smartwatches: 95%, Wallets: 90%, Jewellery: 95%)."""
@@ -112,6 +112,13 @@ def get_product_threshold(product, cat_data):
                 break
 
     thresh = brand_thresh if brand_thresh is not None else base_thresh
+
+    # Accessories rule: enforce minimum category threshold (>= 85%) for all accessories categories
+    # so that clothing/footwear brand overrides (e.g. Tommy Hilfiger: 80, Calvin Klein: 80) do not lower accessories below 85%
+    display_name = cat_data.get("displayName", cat_name)
+    base_path = cat_data.get("basePath", "")
+    if display_name in ("Watches", "Handbags & Bags", "Sunglasses", "Men Accessories") or base_path in ("watches", "handbags-and-bags", "sunglasses", "men-accessories"):
+        thresh = max(thresh, base_thresh)
 
     # 2. Check articleType / category overrides (anti-inflation floors)
     art_type = ""
@@ -235,12 +242,19 @@ def main():
         brand_overrides = CONFIG.get("brandOverrides", {})
 
         def get_brand_thresh(b):
+            b_thresh = cat_threshold
             if b in brand_overrides:
-                return brand_overrides[b]
-            for ob, ov in brand_overrides.items():
-                if ob.lower() == b.lower():
-                    return ov
-            return cat_threshold
+                b_thresh = brand_overrides[b]
+            else:
+                for ob, ov in brand_overrides.items():
+                    if ob.lower() == b.lower():
+                        b_thresh = ov
+                        break
+            display_name = cat_data.get("displayName", cat_name)
+            base_path = cat_data.get("basePath", "")
+            if display_name in ("Watches", "Handbags & Bags", "Sunglasses", "Men Accessories") or base_path in ("watches", "handbags-and-bags", "sunglasses", "men-accessories"):
+                b_thresh = max(b_thresh, cat_threshold)
+            return b_thresh
 
         exclusive_brands = [b for b in brands if get_brand_thresh(b) < cat_threshold]
         standard_brands = [b for b in brands if get_brand_thresh(b) >= cat_threshold]
@@ -305,7 +319,7 @@ def main():
                         continue
 
                     discount_pct = round(((mrp - price) / mrp) * 100)
-                    item_threshold = get_product_threshold(p, cat_data)
+                    item_threshold = get_product_threshold(p, cat_data, cat_name)
 
                     if discount_pct >= item_threshold:
                         art = p.get("articleType", {}).get("typeName") if isinstance(p.get("articleType"), dict) else p.get("articleType", "")

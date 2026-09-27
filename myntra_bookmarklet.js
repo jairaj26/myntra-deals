@@ -1,6 +1,6 @@
 /**
  * Myntra Deal Sentinel - Interactive Bookmarklet
- * Version: 2.11.0
+ * Version: 2.12.0
  * 
  * Injects a floating deal-hunting panel directly on Myntra.
  * Fetches server-filtered deals for curated brands sorted by highest discount.
@@ -1985,49 +1985,103 @@
             ]
         }
     },
-    "Mens Watches": {
-        "displayName": "Mens Watches",
-        "basePath": "mens-watches",
-        "minDiscount": 80,
-        "botMinDiscount": 80,
-        "bookmarkletMinDiscount": 80,
+    "Watches": {
+        "displayName": "Watches",
+        "basePath": "watches",
+        "minDiscount": 85,
+        "botMinDiscount": 85,
+        "bookmarkletMinDiscount": 85,
         "brands": [
+            "Titan",
+            "CASIO",
+            "Fossil",
+            "Tommy Hilfiger",
+            "Michael Kors",
+            "Daniel Wellington",
+            "Timex",
+            "TISSOT",
             "Armani Exchange",
             "Calvin Klein",
-            "CASIO",
+            "GUESS",
+            "ANNE KLEIN",
             "Citizen",
+            "Fastrack",
             "Daniel Klein",
             "DIESEL",
             "Emporio Armani",
-            "Fastrack",
-            "Fossil",
             "French Connection",
             "GIORDANO",
-            "GUESS",
-            "Helix",
             "Kenneth Cole",
             "Lacoste",
-            "Michael Kors",
             "Nautica",
             "Police",
             "Sonata",
-            "Ted Baker",
-            "Timex",
-            "Titan",
-            "Tommy Hilfiger"
-        ],
-        "productTypes": {
-            "Analogue & Chronograph Watches": [
-                "Watches"
-            ],
-            "Watch Gift Sets": [
-                "Watch Gift Set"
-            ],
-            "Watch Accessories & Straps": [
-                "Watch Straps",
-                "Watch Organiser"
-            ]
-        }
+            "Ted Baker"
+        ]
+    },
+    "Handbags & Bags": {
+        "displayName": "Handbags & Bags",
+        "basePath": "handbags-and-bags",
+        "minDiscount": 85,
+        "botMinDiscount": 85,
+        "bookmarkletMinDiscount": 85,
+        "brands": [
+            "Hidesign",
+            "Da Milano",
+            "Caprese",
+            "Lino Perros",
+            "MIRAGGIO",
+            "ZOUK",
+            "Fossil",
+            "Tommy Hilfiger",
+            "Calvin Klein",
+            "ALDO",
+            "GUESS",
+            "MANGO",
+            "Chumbak",
+            "MOKOBARA",
+            "AMERICAN TOURISTER",
+            "Skybags",
+            "Safari",
+            "Baggit",
+            "Lavie",
+            "Allen Solly",
+            "Van Heusen",
+            "Puma",
+            "Nike",
+            "ADIDAS",
+            "Wildcraft",
+            "LAVIE SPORT",
+            "Accessorize",
+            "Metro",
+            "DailyObjects",
+            "VIP"
+        ]
+    },
+    "Sunglasses": {
+        "displayName": "Sunglasses",
+        "basePath": "sunglasses",
+        "minDiscount": 85,
+        "botMinDiscount": 85,
+        "bookmarkletMinDiscount": 85,
+        "brands": [
+            "Ray-Ban",
+            "OAKLEY",
+            "Polaroid",
+            "Carrera",
+            "Vogue Eyewear",
+            "Fastrack",
+            "Tommy Hilfiger",
+            "Calvin Klein",
+            "IDEE",
+            "Vincent Chase",
+            "John Jacobs",
+            "Police",
+            "Puma",
+            "Voyage",
+            "GUESS",
+            "Titan"
+        ]
     },
     "Men Personal Care": {
         "displayName": "Men Personal Care",
@@ -2089,9 +2143,9 @@
     "Men Accessories": {
         "displayName": "Men Accessories",
         "basePath": "men-accessories",
-        "minDiscount": 80,
-        "botMinDiscount": 80,
-        "bookmarkletMinDiscount": 80,
+        "minDiscount": 85,
+        "botMinDiscount": 85,
+        "bookmarkletMinDiscount": 85,
         "brands": [
             "Allen Solly",
             "AMERICAN TOURISTER",
@@ -2703,6 +2757,9 @@
           <option value="70">70% & Above</option>
           <option value="75">75% & Above</option>
           <option value="80">80% & Above</option>
+          <option value="85">85% & Above</option>
+          <option value="89">89% & Above</option>
+          <option value="90">90% & Above</option>
         </select>
 
         <label style="margin-left: 10px;">Pincode:</label>
