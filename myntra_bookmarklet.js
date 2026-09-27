@@ -215,7 +215,8 @@
               "Victoria's Secret",
               "Wild stone",
               "Yves Saint Laurent"
-          ]
+          ],
+          "minDiscount": 80
       },
       "Makeup": {
           "basePath": "personal-care",
@@ -258,7 +259,8 @@
               "SUGAR",
               "SWISS BEAUTY",
               "Wet n Wild"
-          ]
+          ],
+          "minDiscount": 80
       },
       "Men Topwear": {
           "basePath": "men-topwear",
@@ -355,7 +357,8 @@
               "Wildcraft",
               "Wrangler",
               "WROGN"
-          ]
+          ],
+          "minDiscount": 80
       },
       "Men Bottomwear": {
           "basePath": "men-bottomwear",
@@ -439,7 +442,8 @@
               "Wildcraft",
               "Wrangler",
               "WROGN"
-          ]
+          ],
+          "minDiscount": 80
       },
       "Men Footwear": {
           "basePath": "men-footwear",
@@ -502,7 +506,8 @@
               "Wildcraft",
               "Woodland",
               "WROGN"
-          ]
+          ],
+          "minDiscount": 80
       },
       "Men Innerwear": {
           "basePath": "men-innerwear",
@@ -547,7 +552,8 @@
               "VIP",
               "WROGN",
               "XYXX"
-          ]
+          ],
+          "minDiscount": 80
       },
       "Men Sportswear": {
           "basePath": "men-sports-wear",
@@ -577,7 +583,8 @@
               "Wildcraft",
               "WROGN",
               "WROGN ACTIVE"
-          ]
+          ],
+          "minDiscount": 80
       },
       "Beauty Appliances": {
           "basePath": "beauty-appliances",
@@ -601,7 +608,8 @@
               "VEGA PROFESSIONAL",
               "VGR",
               "WAHL"
-          ]
+          ],
+          "minDiscount": 80
       },
       "Baby Care": {
           "basePath": "personal-care",
@@ -739,6 +747,84 @@
               "WROGN"
           ],
           "minDiscount": 80
+      },
+      "Bedding": {
+          "basePath": "bedding",
+          "brands": [
+              "Arrabi",
+              "Aura",
+              "BIANCA",
+              "BOMBAY DYEING",
+              "Boutique Living India",
+              "CHHAVI INDIA",
+              "Cortina",
+              "DDecor",
+              "DECENT HOME",
+              "FABINALIV",
+              "Fabindia",
+              "H&M",
+              "Home Centre",
+              "Huesland",
+              "IWS",
+              "JAIPUR FABRIC",
+              "JC HOME",
+              "KLOTTHE",
+              "Layers",
+              "MAFATLAL",
+              "MASPAR",
+              "MYTRIDENT",
+              "Monte Carlo",
+              "Portico",
+              "Pure Decor",
+              "Raymond Home",
+              "SPACES",
+              "SWAYAM",
+              "Saral Home",
+              "Stoa Paris",
+              "Story@home",
+              "Trance Home Linen",
+              "URBAN SPACE",
+              "Welspun",
+              "haus & kinder"
+],
+          "minDiscount": 70
+      },
+      "Bath": {
+          "basePath": "home-furnishing-menu?f=Categories%3ABath%20Robe%2CBath%20Rugs%2CBath%20Towels%2CBathroom%20Accessories%2CBeach%20Towels%2CFace%20Towels%2CHand%20Towels%2CShower%20Curtains%2CTowel%20Set",
+          "brands": [
+              "Arrabi",
+              "Athom Living",
+              "Athom Trendz",
+              "Aura",
+              "BIANCA",
+              "BOMBAY DYEING",
+              "CASA-NEST",
+              "DEMARK",
+              "Decathlon",
+              "Doctor Towels",
+              "Fabindia",
+              "Fezora",
+              "H&M",
+              "Himeya",
+              "Home Centre",
+              "KLOTTHE",
+              "Kuber Industries",
+              "Layers",
+              "MARKET99",
+              "MASPAR",
+              "MYTRIDENT",
+              "Monte Carlo",
+              "OBSESSIONS",
+              "QUARCK",
+              "Raymond Home",
+              "SPACES",
+              "Saral Home",
+              "Softspun Microfiber",
+              "UMAI",
+              "Welspun",
+              "haus & kinder"
+],
+          "minDiscount": 70
       }
   };
   // State
@@ -945,7 +1031,18 @@
       for (let bIdx = 0; bIdx < brandBatches.length; bIdx++) {
         const batch = brandBatches[bIdx];
         const brandsParam = batch.join(',');
-        const targetUrl = `https://www.myntra.com/${catConfig.basePath}?f=Brand:${encodeURIComponent(brandsParam)}&sort=discount&p=1`;
+        let targetUrl;
+        if (catConfig.basePath.includes('?')) {
+          const [pathPart, queryPart] = catConfig.basePath.split('?');
+          const urlParams = new URLSearchParams(queryPart);
+          const existingF = urlParams.get('f');
+          urlParams.set('f', existingF ? `${existingF}::Brand:${brandsParam}` : `Brand:${brandsParam}`);
+          urlParams.set('sort', 'discount');
+          urlParams.set('p', '1');
+          targetUrl = `https://www.myntra.com/${pathPart}?${urlParams.toString()}`;
+        } else {
+          targetUrl = `https://www.myntra.com/${catConfig.basePath}?f=Brand:${encodeURIComponent(brandsParam)}&sort=discount&p=1`;
+        }
 
         statusEl.textContent = `Fetching batch ${bIdx + 1}/${brandBatches.length}...`;
 

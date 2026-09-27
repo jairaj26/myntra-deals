@@ -1,6 +1,6 @@
 {
   "title": "Myntra Multi-Category Deal Monitor Configuration",
-  "version": "2.4.0",
+  "version": "2.7.0",
   "pincode": "560032",
   "bookmarkletMinDiscount": 65,
   "botMinDiscount": 70,
@@ -731,7 +731,10 @@
           "Bath Salt and Bubble Bath",
           "Soap"
         ]
-      }
+      },
+      "minDiscount": 70,
+      "botMinDiscount": 70,
+      "bookmarkletMinDiscount": 70
     },
     "Perfumes": {
       "displayName": "Perfumes",
@@ -1050,7 +1053,10 @@
         "Attar": [
           "Attar"
         ]
-      }
+      },
+      "minDiscount": 80,
+      "botMinDiscount": 80,
+      "bookmarkletMinDiscount": 80
     },
     "Makeup": {
       "displayName": "Makeup",
@@ -1291,7 +1297,10 @@
           "Nail Polish Remover",
           "Nail Care"
         ]
-      }
+      },
+      "minDiscount": 80,
+      "botMinDiscount": 80,
+      "bookmarkletMinDiscount": 80
     },
     "Men Topwear": {
       "displayName": "Men Topwear",
@@ -1782,7 +1791,10 @@
         "Kurtas & Ethnic": [
           "Kurtas"
         ]
-      }
+      },
+      "minDiscount": 80,
+      "botMinDiscount": 80,
+      "bookmarkletMinDiscount": 80
     },
     "Men Bottomwear": {
       "displayName": "Men Bottomwear",
@@ -2199,7 +2211,10 @@
         "Track Pants & Joggers": [
           "Track Pants"
         ]
-      }
+      },
+      "minDiscount": 80,
+      "botMinDiscount": 80,
+      "bookmarkletMinDiscount": 80
     },
     "Men Footwear": {
       "displayName": "Men Footwear",
@@ -2517,7 +2532,10 @@
         "Boots": [
           "Boots"
         ]
-      }
+      },
+      "minDiscount": 80,
+      "botMinDiscount": 80,
+      "bookmarkletMinDiscount": 80
     },
     "Men Innerwear": {
       "displayName": "Men Innerwear",
@@ -2742,7 +2760,10 @@
           "Thermal Bottoms",
           "Thermal Tops"
         ]
-      }
+      },
+      "minDiscount": 80,
+      "botMinDiscount": 80,
+      "bookmarkletMinDiscount": 80
     },
     "Men Sportswear": {
       "displayName": "Men Sportswear",
@@ -2901,7 +2922,10 @@
           "Swim Bottoms",
           "Swim Tops"
         ]
-      }
+      },
+      "minDiscount": 80,
+      "botMinDiscount": 80,
+      "bookmarkletMinDiscount": 80
     },
     "Beauty Appliances": {
       "displayName": "Beauty Appliances",
@@ -3027,7 +3051,10 @@
           "Face Epilator",
           "Cleansing Tools and Massagers"
         ]
-      }
+      },
+      "minDiscount": 80,
+      "botMinDiscount": 80,
+      "bookmarkletMinDiscount": 80
     },
     "Baby Care": {
       "displayName": "Baby Care",
@@ -3150,7 +3177,6 @@
       "botMinDiscount": 80,
       "bookmarkletMinDiscount": 80,
       "brands": [
-        "boAt",
         "Fastrack",
         "Fire-Boltt",
         "GOBOULT",
@@ -3159,10 +3185,12 @@
         "OnePlus",
         "Portronics",
         "Realme",
+        "Sennheiser",
         "Skullcandy",
         "Sony",
         "Timex",
-        "ZEBRONICS"
+        "ZEBRONICS",
+        "boAt"
       ],
       "productTypes": {
         "Smart Watches & Bands": [
@@ -3346,6 +3374,232 @@
           "Pocket Square"
         ]
       }
+    },
+    "Bedding": {
+      "displayName": "Bedding",
+      "basePath": "bedding",
+      "minDiscount": 70,
+      "botMinDiscount": 70,
+      "bookmarkletMinDiscount": 70,
+      "brands": [
+        "Arrabi",
+        "Aura",
+        "BIANCA",
+        "BOMBAY DYEING",
+        "Boutique Living India",
+        "CHHAVI INDIA",
+        "Cortina",
+        "DDecor",
+        "DECENT HOME",
+        "FABINALIV",
+        "Fabindia",
+        "H&M",
+        "Home Centre",
+        "Huesland",
+        "IWS",
+        "JAIPUR FABRIC",
+        "JC HOME",
+        "KLOTTHE",
+        "Layers",
+        "MAFATLAL",
+        "MASPAR",
+        "MYTRIDENT",
+        "Monte Carlo",
+        "Portico",
+        "Pure Decor",
+        "Raymond Home",
+        "SPACES",
+        "SWAYAM",
+        "Saral Home",
+        "Stoa Paris",
+        "Story@home",
+        "Trance Home Linen",
+        "URBAN SPACE",
+        "Welspun",
+        "haus & kinder"
+      ],
+      "productTypes": {
+        "Bedsheets & Sets": [
+          "Bedsheets",
+          "Bedding Set",
+          "Bed Covers",
+          "Duvet Cover"
+        ],
+        "Blankets & Quilts": [
+          "Blankets",
+          "Quilts",
+          "Dohars",
+          "Comforters"
+        ],
+        "Pillows & Protectors": [
+          "Pillows",
+          "Pillow Covers",
+          "Mattress Protector"
+        ]
+      }
+    },
+    "Bath": {
+      "displayName": "Bath",
+      "basePath": "home-furnishing-menu?f=Categories%3ABath%20Robe%2CBath%20Rugs%2CBath%20Towels%2CBathroom%20Accessories%2CBeach%20Towels%2CFace%20Towels%2CHand%20Towels%2CShower%20Curtains%2CTowel%20Set",
+      "minDiscount": 70,
+      "botMinDiscount": 70,
+      "bookmarkletMinDiscount": 70,
+      "brands": [
+        "Arrabi",
+        "Athom Living",
+        "Athom Trendz",
+        "Aura",
+        "BIANCA",
+        "BOMBAY DYEING",
+        "CASA-NEST",
+        "DEMARK",
+        "Decathlon",
+        "Doctor Towels",
+        "Fabindia",
+        "Fezora",
+        "H&M",
+        "Himeya",
+        "Home Centre",
+        "KLOTTHE",
+        "Kuber Industries",
+        "Layers",
+        "MARKET99",
+        "MASPAR",
+        "MYTRIDENT",
+        "Monte Carlo",
+        "OBSESSIONS",
+        "QUARCK",
+        "Raymond Home",
+        "SPACES",
+        "Saral Home",
+        "Softspun Microfiber",
+        "UMAI",
+        "Welspun",
+        "haus & kinder"
+      ],
+      "productTypes": {
+        "Towels": [
+          "Bath Towels",
+          "Towel Set",
+          "Hand Towels",
+          "Face Towels",
+          "Beach Towels"
+        ],
+        "Bath Robes & Mats": [
+          "Bath Robe and Wraps",
+          "Bath Rugs",
+          "Bath Mats"
+        ],
+        "Bathroom Accessories": [
+          "Bathroom Accessories",
+          "Shower Curtains",
+          "Bath Sets"
+        ]
+      }
     }
+  },
+  "articleTypeOverrides": {
+    "Smart Watches": 95,
+    "Fitness Bands": 95,
+    "Wallets": 90,
+    "Trolley Bag": 89,
+    "Luggage": 89,
+    "Suitcase": 89,
+    "Jewellery": 95,
+    "Pendant": 95,
+    "Bracelet": 95,
+    "Ring": 95,
+    "Necklace": 95,
+    "Earrings": 95,
+    "Cufflinks": 95,
+    "Brooch": 95,
+    "Bangle": 95,
+    "Kada": 95,
+    "Wristbands": 95,
+    "Anklet": 95
+  },
+  "brandOverrides": {
+    "boAt": 90,
+    "NOISE": 90,
+    "GOBOULT": 90,
+    "Portronics": 90,
+    "Fire-Boltt": 90,
+    "ZEBRONICS": 90,
+    "AMERICAN TOURISTER": 89,
+    "Safari": 89,
+    "Skybags": 89,
+    "Roadster": 95,
+    "Red Tape": 95,
+    "HRX by Hrithik Roshan": 95,
+    "WROGN": 89,
+    "HIGHLANDER": 95,
+    "LOCOMOTIVE": 89,
+    "HERE&NOW": 89,
+    "The Indian Garage Co": 89,
+    "Mast & Harbour": 95,
+    "Metronaut": 95,
+    "Dennis Lingo": 89,
+    "Crimsoune Club": 89,
+    "Kook N Keech": 95,
+    "Status Quo": 89,
+    "Difference of Opinion": 89,
+    "BERSACHE": 89,
+    "FAUSTO": 89,
+    "House of Pataudi": 89,
+    "COLORS by Rupa Frontline": 89,
+    "AMUL COMFY": 89,
+    "WildHorn": 90,
+    "GIORDANO": 89,
+    "Daniel Klein": 89,
+    "French Connection": 89,
+    "THE MAN COMPANY": 85,
+    "BEARDO": 85,
+    "VGR": 89,
+    "NOVA": 89,
+    "KEMEI": 89,
+    "Lifelong": 89,
+    "Killer": 95,
+    "Teakwood Leathers": 95,
+    "Al-Nuaim": 90,
+    "Bella Vita Organic": 90,
+    "Bella Vita": 90,
+    "Just Herbs": 85,
+    "KLOTTHE": 95,
+    "JC HOME": 95,
+    "Aura": 95,
+    "Pure Decor": 95,
+    "Arrabi": 95,
+    "DECENT HOME": 95,
+    "Steve & Anderson": 95,
+    "Kuber Industries": 95,
+    "FABINALIV": 90,
+    "CHHAVI INDIA": 90,
+    "IWS": 90,
+    "QUARCK": 90,
+    "DEMARK": 90,
+    "Fezora": 90,
+    "VAASINI": 90,
+    "Myntra Elegant Homes": 90,
+    "UMAI": 90,
+    "Minimalist": 60,
+    "CeraVe": 60,
+    "THE ORDINARY": 60,
+    "Cetaphil": 60,
+    "LANEIGE": 60,
+    "COSRX": 60,
+    "Beauty of Joseon": 60,
+    "BIODERMA": 60,
+    "Clinique": 60,
+    "KAMA AYURVEDA": 60,
+    "Forest Essentials": 60,
+    "Sony": 60,
+    "JBL": 60,
+    "Sennheiser": 60,
+    "OnePlus": 60,
+    "DDecor": 60,
+    "SPACES": 60,
+    "Boutique Living India": 60,
+    "Portico": 60,
+    "BOMBAY DYEING": 60
   }
 }

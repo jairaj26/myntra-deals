@@ -93,6 +93,40 @@ def extract_products_from_html(html_text):
 
     return []
 
+def get_product_threshold(product, cat_data):
+    """Calculates effective minimum discount threshold using category defaults,
+    brand tier overrides (both exclusive lower-threshold brands and heavy discounters),
+    and articleType overrides (e.g. Smartwatches: 95%, Wallets: 90%, Jewellery: 95%)."""
+    base_thresh = int(cat_data.get("botMinDiscount", cat_data.get("minDiscount", MIN_DISCOUNT)))
+
+    # 1. Determine brand baseline (override if explicitly defined, otherwise category default)
+    brand = product.get("brand", "").strip()
+    brand_overrides = CONFIG.get("brandOverrides", {})
+    brand_thresh = None
+    if brand in brand_overrides:
+        brand_thresh = brand_overrides[brand]
+    else:
+        for b_name, b_min in brand_overrides.items():
+            if b_name.lower() == brand.lower():
+                brand_thresh = b_min
+                break
+
+    thresh = brand_thresh if brand_thresh is not None else base_thresh
+
+    # 2. Check articleType / category overrides (anti-inflation floors)
+    art_type = ""
+    if isinstance(product.get("articleType"), dict):
+        art_type = product.get("articleType", {}).get("typeName", "")
+    elif isinstance(product.get("articleType"), str):
+        art_type = product.get("articleType")
+    p_cat = product.get("category", "") or ""
+
+    for target_name, min_d in CONFIG.get("articleTypeOverrides", {}).items():
+        if (target_name.lower() in art_type.lower()) or (target_name.lower() in p_cat.lower()):
+            thresh = max(thresh, min_d)
+
+    return thresh
+
 def send_telegram_alert(product, discount_pct):
     """Sends a formatted product deal with photo to Telegram."""
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
@@ -178,8 +212,13 @@ def main():
         "priority": "u=0, i"
     })
 
+    is_dry_run = "--dry-run" in sys.argv or os.getenv("DRY_RUN", "0").lower() in ("1", "true", "yes")
+    if is_dry_run:
+        print("\n🧪 [DRY RUN MODE ENABLED] Alerts will NOT be sent to Telegram, and seen_deals.json will not be updated.")
+
     categories = CONFIG.get("categories", {})
     new_deals_found = 0
+    dry_run_deals = []
 
     for cat_name, cat_data in categories.items():
         base_path = cat_data.get("basePath", "personal-care")
@@ -189,21 +228,55 @@ def main():
         if not brands:
             continue
 
-        print(f"\nScanning Category: [{cat_name}] ({len(brands)} brands configured, Min Discount: {cat_threshold}%)")
+        print(f"\nScanning Category: [{cat_name}] ({len(brands)} brands configured, Base Discount: {cat_threshold}%)")
 
-        # Chunk brands into batches
-        brand_batches = [brands[i:i + BATCH_SIZE] for i in range(0, len(brands), BATCH_SIZE)]
+        # Separate exclusive brands (threshold < cat_threshold) into a dedicated batch
+        # so their top discounts are never pushed off page 1 by other brands with higher discounts
+        brand_overrides = CONFIG.get("brandOverrides", {})
+
+        def get_brand_thresh(b):
+            if b in brand_overrides:
+                return brand_overrides[b]
+            for ob, ov in brand_overrides.items():
+                if ob.lower() == b.lower():
+                    return ov
+            return cat_threshold
+
+        exclusive_brands = [b for b in brands if get_brand_thresh(b) < cat_threshold]
+        standard_brands = [b for b in brands if get_brand_thresh(b) >= cat_threshold]
+
+        brand_batches = []
+        if exclusive_brands:
+            brand_batches.append(exclusive_brands)
+        for i in range(0, len(standard_brands), BATCH_SIZE):
+            brand_batches.append(standard_brands[i:i + BATCH_SIZE])
 
         for b_idx, batch in enumerate(brand_batches):
+            is_exclusive_batch = any(get_brand_thresh(b) < cat_threshold for b in batch)
+            batch_label = "🌟 Exclusive Brands Batch" if is_exclusive_batch else f"Batch {b_idx + 1}/{len(brand_batches)}"
             brands_str = ",".join(batch)
-            params = {
-                "f": f"Brand:{brands_str}",
-                "sort": "discount",
-                "p": 1
-            }
-
-            url = f"https://www.myntra.com/{base_path}?{urllib.parse.urlencode(params)}"
-            print(f"  Fetching batch {b_idx + 1}/{len(brand_batches)}...")
+            if "?" in base_path:
+                path_part, query_part = base_path.split("?", 1)
+                existing_params = urllib.parse.parse_qs(query_part, keep_blank_values=True)
+                existing_f = existing_params.get("f", [""])[0]
+                merged_f = f"{existing_f}::Brand:{brands_str}" if existing_f else f"Brand:{brands_str}"
+                params = {
+                    "f": merged_f,
+                    "sort": "discount",
+                    "p": 1
+                }
+                for k, v in existing_params.items():
+                    if k not in ("f", "sort", "p"):
+                        params[k] = v[0]
+                url = f"https://www.myntra.com/{path_part}?{urllib.parse.urlencode(params)}"
+            else:
+                params = {
+                    "f": f"Brand:{brands_str}",
+                    "sort": "discount",
+                    "p": 1
+                }
+                url = f"https://www.myntra.com/{base_path}?{urllib.parse.urlencode(params)}"
+            print(f"  Fetching {batch_label} ({len(batch)} brands: {', '.join(batch[:4])}{'...' if len(batch) > 4 else ''})...")
 
             try:
                 resp = session.get(url, timeout=20)
@@ -215,7 +288,7 @@ def main():
                 if products:
                     discounts = [round(((p.get("mrp", 0) - p.get("price", 0)) / p.get("mrp", 1)) * 100) for p in products if p.get("mrp", 0) > 0]
                     max_d = max(discounts) if discounts else 0
-                    print(f"  Extracted {len(products)} products. Highest discount in batch: {max_d}% (Threshold: {cat_threshold}%)")
+                    print(f"  Extracted {len(products)} products. Highest discount in batch: {max_d}%")
                 else:
                     print(f"  Extracted 0 products from response. Status: {resp.status_code}, HTML length: {len(resp.text)}")
                     if "Access Denied" in resp.text or "Captcha" in resp.text:
@@ -223,7 +296,7 @@ def main():
 
                 for p in products:
                     pid = p.get("productId")
-                    if not pid or pid in seen_ids:
+                    if not pid or (pid in seen_ids and not is_dry_run):
                         continue
 
                     mrp = p.get("mrp", 0)
@@ -232,24 +305,56 @@ def main():
                         continue
 
                     discount_pct = round(((mrp - price) / mrp) * 100)
-                    if discount_pct >= cat_threshold:
-                        print(f"  ⭐ NEW DEAL! {p.get('brand')} - {p.get('product')[:40]}... ({discount_pct}% OFF - Rs.{price})")
-                        success = send_telegram_alert(p, discount_pct)
-                        seen_ids.add(pid)
-                        new_deals_found += 1
-                        time.sleep(1.2)  # Rate limiting between Telegram dispatches
+                    item_threshold = get_product_threshold(p, cat_data)
+
+                    if discount_pct >= item_threshold:
+                        art = p.get("articleType", {}).get("typeName") if isinstance(p.get("articleType"), dict) else p.get("articleType", "")
+                        deal_info = {
+                            "category": cat_name,
+                            "brand": p.get("brand"),
+                            "product": p.get("product"),
+                            "price": price,
+                            "mrp": mrp,
+                            "discount": discount_pct,
+                            "threshold": item_threshold,
+                            "articleType": art,
+                            "url": f"https://www.myntra.com/{p.get('landingPageUrl', '')}"
+                        }
+
+                        if is_dry_run:
+                            print(f"  ⭐ [DRY RUN QUALIFIED] {p.get('brand')} - {p.get('product')[:35]} ({discount_pct}% >= {item_threshold}% - Rs.{price} / MRP Rs.{mrp})")
+                            dry_run_deals.append(deal_info)
+                        else:
+                            print(f"  ⭐ NEW DEAL! {p.get('brand')} - {p.get('product')[:40]}... ({discount_pct}% OFF >= {item_threshold}% - Rs.{price})")
+                            success = send_telegram_alert(p, discount_pct)
+                            seen_ids.add(pid)
+                            new_deals_found += 1
+                            time.sleep(1.2)  # Rate limiting between Telegram dispatches
 
             except Exception as e:
                 print(f"  Error fetching batch: {e}")
 
             time.sleep(1)  # Delay between batch requests
 
-    # Persist updated seen deals
-    save_seen_deals(seen_ids)
-    print(f"\n=== Summary ===")
-    print(f"New deals alerted: {new_deals_found}")
-    print(f"Total historical deals recorded: {len(seen_ids)}")
-    print(f"=== Myntra Deal Sentinel Finished ===")
+    if is_dry_run:
+        print("\n" + "=" * 60)
+        print(f"🧪 [DRY RUN RESULTS] Total Qualifying Deals Found: {len(dry_run_deals)}")
+        print("=" * 60)
+        by_cat = {}
+        for d in dry_run_deals:
+            by_cat.setdefault(d["category"], []).append(d)
+        for cat, items in by_cat.items():
+            print(f"\n📂 Category: [{cat}] ({len(items)} deals)")
+            for it in items:
+                print(f"   • {it['discount']}% OFF (Min {it['threshold']}%) | {it['brand']} - {it['product'][:40]} | ₹{it['price']} (MRP ₹{it['mrp']})")
+        print("\n🧪 [DRY RUN COMPLETE] Zero alerts sent. State file untouched.")
+    else:
+        # Persist updated seen deals
+        save_seen_deals(seen_ids)
+        print(f"\n=== Summary ===")
+        print(f"New deals alerted: {new_deals_found}")
+        print(f"Total historical deals recorded: {len(seen_ids)}")
+        print(f"=== Myntra Deal Sentinel Finished ===")
 
 if __name__ == "__main__":
     main()
