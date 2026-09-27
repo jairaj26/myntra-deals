@@ -1,6 +1,6 @@
 /**
  * Myntra Deal Sentinel - Interactive Bookmarklet
- * Version: 2.10.0
+ * Version: 2.11.0
  * 
  * Injects a floating deal-hunting panel directly on Myntra.
  * Fetches server-filtered deals for curated brands sorted by highest discount.
@@ -2544,6 +2544,48 @@
             "Sztori",
             "Outzidr",
             "House of Pataudi"
+        ]
+    },
+    "Bath & Body": {
+        "basePath": "bath-and-body",
+        "minDiscount": 70,
+        "botMinDiscount": 70,
+        "brands": [
+            "Bath & Body Works",
+            "Victoria's Secret",
+            "THE BODY SHOP",
+            "Plum",
+            "Nivea",
+            "Dove",
+            "Vaseline",
+            "Forest Essentials",
+            "KAMA AYURVEDA",
+            "MCaffeine",
+            "Kimirica",
+            "The Derma co.",
+            "DOT & KEY",
+            "Cetaphil",
+            "Sebamed",
+            "Palmolive",
+            "Pears",
+            "St. Ives",
+            "Biotique",
+            "Sirona",
+            "Real Techniques",
+            "VEGA",
+            "PAC",
+            "Colorbar",
+            "Fiama",
+            "Old Spice",
+            "LUX",
+            "Dettol",
+            "Lifebuoy",
+            "JOY",
+            "Khadi Natural",
+            "Mamaearth",
+            "WOW SKIN SCIENCE",
+            "Simple",
+            "Gillette"
         ]
     }
 };
