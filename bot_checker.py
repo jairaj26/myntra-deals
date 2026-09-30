@@ -49,23 +49,94 @@ BATCH_SIZE = 35  # Max brands per URL query to keep URLs clean and safe
 # ----------------- Helper Functions -----------------
 
 def load_seen_deals():
+    """Loads deal history dictionary mapping productId -> deal metadata."""
     if os.path.exists(SEEN_DEALS_PATH):
         try:
             with open(SEEN_DEALS_PATH, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                return set(data.get("seenProductIds", []))
+                if isinstance(data.get("deals"), dict):
+                    return data["deals"]
+                # Backward compatibility with older list format
+                if isinstance(data.get("seenProductIds"), list):
+                    return {
+                        str(pid): {
+                            "productId": str(pid),
+                            "lastAlertedAt": "1970-01-01T00:00:00+00:00",
+                            "lastPrice": 0,
+                            "inStock": True
+                        } for pid in data["seenProductIds"]
+                    }
         except Exception as e:
             print(f"Warning: Could not parse seen_deals.json: {e}")
-    return set()
+    return {}
 
-def save_seen_deals(seen_set):
+def save_seen_deals(seen_dict):
+    """Saves deal history with 15-day timestamps, prices, and stock states."""
     payload = {
         "lastUpdated": datetime.now(timezone.utc).isoformat(),
-        "totalDealsSeen": len(seen_set),
-        "seenProductIds": sorted(list(seen_set))
+        "totalDealsSeen": len(seen_dict),
+        "deals": seen_dict,
+        "seenProductIds": sorted(list(seen_dict.keys()))
     }
     with open(SEEN_DEALS_PATH, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2)
+
+def check_in_stock(product):
+    """Checks whether the product is currently available in stock."""
+    inv_list = product.get("inventoryInfo", [])
+    if inv_list:
+        return any(inv.get("available", False) or inv.get("inventory", 0) > 0 for inv in inv_list)
+    if "outOfStock" in product:
+        return not product.get("outOfStock")
+    return True
+
+def should_alert_product(product, price, discount_pct, seen_deals, now_dt):
+    """
+    Determines whether a qualifying product should be alerted:
+    1. In-stock check: Never alert out-of-stock items.
+    2. New deal: Product was never seen before -> Alert!
+    3. Price change: Price changed (e.g. dropped further) -> Alert!
+    4. Restock: Was out of stock previously, now back in stock -> Alert!
+    5. 15-day refresh: If price is unchanged, only alert once every 15 days -> Alert!
+    Otherwise: Suppress duplicate alert.
+    """
+    pid = str(product.get("productId", ""))
+    is_in_stock = check_in_stock(product)
+
+    if not is_in_stock:
+        if pid in seen_deals:
+            seen_deals[pid]["inStock"] = False
+        return False, "out_of_stock", None
+
+    if pid not in seen_deals:
+        return True, "new_deal", None
+
+    entry = seen_deals[pid]
+    old_price = entry.get("lastPrice", price)
+    was_in_stock = entry.get("inStock", True)
+
+    # Restock detection: was out of stock and is now available
+    if not was_in_stock and is_in_stock:
+        return True, "restocked", old_price
+
+    # Price change detection: price has changed since last alert
+    if price != old_price:
+        return True, "price_changed", old_price
+
+    # 15-day recurrence rule: check time elapsed since last alert
+    last_alerted_str = entry.get("lastAlertedAt")
+    if last_alerted_str:
+        try:
+            last_alerted_dt = datetime.fromisoformat(last_alerted_str)
+            days_elapsed = (now_dt - last_alerted_dt).total_seconds() / 86400.0
+            if days_elapsed >= 15.0:
+                return True, "15_day_refresh", old_price
+            else:
+                return False, f"cooldown_{15 - int(days_elapsed)}d_left", old_price
+        except Exception:
+            pass
+
+    return False, "already_seen_recent", old_price
 
 def extract_products_from_html(html_text):
     """Extracts raw JSON product list from Myntra's SSR state (window.__myx or pageStateData)."""
@@ -134,7 +205,7 @@ def get_product_threshold(product, cat_data, cat_name=""):
 
     return thresh
 
-def send_telegram_alert(product, discount_pct):
+def send_telegram_alert(product, discount_pct, reason="new_deal", old_price=None):
     """Sends a formatted product deal with photo to Telegram."""
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         print(f"  [Dry Run] Telegram credentials not configured. Skipping alert dispatch for product {product.get('productId')}")
@@ -152,10 +223,24 @@ def send_telegram_alert(product, discount_pct):
 
     rating_str = f"⭐ <b>Rating:</b> {rating:.1f}/5 ({rating_count:,} reviews)\n" if rating else ""
 
+    # Banner and price formatting according to deal alert reason
+    if reason == "price_changed" and old_price and price < old_price:
+        header = f"📉 <b>PRICE DROP! {discount_pct}% OFF</b> | <b>{brand}</b>"
+        price_line = f"💰 <b>Deal Price:</b> ₹{price:,} (<s>₹{old_price:,}</s> | MRP: <s>₹{mrp:,}</s>)"
+    elif reason == "restocked":
+        header = f"🔄 <b>BACK IN STOCK! {discount_pct}% OFF</b> | <b>{brand}</b>"
+        price_line = f"💰 <b>Deal Price:</b> ₹{price:,} (MRP: <s>₹{mrp:,}</s>)"
+    elif reason == "15_day_refresh":
+        header = f"⭐ <b>15-DAY DEAL REMINDER ({discount_pct}% OFF)</b> | <b>{brand}</b>"
+        price_line = f"💰 <b>Deal Price:</b> ₹{price:,} (MRP: <s>₹{mrp:,}</s>)"
+    else:
+        header = f"🔥 <b>{discount_pct}% OFF</b> | <b>{brand}</b>"
+        price_line = f"💰 <b>Deal Price:</b> ₹{price:,} (MRP: <s>₹{mrp:,}</s>)"
+
     caption = (
-        f"🔥 <b>{discount_pct}% OFF</b> | <b>{brand}</b>\n"
+        f"{header}\n"
         f"<b>{title}</b>\n\n"
-        f"💰 <b>Deal Price:</b> ₹{price:,} (MRP: <s>₹{mrp:,}</s>)\n"
+        f"{price_line}\n"
         f"{rating_str}"
         f"📍 <b>Location:</b> Pincode {PINCODE}\n\n"
         f"🛒 <a href=\"{product_url}\"><b>👉 Click Here to Buy on Myntra</b></a>"
@@ -204,8 +289,9 @@ def main():
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         print("NOTICE: Running in DRY-RUN mode. Set TELEGRAM_BOT_TOKEN & TELEGRAM_CHAT_ID in environment to post alerts.")
 
-    seen_ids = load_seen_deals()
-    print(f"Loaded {len(seen_ids)} previously seen product IDs from seen_deals.json")
+    now_dt = datetime.now(timezone.utc)
+    seen_deals = load_seen_deals()
+    print(f"Loaded {len(seen_deals)} previously tracked product deals from seen_deals.json")
 
     session = requests.Session()
     session.headers.update({
@@ -309,8 +395,8 @@ def main():
                         print("  [Warning] Myntra CDN blocked the request from this IP.")
 
                 for p in products:
-                    pid = p.get("productId")
-                    if not pid or (pid in seen_ids and not is_dry_run):
+                    pid = str(p.get("productId", ""))
+                    if not pid:
                         continue
 
                     mrp = p.get("mrp", 0)
@@ -322,6 +408,10 @@ def main():
                     item_threshold = get_product_threshold(p, cat_data, cat_name)
 
                     if discount_pct >= item_threshold:
+                        should_alert, reason, old_price = should_alert_product(p, price, discount_pct, seen_deals, now_dt)
+                        if not should_alert and not is_dry_run:
+                            continue
+
                         art = p.get("articleType", {}).get("typeName") if isinstance(p.get("articleType"), dict) else p.get("articleType", "")
                         deal_info = {
                             "category": cat_name,
@@ -332,16 +422,29 @@ def main():
                             "discount": discount_pct,
                             "threshold": item_threshold,
                             "articleType": art,
+                            "reason": reason,
+                            "oldPrice": old_price,
                             "url": f"https://www.myntra.com/{p.get('landingPageUrl', '')}"
                         }
 
                         if is_dry_run:
-                            print(f"  ⭐ [DRY RUN QUALIFIED] {p.get('brand')} - {p.get('product')[:35]} ({discount_pct}% >= {item_threshold}% - Rs.{price} / MRP Rs.{mrp})")
-                            dry_run_deals.append(deal_info)
+                            status_tag = f"[{reason.upper()}]" if should_alert else f"[SUPPRESSED: {reason}]"
+                            print(f"  ⭐ {status_tag} {p.get('brand')} - {p.get('product')[:35]} ({discount_pct}% >= {item_threshold}% - Rs.{price} / MRP Rs.{mrp})")
+                            if should_alert:
+                                dry_run_deals.append(deal_info)
                         else:
-                            print(f"  ⭐ NEW DEAL! {p.get('brand')} - {p.get('product')[:40]}... ({discount_pct}% OFF >= {item_threshold}% - Rs.{price})")
-                            success = send_telegram_alert(p, discount_pct)
-                            seen_ids.add(pid)
+                            print(f"  ⭐ NEW ALERT [{reason.upper()}]! {p.get('brand')} - {p.get('product')[:40]}... ({discount_pct}% OFF - Rs.{price})")
+                            success = send_telegram_alert(p, discount_pct, reason=reason, old_price=old_price)
+                            seen_deals[pid] = {
+                                "productId": pid,
+                                "brand": p.get("brand"),
+                                "product": p.get("product") or p.get("productName"),
+                                "lastPrice": price,
+                                "mrp": mrp,
+                                "discount": discount_pct,
+                                "lastAlertedAt": now_dt.isoformat(),
+                                "inStock": True
+                            }
                             new_deals_found += 1
                             time.sleep(1.2)  # Rate limiting between Telegram dispatches
 
@@ -360,14 +463,18 @@ def main():
         for cat, items in by_cat.items():
             print(f"\n📂 Category: [{cat}] ({len(items)} deals)")
             for it in items:
-                print(f"   • {it['discount']}% OFF (Min {it['threshold']}%) | {it['brand']} - {it['product'][:40]} | ₹{it['price']} (MRP ₹{it['mrp']})")
+                print(f"   • {it['discount']}% OFF (Min {it['threshold']}%) | [{it.get('reason', 'DEAL').upper()}] {it['brand']} - {it['product'][:40]} | ₹{it['price']} (MRP ₹{it['mrp']})")
         print("\n🧪 [DRY RUN COMPLETE] Zero alerts sent. State file untouched.")
+        results_file = os.path.join(os.path.dirname(__file__), "dry_run_results.json")
+        with open(results_file, "w", encoding="utf-8") as rf:
+            json.dump(dry_run_deals, rf, indent=2)
+        print(f"Detailed results saved to {results_file}")
     else:
         # Persist updated seen deals
-        save_seen_deals(seen_ids)
+        save_seen_deals(seen_deals)
         print(f"\n=== Summary ===")
         print(f"New deals alerted: {new_deals_found}")
-        print(f"Total historical deals recorded: {len(seen_ids)}")
+        print(f"Total historical deals tracked: {len(seen_deals)}")
         print(f"=== Myntra Deal Sentinel Finished ===")
 
 if __name__ == "__main__":
