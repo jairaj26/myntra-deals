@@ -36,6 +36,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           MIN_DISCOUNT_PERCENT: ${{ secrets.MIN_DISCOUNT_PERCENT || '70' }}
           PINCODE: ${{ secrets.PINCODE || '560032' }}
+          HTTPS_PROXY: ${{ secrets.HTTPS_PROXY }}
         run: |
           python bot_checker.py
 

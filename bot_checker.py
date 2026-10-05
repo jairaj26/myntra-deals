@@ -396,8 +396,9 @@ def main():
                     print(f"  Extracted {len(products)} products. Highest discount in batch: {max_d}%")
                 else:
                     print(f"  Extracted 0 products from response. Status: {resp.status_code}, HTML length: {len(resp.text)}")
-                    if "Access Denied" in resp.text or "Captcha" in resp.text:
-                        print("  [Warning] Myntra CDN blocked the request from this IP.")
+                    if "Access Denied" in resp.text or "Captcha" in resp.text or len(resp.text) < 1500:
+                        clean_preview = resp.text.strip().replace('\n', ' ')[:250]
+                        print(f"  [CDN / WAF Blocked]: {clean_preview}")
 
                 for p in products:
                     pid = str(p.get("productId", ""))
