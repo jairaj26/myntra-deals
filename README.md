@@ -34,7 +34,12 @@ Because the script is hosted on GitHub, you can use a **1-line loader bookmarkle
 4. Set **URL** to this code (replace `YOUR_GITHUB_USERNAME` and `YOUR_REPO` with your repository details):
 
 ```javascript
-javascript:(function(){const s=document.createElement('script');s.src='https://raw.githubusercontent.com/jairaj26/myntra-deals/main/myntra_bookmarklet.js?t='+Date.now();document.body.appendChild(s);})();
+javascript:(function(){fetch('https://raw.githubusercontent.com/jairaj26/myntra-deals/main/myntra_bookmarklet.js?t='+Date.now()).then(r=>r.text()).then(code=>Function(code)()).catch(err=>alert('Bookmarklet error: '+err));})();
+```
+
+*(Alternative using jsDelivr CDN):*
+```javascript
+javascript:(function(){const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/jairaj26/myntra-deals@main/myntra_bookmarklet.js?t='+Date.now();document.body.appendChild(s);})();
 ```
 
 ### Step 2: Use It on Myntra
