@@ -13,12 +13,8 @@ Includes:
 
 ```text
 ├── myntra_brands_and_categories.json   # Curated brand lists, category base paths & product mappings
-├── myntra_bookmarklet.js               # Browser bookmarklet script with floating UI
-├── bot_checker.py                      # Python sentinel scanner & Telegram dispatcher
-├── seen_deals.json                     # Database of already-notified deals (prevents duplicate alerts)
-└── .github/
-    └── workflows/
-        └── deal_sentinel.yml           # GitHub Actions workflow (runs bot & auto-commits seen_deals.json)
+├── myntra_bookmarklet.js               # Browser bookmarklet script with Myntra-themed drawer UI
+└── README.md                           # Documentation & bookmarklet loader code
 ```
 
 ---
