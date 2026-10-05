@@ -2,3 +2,10 @@ __pycache__/
 *.pyc
 *.txt
 .env
+
+# Bot files & state
+bot_checker.py
+run_daemon.py
+seen_deals.json
+requirements.txt
+.github/workflows/deal_sentinel.yml
