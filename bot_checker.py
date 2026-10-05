@@ -287,7 +287,16 @@ def main():
     print(f"Target Pincode: {PINCODE} | Minimum Discount: {MIN_DISCOUNT}%")
 
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        print("NOTICE: Running in DRY-RUN mode. Set TELEGRAM_BOT_TOKEN & TELEGRAM_CHAT_ID in environment to post alerts.")
+        print("⚠️ NOTICE: TELEGRAM_BOT_TOKEN and/or TELEGRAM_CHAT_ID are not set in environment. Running in DRY-RUN mode (no alerts will be sent).")
+
+    is_dry_run = (
+        "--dry-run" in sys.argv
+        or os.getenv("DRY_RUN", "0").lower() in ("1", "true", "yes")
+        or not TELEGRAM_BOT_TOKEN
+        or not TELEGRAM_CHAT_ID
+    )
+    if is_dry_run:
+        print("\n🧪 [DRY RUN MODE ENABLED] Alerts will NOT be sent to Telegram, and seen_deals.json will not be updated.")
 
     now_dt = datetime.now(timezone.utc)
     seen_deals = load_seen_deals()
@@ -304,10 +313,6 @@ def main():
         "x-requested-with": "browser",
         "priority": "u=0, i"
     })
-
-    is_dry_run = "--dry-run" in sys.argv or os.getenv("DRY_RUN", "0").lower() in ("1", "true", "yes")
-    if is_dry_run:
-        print("\n🧪 [DRY RUN MODE ENABLED] Alerts will NOT be sent to Telegram, and seen_deals.json will not be updated.")
 
     categories = CONFIG.get("categories", {})
     new_deals_found = 0
