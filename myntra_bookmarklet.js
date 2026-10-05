@@ -2644,10 +2644,12 @@
     }
 };
   // State
-  let currentProducts = [];
+  let allRawDeals = [];
+  let selectedBrands = new Set();
+  let currentSort = 'discount_desc';
   let isFetching = false;
 
-  // Build Floating UI Panel - Myntra Theme (Right Drawer with Single-Column Categories)
+  // Build Floating UI Panel - Chrome-Style Tabs & 2-Column Deals Grid
   const panel = document.createElement('div');
   panel.id = PANEL_ID;
   panel.innerHTML = `
@@ -2656,12 +2658,12 @@
         position: fixed;
         top: 0;
         right: 0;
-        width: 640px;
-        max-width: 96vw;
+        width: 520px;
+        max-width: 100vw;
         height: 100vh;
         background: #ffffff;
         color: #282c3f;
-        box-shadow: -6px 0 30px rgba(40,44,63,0.18);
+        box-shadow: -6px 0 32px rgba(40,44,63,0.2);
         font-family: Whitney, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         font-size: 13px;
         z-index: 99999999;
@@ -2676,223 +2678,163 @@
       #${PANEL_ID} ::-webkit-scrollbar-thumb { background: #d4d5d9; border-radius: 4px; }
       #${PANEL_ID} ::-webkit-scrollbar-thumb:hover { background: #b0b1b8; }
 
-      /* Top Header */
-      #${PANEL_ID} .mds-hdr {
+      /* Chrome-Style Tab Bar */
+      #${PANEL_ID} .mds-tab-bar {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 20px;
-        background: #ffffff;
-        border-bottom: 1px solid #eaeaec;
+        align-items: flex-end;
+        background: #e7e9ec;
+        padding: 8px 12px 0 12px;
+        border-bottom: 1px solid #d4d5d9;
         flex-shrink: 0;
+        gap: 4px;
+        position: relative;
       }
-      #${PANEL_ID} .mds-logo-box {
+      #${PANEL_ID} .mds-tab {
+        padding: 9px 18px;
+        border-radius: 8px 8px 0 0;
+        background: transparent;
+        color: #535766;
+        font-size: 12.5px;
+        font-weight: 600;
+        cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 6px;
+        transition: all 0.15s ease;
+        border: 1px solid transparent;
+        border-bottom: none;
+        user-select: none;
       }
-      #${PANEL_ID} .mds-logo-icon {
+      #${PANEL_ID} .mds-tab:hover {
+        background: rgba(0, 0, 0, 0.04);
+        color: #282c3f;
+      }
+      #${PANEL_ID} .mds-tab.active {
+        background: #ffffff;
+        color: #ff3e6c;
+        font-size: 13px;
+        font-weight: 700;
+        border: 1px solid #d4d5d9;
+        border-bottom: 1px solid #ffffff;
+        margin-bottom: -1px;
+        box-shadow: 0 -2px 6px rgba(0,0,0,0.03);
+      }
+      #${PANEL_ID} .mds-tab-badge {
+        font-size: 10px;
+        font-weight: 700;
+        background: #fff0f4;
+        color: #ff3e6c;
+        padding: 1px 6px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 62, 108, 0.2);
+      }
+      #${PANEL_ID} .mds-tab.active .mds-tab-badge {
         background: #ff3e6c;
         color: #ffffff;
-        font-weight: 900;
-        font-size: 14px;
-        padding: 3px 8px;
-        border-radius: 4px;
-        letter-spacing: 0.5px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
-      #${PANEL_ID} .mds-logo-title {
-        font-size: 14px;
-        font-weight: 700;
-        color: #282c3f;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-      }
-      #${PANEL_ID} .mds-logo-sub {
-        font-size: 11px;
-        color: #7e818c;
-        font-weight: 500;
       }
       #${PANEL_ID} .mds-close-btn {
+        margin-left: auto;
         background: none;
         border: none;
         color: #535766;
-        font-size: 26px;
+        font-size: 24px;
         cursor: pointer;
-        padding: 2px 8px;
+        padding: 0 6px 4px 6px;
         line-height: 1;
-        border-radius: 50%;
+        border-radius: 4px;
         transition: all 0.15s ease;
       }
       #${PANEL_ID} .mds-close-btn:hover {
         color: #ff3e6c;
-        background: #fff0f4;
+        background: rgba(255, 62, 108, 0.1);
       }
 
-      /* Main Body: 2 Columns */
-      #${PANEL_ID} .mds-body {
+      /* View Container */
+      #${PANEL_ID} .mds-view-container {
         flex: 1;
         display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: #ffffff;
+      }
+      #${PANEL_ID} .mds-tab-view {
+        flex: 1;
+        display: none;
+        flex-direction: column;
         overflow: hidden;
       }
-
-      /* Left Column: Single Column of Categories */
-      #${PANEL_ID} .mds-cat-sidebar {
-        width: 195px;
-        flex-shrink: 0;
-        background: #f9f9fa;
-        border-right: 1px solid #eaeaec;
+      #${PANEL_ID} .mds-tab-view.active {
         display: flex;
-        flex-direction: column;
-      }
-      #${PANEL_ID} .mds-cat-search-box {
-        padding: 10px;
-        border-bottom: 1px solid #eaeaec;
-        background: #ffffff;
-      }
-      #${PANEL_ID} .mds-cat-search-input {
-        width: 100%;
-        padding: 7px 10px;
-        font-size: 11.5px;
-        border: 1px solid #d4d5d9;
-        border-radius: 4px;
-        outline: none;
-        font-family: inherit;
-        color: #282c3f;
-        background: #fdfdfd;
-        transition: border-color 0.2s;
-      }
-      #${PANEL_ID} .mds-cat-search-input:focus {
-        border-color: #ff3e6c;
-      }
-      #${PANEL_ID} .mds-cat-header-lbl {
-        padding: 10px 14px 4px;
-        font-size: 10.5px;
-        font-weight: 700;
-        color: #7e818c;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-      #${PANEL_ID} .mds-cat-list {
-        flex: 1;
-        overflow-y: auto;
-        padding: 4px 0;
-      }
-      #${PANEL_ID} .cat-item {
-        padding: 10px 14px;
-        font-size: 12px;
-        font-weight: 600;
-        color: #282c3f;
-        cursor: pointer;
-        border-left: 3px solid transparent;
-        transition: all 0.15s ease;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        user-select: none;
-      }
-      #${PANEL_ID} .cat-item:hover {
-        background: #f0f1f3;
-        color: #ff3e6c;
-      }
-      #${PANEL_ID} .cat-item.active {
-        background: #ffffff;
-        border-left-color: #ff3e6c;
-        color: #ff3e6c;
-        font-weight: 700;
-      }
-      #${PANEL_ID} .cat-brand-pill {
-        font-size: 10px;
-        font-weight: 600;
-        color: #7e818c;
-        background: #f0f1f3;
-        padding: 1px 6px;
-        border-radius: 10px;
-        margin-left: 6px;
-      }
-      #${PANEL_ID} .cat-item.active .cat-brand-pill {
-        background: #fff0f4;
-        color: #ff3e6c;
       }
 
-      /* Right Column: Controls & Feed */
-      #${PANEL_ID} .mds-main-panel {
-        flex: 1;
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        background: #f5f5f6;
-      }
-      #${PANEL_ID} .mds-controls-card {
+      /* TAB 1: CATEGORIES VIEW */
+      #${PANEL_ID} .mds-cat-config-card {
+        padding: 16px 20px;
         background: #ffffff;
         border-bottom: 1px solid #eaeaec;
-        padding: 14px 18px;
         flex-shrink: 0;
       }
-      #${PANEL_ID} .mds-cat-title-row {
+      #${PANEL_ID} .mds-cat-header-row {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
       }
       #${PANEL_ID} .mds-active-cat-name {
         margin: 0;
-        font-size: 15px;
+        font-size: 17px;
         font-weight: 700;
         color: #282c3f;
         text-transform: uppercase;
         letter-spacing: 0.3px;
       }
       #${PANEL_ID} .mds-active-cat-sub {
-        font-size: 11.5px;
+        font-size: 12px;
         color: #7e818c;
         font-weight: 500;
       }
-      #${PANEL_ID} .mds-filters-row {
+      #${PANEL_ID} .mds-cat-inputs-row {
         display: flex;
         gap: 12px;
-        align-items: center;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
       }
-      #${PANEL_ID} .mds-filter-group {
+      #${PANEL_ID} .mds-input-group {
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        gap: 4px;
         flex: 1;
       }
-      #${PANEL_ID} .mds-filter-label {
+      #${PANEL_ID} .mds-label {
         font-size: 10px;
         font-weight: 700;
         color: #535766;
         text-transform: uppercase;
         letter-spacing: 0.4px;
       }
-      #${PANEL_ID} .mds-select, #${PANEL_ID} .mds-input {
+      #${PANEL_ID} .mds-select, #${PANEL_ID} .mds-text-input {
         width: 100%;
-        padding: 7px 10px;
+        padding: 8px 10px;
         border: 1px solid #d4d5d9;
         border-radius: 4px;
-        font-size: 12px;
+        font-size: 12.5px;
         font-weight: 600;
         color: #282c3f;
         background: #ffffff;
-        font-family: inherit;
         outline: none;
+        font-family: inherit;
         transition: border-color 0.2s;
       }
-      #${PANEL_ID} .mds-select:focus, #${PANEL_ID} .mds-input:focus {
+      #${PANEL_ID} .mds-select:focus, #${PANEL_ID} .mds-text-input:focus {
         border-color: #ff3e6c;
       }
       #${PANEL_ID} .mds-fetch-btn {
         width: 100%;
-        padding: 11px;
+        padding: 12px;
         background: #ff3e6c;
         border: none;
         border-radius: 4px;
         color: #ffffff;
-        font-size: 12.5px;
+        font-size: 13px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.6px;
@@ -2902,135 +2844,308 @@
       }
       #${PANEL_ID} .mds-fetch-btn:hover {
         background: #e6355f;
-        box-shadow: 0 4px 12px rgba(255,62,108,0.25);
+        box-shadow: 0 4px 12px rgba(255, 62, 108, 0.25);
       }
       #${PANEL_ID} .mds-fetch-btn:disabled {
         background: #d4d5d9;
         cursor: not-allowed;
         box-shadow: none;
       }
-
-      /* Status Strip */
-      #${PANEL_ID} .mds-status-bar {
-        background: #fcfcfd;
-        border-bottom: 1px solid #eaeaec;
-        padding: 7px 18px;
-        font-size: 11.5px;
-        color: #535766;
+      #${PANEL_ID} .mds-cat-list-title-bar {
+        padding: 12px 20px 8px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        background: #f9f9fa;
+        border-bottom: 1px solid #eaeaec;
         flex-shrink: 0;
       }
-      #${PANEL_ID} .mds-status-text {
-        color: #535766;
+      #${PANEL_ID} .mds-cat-search {
+        padding: 6px 10px;
+        font-size: 12px;
+        border: 1px solid #d4d5d9;
+        border-radius: 4px;
+        outline: none;
+        width: 180px;
+        font-family: inherit;
+        background: #ffffff;
+      }
+      #${PANEL_ID} .mds-cat-scroll-list {
+        flex: 1;
+        overflow-y: auto;
+        background: #ffffff;
+      }
+      #${PANEL_ID} .mds-cat-row {
+        padding: 12px 20px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #282c3f;
+        cursor: pointer;
+        border-bottom: 1px solid #f5f5f6;
+        border-left: 3px solid transparent;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.15s ease;
+      }
+      #${PANEL_ID} .mds-cat-row:hover {
+        background: #fdf0f4;
+        color: #ff3e6c;
+      }
+      #${PANEL_ID} .mds-cat-row.active {
+        background: #fff0f4;
+        border-left-color: #ff3e6c;
+        color: #ff3e6c;
+        font-weight: 700;
+      }
+      #${PANEL_ID} .mds-brand-count-pill {
+        font-size: 11px;
+        font-weight: 600;
+        color: #7e818c;
+        background: #f0f1f3;
+        padding: 2px 7px;
+        border-radius: 12px;
+      }
+      #${PANEL_ID} .mds-cat-row.active .mds-brand-count-pill {
+        background: #ff3e6c;
+        color: #ffffff;
+      }
+
+      /* TAB 2: DEALS GRID VIEW */
+      #${PANEL_ID} .mds-filter-bar {
+        padding: 10px 16px;
+        background: #ffffff;
+        border-bottom: 1px solid #eaeaec;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex-shrink: 0;
+        position: relative;
+      }
+      #${PANEL_ID} .mds-filter-row-top {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      #${PANEL_ID} .mds-sort-select {
+        flex: 1;
+        padding: 7px 10px;
+        border: 1px solid #d4d5d9;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #282c3f;
+        background: #ffffff;
+        outline: none;
+        font-family: inherit;
+      }
+      #${PANEL_ID} .mds-brand-btn {
+        flex: 1;
+        padding: 7px 10px;
+        border: 1px solid #d4d5d9;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #282c3f;
+        background: #ffffff;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: inherit;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      #${PANEL_ID} .mds-count-badge {
+      #${PANEL_ID} .mds-brand-btn:hover {
+        border-color: #ff3e6c;
+        color: #ff3e6c;
+      }
+      #${PANEL_ID} .mds-brand-dropdown-panel {
+        position: absolute;
+        top: 100%;
+        left: 16px;
+        right: 16px;
+        background: #ffffff;
+        border: 1px solid #d4d5d9;
+        border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(40,44,63,0.18);
+        padding: 10px 14px;
+        z-index: 1000;
+        display: none;
+        flex-direction: column;
+        max-height: 280px;
+      }
+      #${PANEL_ID} .mds-brand-dropdown-panel.open {
+        display: flex;
+      }
+      #${PANEL_ID} .mds-brand-dd-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11px;
         font-weight: 700;
+        color: #535766;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #f0f0f2;
+      }
+      #${PANEL_ID} .mds-brand-dd-actions a {
+        color: #ff3e6c;
+        text-decoration: none;
+        margin-left: 8px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      #${PANEL_ID} .mds-brand-dd-actions a:hover {
+        text-decoration: underline;
+      }
+      #${PANEL_ID} .mds-brand-dd-search {
+        padding: 6px 8px;
+        font-size: 11.5px;
+        border: 1px solid #eaeaec;
+        border-radius: 4px;
+        outline: none;
+        margin-bottom: 6px;
+        font-family: inherit;
+      }
+      #${PANEL_ID} .mds-brand-checkbox-list {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 4px 0;
+      }
+      #${PANEL_ID} .mds-brand-check-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
         color: #282c3f;
-        flex-shrink: 0;
-        margin-left: 10px;
+        cursor: pointer;
+      }
+      #${PANEL_ID} .mds-brand-check-item input {
+        accent-color: #ff3e6c;
+        cursor: pointer;
+      }
+      #${PANEL_ID} .mds-filter-summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11.5px;
+        color: #7e818c;
+      }
+      #${PANEL_ID} .mds-deal-count-txt strong {
+        color: #282c3f;
       }
 
-      /* Results Feed */
+      /* 2-Column Responsive Product Grid */
       #${PANEL_ID} .results-container {
         flex: 1;
         overflow-y: auto;
-        padding: 14px 18px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+        padding: 12px;
         background: #f5f5f6;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        align-content: start;
       }
-      #${PANEL_ID} .card {
-        display: flex;
-        gap: 12px;
+      #${PANEL_ID} .mds-product-card {
         background: #ffffff;
         border: 1px solid #eaeaec;
         border-radius: 4px;
-        padding: 10px;
+        overflow: hidden;
         text-decoration: none;
         color: inherit;
-        transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
-      }
-      #${PANEL_ID} .card:hover {
-        border-color: #ff3e6c;
-        box-shadow: 0 4px 14px rgba(40,44,63,0.12);
-        transform: translateY(-1px);
-      }
-      #${PANEL_ID} .card img {
-        width: 72px;
-        height: 96px;
-        object-fit: cover;
-        border-radius: 3px;
-        background: #f0f0f2;
-        flex-shrink: 0;
-      }
-      #${PANEL_ID} .card-info {
-        flex: 1;
-        min-width: 0;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
       }
-      #${PANEL_ID} .card-brand {
-        font-size: 12.5px;
+      #${PANEL_ID} .mds-product-card:hover {
+        border-color: #ff3e6c;
+        box-shadow: 0 4px 14px rgba(40,44,63,0.12);
+        transform: translateY(-2px);
+      }
+      #${PANEL_ID} .mds-card-img-wrap {
+        width: 100%;
+        padding-top: 133.33%; /* 3:4 Aspect Ratio */
+        position: relative;
+        background: #f0f0f2;
+        overflow: hidden;
+      }
+      #${PANEL_ID} .mds-card-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      #${PANEL_ID} .mds-card-body {
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      #${PANEL_ID} .mds-card-brand {
+        font-size: 12px;
         font-weight: 700;
         color: #282c3f;
         text-transform: uppercase;
-        letter-spacing: 0.3px;
         margin-bottom: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
-      #${PANEL_ID} .card-title {
-        font-size: 12px;
-        font-weight: 400;
+      #${PANEL_ID} .mds-card-title {
+        font-size: 11px;
         color: #535766;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         margin-bottom: 6px;
       }
-      #${PANEL_ID} .price-row {
+      #${PANEL_ID} .mds-card-price-row {
         display: flex;
         align-items: baseline;
-        gap: 6px;
-        margin: 2px 0 4px;
+        gap: 5px;
+        margin-bottom: 4px;
+        flex-wrap: wrap;
       }
-      #${PANEL_ID} .price-deal {
-        font-size: 14px;
+      #${PANEL_ID} .mds-card-price {
+        font-size: 13.5px;
         font-weight: 700;
         color: #282c3f;
       }
-      #${PANEL_ID} .price-mrp {
-        font-size: 11.5px;
+      #${PANEL_ID} .mds-card-mrp {
+        font-size: 11px;
         text-decoration: line-through;
         color: #7e818c;
       }
-      #${PANEL_ID} .badge-discount {
-        font-size: 12px;
+      #${PANEL_ID} .mds-card-discount {
+        font-size: 11px;
         font-weight: 700;
         color: #ff905a;
       }
-      #${PANEL_ID} .rating-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 3px;
+      #${PANEL_ID} .mds-card-rating {
         font-size: 10px;
         font-weight: 700;
         color: #282c3f;
         background: #ffffff;
         border: 1px solid #eaeaec;
         border-radius: 2px;
-        padding: 1px 5px;
+        padding: 1px 4px;
         width: fit-content;
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
       }
 
       /* Footer */
       #${PANEL_ID} .mds-footer {
-        padding: 9px 18px;
+        padding: 8px 16px;
         background: #ffffff;
         border-top: 1px solid #eaeaec;
         font-size: 11px;
@@ -3040,47 +3155,50 @@
         align-items: center;
         flex-shrink: 0;
       }
+
+      @media (max-width: 600px) {
+        #${PANEL_ID} {
+          width: 100vw;
+          max-width: 100vw;
+        }
+        #${PANEL_ID} .results-container {
+          padding: 8px;
+          gap: 8px;
+        }
+        #${PANEL_ID} .mds-tab {
+          padding: 8px 12px;
+          font-size: 12px;
+        }
+        #${PANEL_ID} .mds-cat-config-card {
+          padding: 12px 14px;
+        }
+      }
     </style>
 
-    <div class="mds-hdr">
-      <div class="mds-logo-box">
-        <span class="mds-logo-icon">M</span>
-        <div>
-          <div class="mds-logo-title">Myntra Deal Sentinel</div>
-          <div class="mds-logo-sub">Steepest discounts on curated top brands</div>
-        </div>
+    <!-- Chrome-Style Tab Bar -->
+    <div class="mds-tab-bar">
+      <div class="mds-tab active" data-tab="categories" id="mds-tab-categories">
+        <span>📂 Categories</span>
       </div>
-      <button class="mds-close-btn" id="mds-close" title="Close Panel">&times;</button>
+      <div class="mds-tab" data-tab="deals" id="mds-tab-deals">
+        <span>🛍️ Deals</span>
+        <span class="mds-tab-badge" id="mds-tab-badge">0</span>
+      </div>
+      <button class="mds-close-btn" id="mds-close" title="Close Deal Sentinel">&times;</button>
     </div>
 
-    <div class="mds-body">
-      <!-- Left Column: Single Column of Categories -->
-      <div class="mds-cat-sidebar">
-        <div class="mds-cat-search-box">
-          <input type="text" id="mds-cat-search" class="mds-cat-search-input" placeholder="🔍 Search category..." />
-        </div>
-        <div class="mds-cat-header-lbl">Categories (${Object.keys(CATEGORY_DATA).length})</div>
-        <div class="mds-cat-list" id="mds-categories">
-          ${Object.keys(CATEGORY_DATA).map((cat, idx) => `
-            <div class="cat-item ${idx === 0 ? 'active' : ''}" data-cat="${cat}">
-              <span>${cat}</span>
-              <span class="cat-brand-pill">${CATEGORY_DATA[cat]?.brands?.length || 0}</span>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-
-      <!-- Right Column: Controls & Results -->
-      <div class="mds-main-panel">
-        <div class="mds-controls-card">
-          <div class="mds-cat-title-row">
+    <div class="mds-view-container">
+      <!-- TAB 1: CATEGORIES VIEW -->
+      <div class="mds-tab-view active" data-tab="categories" id="mds-view-categories">
+        <div class="mds-cat-config-card">
+          <div class="mds-cat-header-row">
             <h2 class="mds-active-cat-name" id="mds-active-cat-name">${Object.keys(CATEGORY_DATA)[0]}</h2>
             <span class="mds-active-cat-sub" id="mds-cat-sub">${CATEGORY_DATA[Object.keys(CATEGORY_DATA)[0]]?.brands?.length || 0} Curated Brands</span>
           </div>
 
-          <div class="mds-filters-row">
-            <div class="mds-filter-group" style="flex: 2;">
-              <span class="mds-filter-label">Min Discount</span>
+          <div class="mds-cat-inputs-row">
+            <div class="mds-input-group" style="flex: 2;">
+              <span class="mds-label">Min Discount</span>
               <select id="mds-discount" class="mds-select">
                 <option value="50">50% & Above</option>
                 <option value="55">55% & Above</option>
@@ -3096,31 +3214,85 @@
               </select>
             </div>
 
-            <div class="mds-filter-group" style="flex: 1;">
-              <span class="mds-filter-label">Delivery Pincode</span>
-              <input type="text" id="mds-pincode" class="mds-input" value="${DEFAULT_PINCODE}" />
+            <div class="mds-input-group" style="flex: 1;">
+              <span class="mds-label">Pincode</span>
+              <input type="text" id="mds-pincode" class="mds-text-input" value="${DEFAULT_PINCODE}" />
             </div>
           </div>
 
           <button class="mds-fetch-btn" id="mds-fetch-btn">⚡ Fetch Highest Discount Deals</button>
         </div>
 
-        <div class="mds-status-bar">
-          <span class="mds-status-text" id="mds-status">Ready. Click Fetch to scan Myntra.</span>
-          <span class="mds-count-badge" id="mds-count">0 items found</span>
+        <div class="mds-cat-list-title-bar">
+          <span style="font-size: 11px; font-weight: 700; color: #535766; text-transform: uppercase;">All Categories (${Object.keys(CATEGORY_DATA).length})</span>
+          <input type="text" id="mds-cat-search" class="mds-cat-search" placeholder="🔍 Search category..." />
         </div>
 
+        <div class="mds-cat-scroll-list" id="mds-categories-list">
+          ${Object.keys(CATEGORY_DATA).map((cat, idx) => `
+            <div class="mds-cat-row ${idx === 0 ? 'active' : ''}" data-cat="${cat}">
+              <span>${cat}</span>
+              <span class="mds-brand-count-pill">${CATEGORY_DATA[cat]?.brands?.length || 0} brands</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="mds-footer">
+          <span>Target Pincode: <strong id="mds-pin-lbl">${DEFAULT_PINCODE}</strong></span>
+          <span>Myntra Deal Sentinel v2.14.0</span>
+        </div>
+      </div>
+
+      <!-- TAB 2: DEALS GRID VIEW -->
+      <div class="mds-tab-view" data-tab="deals" id="mds-view-deals">
+        <div class="mds-filter-bar">
+          <div class="mds-filter-row-top">
+            <select id="mds-sort-select" class="mds-sort-select">
+              <option value="discount_desc">🔥 Steepest Discount</option>
+              <option value="price_asc">💵 Price: Low to High</option>
+              <option value="price_desc">💎 Price: High to Low</option>
+              <option value="rating_desc">⭐ Customer Rating</option>
+            </select>
+
+            <button id="mds-brand-filter-btn" class="mds-brand-btn">
+              <span>🏷️ Brands (<span id="mds-brand-btn-label">All</span>)</span>
+              <span>▼</span>
+            </button>
+          </div>
+
+          <!-- Brand Dropdown Popover -->
+          <div class="mds-brand-dropdown-panel" id="mds-brand-dd-panel">
+            <div class="mds-brand-dd-header">
+              <span>Filter by Brand</span>
+              <div class="mds-brand-dd-actions">
+                <a id="mds-brand-select-all">Select All</a>
+                <a id="mds-brand-clear-all">Clear</a>
+              </div>
+            </div>
+            <input type="text" id="mds-brand-dd-search" class="mds-brand-dd-search" placeholder="Search brand..." />
+            <div class="mds-brand-checkbox-list" id="mds-brand-checkbox-list">
+              <div style="font-size: 11px; color: #94969f; text-align: center; padding: 10px;">Fetch deals first to see available brands.</div>
+            </div>
+          </div>
+
+          <div class="mds-filter-summary-row">
+            <span class="mds-deal-count-txt">Showing <strong id="mds-count">0</strong> deals</span>
+            <span id="mds-status" style="color: #7e818c; font-size: 11px;">Ready</span>
+          </div>
+        </div>
+
+        <!-- 2-Column Product Grid -->
         <div class="results-container" id="mds-results">
-          <div style="text-align: center; color: #7e818c; padding: 60px 20px;">
+          <div style="grid-column: 1 / -1; text-align: center; color: #7e818c; padding: 60px 20px;">
             <div style="font-size: 32px; margin-bottom: 10px;">🛍️</div>
-            <div style="font-weight: 600; color: #282c3f; margin-bottom: 4px;">No deals loaded yet</div>
-            <div style="font-size: 12px; color: #94969f;">Select a category from the left and click Fetch Deals.</div>
+            <div style="font-weight: 700; color: #282c3f; font-size: 14px; margin-bottom: 4px;">No Deals Loaded Yet</div>
+            <div style="font-size: 12px; color: #94969f;">Go to Categories tab and click Fetch Deals to scan Myntra.</div>
           </div>
         </div>
 
         <div class="mds-footer">
-          <span>Delivery context: Pincode <strong id="mds-pin-lbl" style="color: #282c3f;">${DEFAULT_PINCODE}</strong></span>
-          <span>Myntra Deal Sentinel v2.13.0</span>
+          <span>Category: <strong id="mds-active-pill" style="color: #ff3e6c;">${Object.keys(CATEGORY_DATA)[0]}</strong></span>
+          <span>Click product card to open on Myntra</span>
         </div>
       </div>
     </div>
@@ -3128,44 +3300,70 @@
 
   document.body.appendChild(panel);
 
-  // Bind Events
+  // Tab Switching Logic
+  const tabBtns = panel.querySelectorAll('.mds-tab');
+  const tabViews = panel.querySelectorAll('.mds-tab-view');
+  function switchTab(tabName) {
+    tabBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabName));
+    tabViews.forEach(view => view.classList.toggle('active', view.dataset.tab === tabName));
+  }
+  tabBtns.forEach(btn => {
+    btn.onclick = () => switchTab(btn.dataset.tab);
+  });
+
+  // Bind Events & Elements
   const closeBtn = panel.querySelector('#mds-close');
-  const catItems = panel.querySelectorAll('.cat-item');
+  const catRows = panel.querySelectorAll('.mds-cat-row');
   const catSearchInput = panel.querySelector('#mds-cat-search');
   const activeCatNameEl = panel.querySelector('#mds-active-cat-name');
-  const activeCatSubEl = panel.querySelector('#mds-cat-sub');
+  const activeCatSubEl = panel.querySelector('#mds-active-cat-sub');
+  const activePillEl = panel.querySelector('#mds-active-pill');
   const fetchBtn = panel.querySelector('#mds-fetch-btn');
   const statusEl = panel.querySelector('#mds-status');
   const resultsEl = panel.querySelector('#mds-results');
   const countEl = panel.querySelector('#mds-count');
+  const tabBadgeEl = panel.querySelector('#mds-tab-badge');
   const pincodeInput = panel.querySelector('#mds-pincode');
   const discountSelect = panel.querySelector('#mds-discount');
   const pinLbl = panel.querySelector('#mds-pin-lbl');
+
+  // Filter & Sort Elements
+  const sortSelect = panel.querySelector('#mds-sort-select');
+  const brandFilterBtn = panel.querySelector('#mds-brand-filter-btn');
+  const brandDdPanel = panel.querySelector('#mds-brand-dd-panel');
+  const brandBtnLabel = panel.querySelector('#mds-brand-btn-label');
+  const brandSelectAllLink = panel.querySelector('#mds-brand-select-all');
+  const brandClearAllLink = panel.querySelector('#mds-brand-clear-all');
+  const brandSearchInput = panel.querySelector('#mds-brand-dd-search');
+  const brandCheckboxList = panel.querySelector('#mds-brand-checkbox-list');
 
   let selectedCategory = Object.keys(CATEGORY_DATA)[0];
 
   closeBtn.onclick = () => { panel.style.display = 'none'; };
 
-  catItems.forEach(btn => {
-    btn.onclick = () => {
-      catItems.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedCategory = btn.dataset.cat;
+  // Category selection in single-column list
+  catRows.forEach(row => {
+    row.onclick = () => {
+      catRows.forEach(r => r.classList.remove('active'));
+      row.classList.add('active');
+      selectedCategory = row.dataset.cat;
       const catConfig = CATEGORY_DATA[selectedCategory];
       if (activeCatNameEl) activeCatNameEl.textContent = selectedCategory;
       if (activeCatSubEl) activeCatSubEl.textContent = `${catConfig?.brands?.length || 0} Curated Brands`;
+      if (activePillEl) activePillEl.textContent = selectedCategory;
       if (catConfig && (catConfig.botMinDiscount || catConfig.minDiscount)) {
         discountSelect.value = String(catConfig.botMinDiscount || catConfig.minDiscount);
       }
     };
   });
 
+  // Category live search
   if (catSearchInput) {
     catSearchInput.oninput = (e) => {
       const q = e.target.value.toLowerCase().trim();
-      catItems.forEach(item => {
-        const catName = item.dataset.cat.toLowerCase();
-        item.style.display = catName.includes(q) ? 'flex' : 'none';
+      catRows.forEach(row => {
+        const catName = row.dataset.cat.toLowerCase();
+        row.style.display = catName.includes(q) ? 'flex' : 'none';
       });
     };
   }
@@ -3174,29 +3372,154 @@
     pinLbl.textContent = pincodeInput.value.trim() || DEFAULT_PINCODE;
   };
 
+  // Brand dropdown toggle
+  brandFilterBtn.onclick = (e) => {
+    e.stopPropagation();
+    brandDdPanel.classList.toggle('open');
+  };
+  brandDdPanel.onclick = (e) => {
+    e.stopPropagation();
+  };
+  document.addEventListener('click', (e) => {
+    if (!panel.contains(e.target)) return;
+    if (!brandDdPanel.contains(e.target) && !brandFilterBtn.contains(e.target)) {
+      brandDdPanel.classList.remove('open');
+    }
+  });
+
+  // Sort change handler
+  sortSelect.onchange = () => {
+    currentSort = sortSelect.value;
+    applyFilterAndSort();
+  };
+
+  // Brand select all / clear
+  brandSelectAllLink.onclick = () => {
+    const checkboxes = brandCheckboxList.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+      cb.checked = true;
+      selectedBrands.add(cb.value);
+    });
+    applyFilterAndSort();
+  };
+  brandClearAllLink.onclick = () => {
+    const checkboxes = brandCheckboxList.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+      cb.checked = false;
+    });
+    selectedBrands.clear();
+    applyFilterAndSort();
+  };
+
+  // Brand search inside dropdown
+  if (brandSearchInput) {
+    brandSearchInput.oninput = (e) => {
+      const bq = e.target.value.toLowerCase().trim();
+      const items = brandCheckboxList.querySelectorAll('.mds-brand-check-item');
+      items.forEach(it => {
+        const bText = it.textContent.toLowerCase();
+        it.style.display = bText.includes(bq) ? 'flex' : 'none';
+      });
+    };
+  }
+
+  // Populate brand filter options dynamically from fetched deals
+  function populateBrandFilter(deals) {
+    const brandCounts = {};
+    deals.forEach(d => {
+      brandCounts[d.brand] = (brandCounts[d.brand] || 0) + 1;
+    });
+    const sortedBrandList = Object.keys(brandCounts).sort((a, b) => a.localeCompare(b));
+    selectedBrands = new Set(sortedBrandList); // Default all selected
+
+    if (!sortedBrandList.length) {
+      brandCheckboxList.innerHTML = '<div style="font-size: 11px; color: #94969f; text-align: center; padding: 10px;">No brands found matching discount.</div>';
+      return;
+    }
+
+    brandCheckboxList.innerHTML = sortedBrandList.map(b => `
+      <label class="mds-brand-check-item">
+        <input type="checkbox" value="${b}" checked />
+        <span>${b} <span style="color:#7e818c; font-size:10.5px;">(${brandCounts[b]})</span></span>
+      </label>
+    `).join('');
+
+    // Bind checkbox change
+    const checkboxes = brandCheckboxList.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+      cb.onchange = () => {
+        if (cb.checked) {
+          selectedBrands.add(cb.value);
+        } else {
+          selectedBrands.delete(cb.value);
+        }
+        applyFilterAndSort();
+      };
+    });
+  }
+
+  // Core Filtering & Sorting Engine
+  function applyFilterAndSort() {
+    let filtered = allRawDeals.filter(p => selectedBrands.has(p.brand));
+
+    // Sort
+    if (currentSort === 'discount_desc') {
+      filtered.sort((a, b) => b.calculatedDiscount - a.calculatedDiscount);
+    } else if (currentSort === 'price_asc') {
+      filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
+    } else if (currentSort === 'price_desc') {
+      filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
+    } else if (currentSort === 'rating_desc') {
+      filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    }
+
+    // Update labels
+    countEl.textContent = String(filtered.length);
+    tabBadgeEl.textContent = String(allRawDeals.length);
+    const uniqueRawBrands = new Set(allRawDeals.map(p => p.brand));
+    if (selectedBrands.size === 0) {
+      brandBtnLabel.textContent = 'None';
+    } else if (selectedBrands.size === uniqueRawBrands.size) {
+      brandBtnLabel.textContent = 'All';
+    } else {
+      brandBtnLabel.textContent = `${selectedBrands.size} selected`;
+    }
+
+    renderDeals(filtered);
+  }
+
   // Fetch logic
   fetchBtn.onclick = async () => {
     if (isFetching) return;
     isFetching = true;
     fetchBtn.disabled = true;
-    fetchBtn.textContent = '⏳ Fetching deals...';
+    fetchBtn.textContent = '⏳ Scanning Deals...';
+
+    // Switch to Deals tab immediately to show progress
+    switchTab('deals');
+    statusEl.textContent = 'Scanning Myntra...';
+    resultsEl.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #7e818c;">
+        <div style="font-size: 32px; margin-bottom: 12px;">⏳</div>
+        <div style="font-weight: 700; color: #282c3f; font-size: 14px; margin-bottom: 4px;">Scanning Curated Brands...</div>
+        <div style="font-size: 12px; color: #94969f;">Querying Myntra server for steepest discounts in ${selectedCategory}...</div>
+      </div>
+    `;
 
     const pincode = pincodeInput.value.trim() || DEFAULT_PINCODE;
     const minDiscount = parseInt(discountSelect.value, 10);
     const catConfig = CATEGORY_DATA[selectedCategory];
 
     if (!catConfig || !catConfig.brands.length) {
-      statusEl.textContent = 'Category not found or has no brands configured.';
+      statusEl.textContent = 'Category not found.';
+      resultsEl.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #ef4444; padding: 40px;">Category has no brands configured.</div>';
       isFetching = false;
       fetchBtn.disabled = false;
+      fetchBtn.textContent = '⚡ Fetch Highest Discount Deals';
       return;
     }
 
-    statusEl.textContent = `Scanning ${catConfig.brands.length} brands in ${selectedCategory}...`;
-    resultsEl.innerHTML = '<div style="text-align: center; padding: 30px; color: #9ca3af;">Scanning Myntra for steepest discounts...</div>';
-
     try {
-      // Chunk brands into batches of 35
       const BATCH_SIZE = 35;
       const brandBatches = [];
       for (let i = 0; i < catConfig.brands.length; i += BATCH_SIZE) {
@@ -3221,7 +3544,7 @@
           targetUrl = `https://www.myntra.com/${catConfig.basePath}?f=Brand:${encodeURIComponent(brandsParam)}&sort=discount&p=1`;
         }
 
-        statusEl.textContent = `Fetching batch ${bIdx + 1}/${brandBatches.length}...`;
+        statusEl.textContent = `Batch ${bIdx + 1}/${brandBatches.length}...`;
 
         const resp = await fetch(targetUrl, {
           method: 'GET',
@@ -3235,10 +3558,7 @@
           credentials: 'include'
         });
 
-        if (!resp.ok) {
-          console.warn('Batch fetch failed with status:', resp.status);
-          continue;
-        }
+        if (!resp.ok) continue;
 
         const html = await resp.text();
         const extracted = extractProductsFromHtml(html);
@@ -3262,18 +3582,16 @@
         }
       });
 
-      // Sort by discount percentage descending
-      const sortedDeals = Array.from(uniqueMap.values()).sort((a, b) => b.calculatedDiscount - a.calculatedDiscount);
-      currentProducts = sortedDeals;
+      allRawDeals = Array.from(uniqueMap.values()).sort((a, b) => b.calculatedDiscount - a.calculatedDiscount);
+      populateBrandFilter(allRawDeals);
+      applyFilterAndSort();
 
-      renderDeals(sortedDeals);
-      statusEl.textContent = `Done! Found ${sortedDeals.length} deals at ${minDiscount}%+ off.`;
-      countEl.textContent = `${sortedDeals.length} items found`;
+      statusEl.textContent = `Found ${allRawDeals.length} deals at ${minDiscount}%+ off.`;
 
     } catch (err) {
       console.error('Fetch error:', err);
-      statusEl.textContent = 'Error fetching deals: ' + err.message;
-      resultsEl.innerHTML = `<div style="color: #ef4444; padding: 20px; text-align: center;">Failed to fetch: ${err.message}</div>`;
+      statusEl.textContent = 'Fetch error: ' + err.message;
+      resultsEl.innerHTML = `<div style="grid-column: 1 / -1; color: #ef4444; padding: 30px; text-align: center;">Failed to fetch: ${err.message}</div>`;
     } finally {
       isFetching = false;
       fetchBtn.disabled = false;
@@ -3350,14 +3668,18 @@
     return [];
   }
 
-  // Render product cards - Myntra Theme
+  // Render product cards - Myntra Theme (2-Column Grid)
   function renderDeals(products) {
     if (!products.length) {
+      const msg = selectedBrands.size === 0
+        ? 'All brands unselected.<br>Please select at least one brand in the brand filter.'
+        : `No products match ${discountSelect.value}%+ discount.<br>Try lowering the discount filter or picking another category.`;
+
       resultsEl.innerHTML = `
-        <div style="text-align: center; color: #7e818c; padding: 60px 20px;">
+        <div style="grid-column: 1 / -1; text-align: center; color: #7e818c; padding: 60px 20px;">
           <div style="font-size: 32px; margin-bottom: 10px;">🔍</div>
           <div style="font-weight: 700; color: #282c3f; font-size: 14px; margin-bottom: 4px;">No Deals Found</div>
-          <div style="font-size: 12px; color: #94969f;">No products match ${discountSelect.value}%+ discount.<br>Try lowering the discount filter or picking another category.</div>
+          <div style="font-size: 12px; color: #94969f;">${msg}</div>
         </div>
       `;
       return;
@@ -3365,20 +3687,22 @@
 
     resultsEl.innerHTML = products.map(p => {
       const fullUrl = 'https://www.myntra.com/' + (p.landingPageUrl || '');
-      const ratingStr = p.rating ? `<span style="color:#14958f; margin-right: 2px;">★</span>${p.rating.toFixed(1)} <span style="color:#7e818c; font-weight:400;">| ${(p.ratingCount || 0).toLocaleString()}</span>` : '';
+      const ratingStr = p.rating ? `<div class="mds-card-rating"><span style="color:#14958f;">★</span>${p.rating.toFixed(1)}${p.ratingCount ? ` <span style="color:#7e818c; font-weight:400;">| ${p.ratingCount.toLocaleString()}</span>` : ''}</div>` : '';
 
       return `
-        <a class="card" href="${fullUrl}" target="_blank" rel="noopener">
-          <img src="${p.searchImage}" alt="${p.brand}" loading="lazy" />
-          <div class="card-info">
-            <div class="card-brand">${p.brand}</div>
-            <div class="card-title" title="${p.product}">${p.product}</div>
-            <div class="price-row">
-              <span class="price-deal">₹${(p.price || 0).toLocaleString()}</span>
-              <span class="price-mrp">₹${(p.mrp || 0).toLocaleString()}</span>
-              <span class="badge-discount">(${p.calculatedDiscount}% OFF)</span>
+        <a class="mds-product-card" href="${fullUrl}" target="_blank" rel="noopener">
+          <div class="mds-card-img-wrap">
+            <img class="mds-card-img" src="${p.searchImage}" alt="${p.brand}" loading="lazy" />
+          </div>
+          <div class="mds-card-body">
+            <div class="mds-card-brand">${p.brand}</div>
+            <div class="mds-card-title" title="${p.product}">${p.product}</div>
+            <div class="mds-card-price-row">
+              <span class="mds-card-price">₹${(p.price || 0).toLocaleString()}</span>
+              <span class="mds-card-mrp">₹${(p.mrp || 0).toLocaleString()}</span>
+              <span class="mds-card-discount">(${p.calculatedDiscount}% OFF)</span>
             </div>
-            ${ratingStr ? `<div class="rating-pill">${ratingStr}</div>` : ''}
+            ${ratingStr}
           </div>
         </a>
       `;
