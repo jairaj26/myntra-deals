@@ -2647,139 +2647,482 @@
   let currentProducts = [];
   let isFetching = false;
 
-  // Build Floating UI Panel
+  // Build Floating UI Panel - Myntra Theme (Right Drawer with Single-Column Categories)
   const panel = document.createElement('div');
   panel.id = PANEL_ID;
   panel.innerHTML = `
     <style>
       #${PANEL_ID} {
         position: fixed;
-        top: 20px;
-        right: 20px;
-        width: 440px;
-        max-height: 90vh;
-        background: #181820;
-        color: #f3f4f6;
-        border-radius: 14px;
-        box-shadow: 0 16px 40px rgba(0,0,0,0.5);
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        top: 0;
+        right: 0;
+        width: 640px;
+        max-width: 96vw;
+        height: 100vh;
+        background: #ffffff;
+        color: #282c3f;
+        box-shadow: -6px 0 30px rgba(40,44,63,0.18);
+        font-family: Whitney, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         font-size: 13px;
-        z-index: 9999999;
+        z-index: 99999999;
         display: flex;
         flex-direction: column;
-        border: 1px solid #33333d;
         overflow: hidden;
+        -webkit-font-smoothing: antialiased;
       }
       #${PANEL_ID} * { box-sizing: border-box; }
-      #${PANEL_ID} .hdr {
+      #${PANEL_ID} ::-webkit-scrollbar { width: 5px; height: 5px; }
+      #${PANEL_ID} ::-webkit-scrollbar-track { background: transparent; }
+      #${PANEL_ID} ::-webkit-scrollbar-thumb { background: #d4d5d9; border-radius: 4px; }
+      #${PANEL_ID} ::-webkit-scrollbar-thumb:hover { background: #b0b1b8; }
+
+      /* Top Header */
+      #${PANEL_ID} .mds-hdr {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 12px 16px;
-        background: #23232c;
-        border-bottom: 1px solid #383844;
+        padding: 12px 20px;
+        background: #ffffff;
+        border-bottom: 1px solid #eaeaec;
+        flex-shrink: 0;
       }
-      #${PANEL_ID} .hdr h3 { margin: 0; font-size: 15px; font-weight: 700; color: #ff3f6c; }
-      #${PANEL_ID} .close-btn {
-        background: none; border: none; color: #9ca3af; font-size: 20px; cursor: pointer; padding: 2px 6px;
+      #${PANEL_ID} .mds-logo-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
       }
-      #${PANEL_ID} .close-btn:hover { color: #fff; }
-      #${PANEL_ID} .controls { padding: 12px 16px; background: #1e1e26; border-bottom: 1px solid #33333d; }
-      #${PANEL_ID} .row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
-      #${PANEL_ID} label { font-size: 12px; color: #9ca3af; }
-      #${PANEL_ID} select, #${PANEL_ID} input {
-        background: #2a2a36; border: 1px solid #444455; color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 12px;
+      #${PANEL_ID} .mds-logo-icon {
+        background: #ff3e6c;
+        color: #ffffff;
+        font-weight: 900;
+        font-size: 14px;
+        padding: 3px 8px;
+        border-radius: 4px;
+        letter-spacing: 0.5px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
       }
-      #${PANEL_ID} .cat-btns { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
-      #${PANEL_ID} .cat-btn {
-        flex: 1; min-width: 85px; padding: 7px 4px; background: #2f2f3d; border: 1px solid #444458;
-        color: #e5e7eb; border-radius: 6px; cursor: pointer; font-size: 11.5px; font-weight: 600; text-align: center;
-        transition: all 0.2s;
+      #${PANEL_ID} .mds-logo-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #282c3f;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
       }
-      #${PANEL_ID} .cat-btn.active, #${PANEL_ID} .cat-btn:hover {
-        background: #ff3f6c; border-color: #ff3f6c; color: #fff;
+      #${PANEL_ID} .mds-logo-sub {
+        font-size: 11px;
+        color: #7e818c;
+        font-weight: 500;
       }
-      #${PANEL_ID} .fetch-btn {
-        width: 100%; padding: 10px; background: #10b981; border: none; color: #fff; font-weight: 700;
-        font-size: 13px; border-radius: 6px; cursor: pointer; transition: background 0.2s;
+      #${PANEL_ID} .mds-close-btn {
+        background: none;
+        border: none;
+        color: #535766;
+        font-size: 26px;
+        cursor: pointer;
+        padding: 2px 8px;
+        line-height: 1;
+        border-radius: 50%;
+        transition: all 0.15s ease;
       }
-      #${PANEL_ID} .fetch-btn:hover { background: #059669; }
-      #${PANEL_ID} .fetch-btn:disabled { background: #4b5563; cursor: not-allowed; }
-      #${PANEL_ID} .status { padding: 6px 16px; font-size: 11px; color: #10b981; background: #15151c; }
+      #${PANEL_ID} .mds-close-btn:hover {
+        color: #ff3e6c;
+        background: #fff0f4;
+      }
+
+      /* Main Body: 2 Columns */
+      #${PANEL_ID} .mds-body {
+        flex: 1;
+        display: flex;
+        overflow: hidden;
+      }
+
+      /* Left Column: Single Column of Categories */
+      #${PANEL_ID} .mds-cat-sidebar {
+        width: 195px;
+        flex-shrink: 0;
+        background: #f9f9fa;
+        border-right: 1px solid #eaeaec;
+        display: flex;
+        flex-direction: column;
+      }
+      #${PANEL_ID} .mds-cat-search-box {
+        padding: 10px;
+        border-bottom: 1px solid #eaeaec;
+        background: #ffffff;
+      }
+      #${PANEL_ID} .mds-cat-search-input {
+        width: 100%;
+        padding: 7px 10px;
+        font-size: 11.5px;
+        border: 1px solid #d4d5d9;
+        border-radius: 4px;
+        outline: none;
+        font-family: inherit;
+        color: #282c3f;
+        background: #fdfdfd;
+        transition: border-color 0.2s;
+      }
+      #${PANEL_ID} .mds-cat-search-input:focus {
+        border-color: #ff3e6c;
+      }
+      #${PANEL_ID} .mds-cat-header-lbl {
+        padding: 10px 14px 4px;
+        font-size: 10.5px;
+        font-weight: 700;
+        color: #7e818c;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      #${PANEL_ID} .mds-cat-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 4px 0;
+      }
+      #${PANEL_ID} .cat-item {
+        padding: 10px 14px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #282c3f;
+        cursor: pointer;
+        border-left: 3px solid transparent;
+        transition: all 0.15s ease;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        user-select: none;
+      }
+      #${PANEL_ID} .cat-item:hover {
+        background: #f0f1f3;
+        color: #ff3e6c;
+      }
+      #${PANEL_ID} .cat-item.active {
+        background: #ffffff;
+        border-left-color: #ff3e6c;
+        color: #ff3e6c;
+        font-weight: 700;
+      }
+      #${PANEL_ID} .cat-brand-pill {
+        font-size: 10px;
+        font-weight: 600;
+        color: #7e818c;
+        background: #f0f1f3;
+        padding: 1px 6px;
+        border-radius: 10px;
+        margin-left: 6px;
+      }
+      #${PANEL_ID} .cat-item.active .cat-brand-pill {
+        background: #fff0f4;
+        color: #ff3e6c;
+      }
+
+      /* Right Column: Controls & Feed */
+      #${PANEL_ID} .mds-main-panel {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        background: #f5f5f6;
+      }
+      #${PANEL_ID} .mds-controls-card {
+        background: #ffffff;
+        border-bottom: 1px solid #eaeaec;
+        padding: 14px 18px;
+        flex-shrink: 0;
+      }
+      #${PANEL_ID} .mds-cat-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 10px;
+      }
+      #${PANEL_ID} .mds-active-cat-name {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 700;
+        color: #282c3f;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      #${PANEL_ID} .mds-active-cat-sub {
+        font-size: 11.5px;
+        color: #7e818c;
+        font-weight: 500;
+      }
+      #${PANEL_ID} .mds-filters-row {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      #${PANEL_ID} .mds-filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        flex: 1;
+      }
+      #${PANEL_ID} .mds-filter-label {
+        font-size: 10px;
+        font-weight: 700;
+        color: #535766;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+      }
+      #${PANEL_ID} .mds-select, #${PANEL_ID} .mds-input {
+        width: 100%;
+        padding: 7px 10px;
+        border: 1px solid #d4d5d9;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #282c3f;
+        background: #ffffff;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      #${PANEL_ID} .mds-select:focus, #${PANEL_ID} .mds-input:focus {
+        border-color: #ff3e6c;
+      }
+      #${PANEL_ID} .mds-fetch-btn {
+        width: 100%;
+        padding: 11px;
+        background: #ff3e6c;
+        border: none;
+        border-radius: 4px;
+        color: #ffffff;
+        font-size: 12.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        cursor: pointer;
+        transition: background 0.2s, box-shadow 0.2s;
+        font-family: inherit;
+      }
+      #${PANEL_ID} .mds-fetch-btn:hover {
+        background: #e6355f;
+        box-shadow: 0 4px 12px rgba(255,62,108,0.25);
+      }
+      #${PANEL_ID} .mds-fetch-btn:disabled {
+        background: #d4d5d9;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      /* Status Strip */
+      #${PANEL_ID} .mds-status-bar {
+        background: #fcfcfd;
+        border-bottom: 1px solid #eaeaec;
+        padding: 7px 18px;
+        font-size: 11.5px;
+        color: #535766;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+      }
+      #${PANEL_ID} .mds-status-text {
+        color: #535766;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #${PANEL_ID} .mds-count-badge {
+        font-weight: 700;
+        color: #282c3f;
+        flex-shrink: 0;
+        margin-left: 10px;
+      }
+
+      /* Results Feed */
       #${PANEL_ID} .results-container {
-        flex: 1; overflow-y: auto; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px;
+        flex: 1;
+        overflow-y: auto;
+        padding: 14px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background: #f5f5f6;
       }
       #${PANEL_ID} .card {
-        display: flex; gap: 10px; background: #23232e; border: 1px solid #373747; border-radius: 8px;
-        padding: 8px; text-decoration: none; color: inherit; transition: transform 0.15s, border-color 0.15s;
+        display: flex;
+        gap: 12px;
+        background: #ffffff;
+        border: 1px solid #eaeaec;
+        border-radius: 4px;
+        padding: 10px;
+        text-decoration: none;
+        color: inherit;
+        transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
       }
-      #${PANEL_ID} .card:hover { transform: translateY(-2px); border-color: #ff3f6c; }
-      #${PANEL_ID} .card img { width: 68px; height: 90px; object-fit: cover; border-radius: 4px; background: #333; }
-      #${PANEL_ID} .card-info { flex: 1; min-width: 0; }
-      #${PANEL_ID} .card-brand { font-size: 11px; font-weight: 700; color: #ff3f6c; text-transform: uppercase; }
+      #${PANEL_ID} .card:hover {
+        border-color: #ff3e6c;
+        box-shadow: 0 4px 14px rgba(40,44,63,0.12);
+        transform: translateY(-1px);
+      }
+      #${PANEL_ID} .card img {
+        width: 72px;
+        height: 96px;
+        object-fit: cover;
+        border-radius: 3px;
+        background: #f0f0f2;
+        flex-shrink: 0;
+      }
+      #${PANEL_ID} .card-info {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      #${PANEL_ID} .card-brand {
+        font-size: 12.5px;
+        font-weight: 700;
+        color: #282c3f;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 2px;
+      }
       #${PANEL_ID} .card-title {
-        font-size: 12px; font-weight: 500; color: #e5e7eb; white-space: nowrap; overflow: hidden;
-        text-overflow: ellipsis; margin: 2px 0 4px 0;
+        font-size: 12px;
+        font-weight: 400;
+        color: #535766;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 6px;
       }
-      #${PANEL_ID} .price-row { display: flex; align-items: baseline; gap: 6px; margin: 4px 0; }
-      #${PANEL_ID} .price-deal { font-size: 14px; font-weight: 800; color: #10b981; }
-      #${PANEL_ID} .price-mrp { font-size: 11px; text-decoration: line-through; color: #9ca3af; }
+      #${PANEL_ID} .price-row {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        margin: 2px 0 4px;
+      }
+      #${PANEL_ID} .price-deal {
+        font-size: 14px;
+        font-weight: 700;
+        color: #282c3f;
+      }
+      #${PANEL_ID} .price-mrp {
+        font-size: 11.5px;
+        text-decoration: line-through;
+        color: #7e818c;
+      }
       #${PANEL_ID} .badge-discount {
-        background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444;
-        font-weight: 700; font-size: 10px; padding: 1px 4px; border-radius: 4px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #ff905a;
       }
-      #${PANEL_ID} .rating-pill { font-size: 10px; color: #fbbf24; }
-      #${PANEL_ID} .footer {
-        padding: 8px 16px; background: #1c1c24; border-top: 1px solid #33333d; font-size: 11px; color: #9ca3af;
-        display: flex; justify-content: space-between; align-items: center;
+      #${PANEL_ID} .rating-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        font-size: 10px;
+        font-weight: 700;
+        color: #282c3f;
+        background: #ffffff;
+        border: 1px solid #eaeaec;
+        border-radius: 2px;
+        padding: 1px 5px;
+        width: fit-content;
+      }
+
+      /* Footer */
+      #${PANEL_ID} .mds-footer {
+        padding: 9px 18px;
+        background: #ffffff;
+        border-top: 1px solid #eaeaec;
+        font-size: 11px;
+        color: #7e818c;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
       }
     </style>
 
-    <div class="hdr">
-      <h3>🔥 Myntra Deal Sentinel</h3>
-      <button class="close-btn" id="mds-close">&times;</button>
+    <div class="mds-hdr">
+      <div class="mds-logo-box">
+        <span class="mds-logo-icon">M</span>
+        <div>
+          <div class="mds-logo-title">Myntra Deal Sentinel</div>
+          <div class="mds-logo-sub">Steepest discounts on curated top brands</div>
+        </div>
+      </div>
+      <button class="mds-close-btn" id="mds-close" title="Close Panel">&times;</button>
     </div>
 
-    <div class="controls">
-      <label>1. Select Category:</label>
-      <div class="cat-btns" id="mds-categories">
-        ${Object.keys(CATEGORY_DATA).map((cat, idx) => `
-          <button class="cat-btn ${idx === 0 ? 'active' : ''}" data-cat="${cat}">${cat}</button>
-        `).join('')}
+    <div class="mds-body">
+      <!-- Left Column: Single Column of Categories -->
+      <div class="mds-cat-sidebar">
+        <div class="mds-cat-search-box">
+          <input type="text" id="mds-cat-search" class="mds-cat-search-input" placeholder="🔍 Search category..." />
+        </div>
+        <div class="mds-cat-header-lbl">Categories (${Object.keys(CATEGORY_DATA).length})</div>
+        <div class="mds-cat-list" id="mds-categories">
+          ${Object.keys(CATEGORY_DATA).map((cat, idx) => `
+            <div class="cat-item ${idx === 0 ? 'active' : ''}" data-cat="${cat}">
+              <span>${cat}</span>
+              <span class="cat-brand-pill">${CATEGORY_DATA[cat]?.brands?.length || 0}</span>
+            </div>
+          `).join('')}
+        </div>
       </div>
 
-      <div class="row">
-        <label>Min Discount:</label>
-        <select id="mds-discount">
-          <option value="55">55% & Above</option>
-          <option value="60">60% & Above</option>
-          <option value="65" selected>65% & Above</option>
-          <option value="70">70% & Above</option>
-          <option value="75">75% & Above</option>
-          <option value="80">80% & Above</option>
-          <option value="85">85% & Above</option>
-          <option value="89">89% & Above</option>
-          <option value="90">90% & Above</option>
-        </select>
+      <!-- Right Column: Controls & Results -->
+      <div class="mds-main-panel">
+        <div class="mds-controls-card">
+          <div class="mds-cat-title-row">
+            <h2 class="mds-active-cat-name" id="mds-active-cat-name">${Object.keys(CATEGORY_DATA)[0]}</h2>
+            <span class="mds-active-cat-sub" id="mds-cat-sub">${CATEGORY_DATA[Object.keys(CATEGORY_DATA)[0]]?.brands?.length || 0} Curated Brands</span>
+          </div>
 
-        <label style="margin-left: 10px;">Pincode:</label>
-        <input type="text" id="mds-pincode" value="${DEFAULT_PINCODE}" style="width: 75px;" />
+          <div class="mds-filters-row">
+            <div class="mds-filter-group" style="flex: 2;">
+              <span class="mds-filter-label">Min Discount</span>
+              <select id="mds-discount" class="mds-select">
+                <option value="50">50% & Above</option>
+                <option value="55">55% & Above</option>
+                <option value="60">60% & Above</option>
+                <option value="65">65% & Above</option>
+                <option value="70" selected>70% & Above</option>
+                <option value="75">75% & Above</option>
+                <option value="80">80% & Above</option>
+                <option value="85">85% & Above</option>
+                <option value="89">89% & Above</option>
+                <option value="90">90% & Above</option>
+                <option value="95">95% & Above</option>
+              </select>
+            </div>
+
+            <div class="mds-filter-group" style="flex: 1;">
+              <span class="mds-filter-label">Delivery Pincode</span>
+              <input type="text" id="mds-pincode" class="mds-input" value="${DEFAULT_PINCODE}" />
+            </div>
+          </div>
+
+          <button class="mds-fetch-btn" id="mds-fetch-btn">⚡ Fetch Highest Discount Deals</button>
+        </div>
+
+        <div class="mds-status-bar">
+          <span class="mds-status-text" id="mds-status">Ready. Click Fetch to scan Myntra.</span>
+          <span class="mds-count-badge" id="mds-count">0 items found</span>
+        </div>
+
+        <div class="results-container" id="mds-results">
+          <div style="text-align: center; color: #7e818c; padding: 60px 20px;">
+            <div style="font-size: 32px; margin-bottom: 10px;">🛍️</div>
+            <div style="font-weight: 600; color: #282c3f; margin-bottom: 4px;">No deals loaded yet</div>
+            <div style="font-size: 12px; color: #94969f;">Select a category from the left and click Fetch Deals.</div>
+          </div>
+        </div>
+
+        <div class="mds-footer">
+          <span>Delivery context: Pincode <strong id="mds-pin-lbl" style="color: #282c3f;">${DEFAULT_PINCODE}</strong></span>
+          <span>Myntra Deal Sentinel v2.13.0</span>
+        </div>
       </div>
-
-      <button class="fetch-btn" id="mds-fetch-btn">⚡ Fetch Highest Discount Deals</button>
-    </div>
-
-    <div class="status" id="mds-status">Ready. Select a category and hit Fetch.</div>
-
-    <div class="results-container" id="mds-results">
-      <div style="text-align: center; color: #6b7280; padding: 40px 10px;">
-        No deals loaded yet. Click Fetch to scan Myntra for top brand discounts.
-      </div>
-    </div>
-
-    <div class="footer">
-      <span id="mds-count">0 items found</span>
-      <span>Pin: <strong id="mds-pin-lbl">${DEFAULT_PINCODE}</strong></span>
     </div>
   `;
 
@@ -2787,7 +3130,10 @@
 
   // Bind Events
   const closeBtn = panel.querySelector('#mds-close');
-  const catBtns = panel.querySelectorAll('.cat-btn');
+  const catItems = panel.querySelectorAll('.cat-item');
+  const catSearchInput = panel.querySelector('#mds-cat-search');
+  const activeCatNameEl = panel.querySelector('#mds-active-cat-name');
+  const activeCatSubEl = panel.querySelector('#mds-cat-sub');
   const fetchBtn = panel.querySelector('#mds-fetch-btn');
   const statusEl = panel.querySelector('#mds-status');
   const resultsEl = panel.querySelector('#mds-results');
@@ -2800,17 +3146,29 @@
 
   closeBtn.onclick = () => { panel.style.display = 'none'; };
 
-  catBtns.forEach(btn => {
+  catItems.forEach(btn => {
     btn.onclick = () => {
-      catBtns.forEach(b => b.classList.remove('active'));
+      catItems.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       selectedCategory = btn.dataset.cat;
       const catConfig = CATEGORY_DATA[selectedCategory];
-      if (catConfig && catConfig.minDiscount) {
-        discountSelect.value = String(catConfig.minDiscount);
+      if (activeCatNameEl) activeCatNameEl.textContent = selectedCategory;
+      if (activeCatSubEl) activeCatSubEl.textContent = `${catConfig?.brands?.length || 0} Curated Brands`;
+      if (catConfig && (catConfig.botMinDiscount || catConfig.minDiscount)) {
+        discountSelect.value = String(catConfig.botMinDiscount || catConfig.minDiscount);
       }
     };
   });
+
+  if (catSearchInput) {
+    catSearchInput.oninput = (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      catItems.forEach(item => {
+        const catName = item.dataset.cat.toLowerCase();
+        item.style.display = catName.includes(q) ? 'flex' : 'none';
+      });
+    };
+  }
 
   pincodeInput.onchange = () => {
     pinLbl.textContent = pincodeInput.value.trim() || DEFAULT_PINCODE;
@@ -2992,16 +3350,22 @@
     return [];
   }
 
-  // Render product cards
+  // Render product cards - Myntra Theme
   function renderDeals(products) {
     if (!products.length) {
-      resultsEl.innerHTML = '<div style="text-align: center; color: #9ca3af; padding: 30px;">No deals found matching this discount threshold. Try lowering the discount filter.</div>';
+      resultsEl.innerHTML = `
+        <div style="text-align: center; color: #7e818c; padding: 60px 20px;">
+          <div style="font-size: 32px; margin-bottom: 10px;">🔍</div>
+          <div style="font-weight: 700; color: #282c3f; font-size: 14px; margin-bottom: 4px;">No Deals Found</div>
+          <div style="font-size: 12px; color: #94969f;">No products match ${discountSelect.value}%+ discount.<br>Try lowering the discount filter or picking another category.</div>
+        </div>
+      `;
       return;
     }
 
     resultsEl.innerHTML = products.map(p => {
       const fullUrl = 'https://www.myntra.com/' + (p.landingPageUrl || '');
-      const ratingStr = p.rating ? `★ ${p.rating.toFixed(1)} (${(p.ratingCount || 0).toLocaleString()})` : '';
+      const ratingStr = p.rating ? `<span style="color:#14958f; margin-right: 2px;">★</span>${p.rating.toFixed(1)} <span style="color:#7e818c; font-weight:400;">| ${(p.ratingCount || 0).toLocaleString()}</span>` : '';
 
       return `
         <a class="card" href="${fullUrl}" target="_blank" rel="noopener">
@@ -3010,9 +3374,9 @@
             <div class="card-brand">${p.brand}</div>
             <div class="card-title" title="${p.product}">${p.product}</div>
             <div class="price-row">
-              <span class="price-deal">₹${p.price}</span>
-              <span class="price-mrp">₹${p.mrp}</span>
-              <span class="badge-discount">${p.calculatedDiscount}% OFF</span>
+              <span class="price-deal">₹${(p.price || 0).toLocaleString()}</span>
+              <span class="price-mrp">₹${(p.mrp || 0).toLocaleString()}</span>
+              <span class="badge-discount">(${p.calculatedDiscount}% OFF)</span>
             </div>
             ${ratingStr ? `<div class="rating-pill">${ratingStr}</div>` : ''}
           </div>
