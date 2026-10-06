@@ -3338,6 +3338,11 @@
   const brandCheckboxList = panel.querySelector('#mds-brand-checkbox-list');
 
   let selectedCategory = Object.keys(CATEGORY_DATA)[0];
+  let userChangedDiscount = false;
+
+  discountSelect.onchange = () => {
+    userChangedDiscount = true;
+  };
 
   closeBtn.onclick = () => { panel.style.display = 'none'; };
 
@@ -3351,7 +3356,7 @@
       if (activeCatNameEl) activeCatNameEl.textContent = selectedCategory;
       if (activeCatSubEl) activeCatSubEl.textContent = `${catConfig?.brands?.length || 0} Curated Brands`;
       if (activePillEl) activePillEl.textContent = selectedCategory;
-      if (catConfig && (catConfig.botMinDiscount || catConfig.minDiscount)) {
+      if (!userChangedDiscount && catConfig && (catConfig.botMinDiscount || catConfig.minDiscount)) {
         discountSelect.value = String(catConfig.botMinDiscount || catConfig.minDiscount);
       }
     };
@@ -3632,9 +3637,9 @@
     return null;
   }
 
-  // Helper to extract products from either window.__myx or pageStateData
+  // Helper to extract products from window.__myx (Desktop SSR), window.__REDUX_STATE__ (Mobile PWA), or pageStateData (Landing pages)
   function extractProductsFromHtml(html) {
-    // 1. Try window.__myx (standard for filtered search URLs)
+    // 1. Try window.__myx (Desktop SSR standard for filtered search URLs)
     const myxPrefix = 'window.__myx = ';
     const myxIdx = html.indexOf(myxPrefix);
     if (myxIdx !== -1) {
@@ -3650,7 +3655,66 @@
       }
     }
 
-    // 2. Try pageStateData (standard for root category landing pages)
+    // 2. Try window.__REDUX_STATE__ (Mobile Web PWA layoutEnginev2)
+    const reduxPrefix = 'window.__REDUX_STATE__ = ';
+    const reduxIdx = html.indexOf(reduxPrefix);
+    if (reduxIdx !== -1) {
+      try {
+        const jsonStr = extractJsonObject(html, reduxIdx + reduxPrefix.length);
+        if (jsonStr) {
+          const redux = JSON.parse(jsonStr);
+          const pages = redux?.layoutEnginev2?.pages || {};
+          for (const pageId of Object.keys(pages)) {
+            const components = pages[pageId]?.response?.page?.layout?.components || [];
+            const prods = [];
+            for (const comp of components) {
+              const d = comp?.itemData?.data;
+              if (d && (d.styleId || d.productInfo)) {
+                const pInfo = d.productInfo || {};
+                const priceInfo = pInfo.priceInfo || {};
+                const rawPrice = typeof priceInfo.price === 'string'
+                  ? parseInt(priceInfo.price.replace(/[^0-9]/g, ''), 10)
+                  : (priceInfo.price || 0);
+                const rawMrp = typeof priceInfo.mrp === 'string'
+                  ? parseInt(priceInfo.mrp.replace(/[^0-9]/g, ''), 10)
+                  : (priceInfo.mrp || 0);
+
+                const imgMedia = d.productImage?.productMedia;
+                const searchImg = (imgMedia && imgMedia.length > 0) ? imgMedia[0].src : '';
+
+                const ratingStr = d.productImage?.ratingInfo?.rating;
+                const ratingVal = ratingStr ? parseFloat(ratingStr) : 0;
+                const ratingCountStr = d.productImage?.ratingInfo?.count || '';
+
+                const route = d.onPress?.route || ('/' + d.styleId);
+                const cleanRoute = route.startsWith('/') ? route.slice(1).split('?')[0] : route.split('?')[0];
+
+                const title = pInfo.additionalInfo
+                  ? `${pInfo.brand || ''} ${pInfo.additionalInfo}`.trim()
+                  : (d.onPress?.tracking?.dataOverride?.widget_items?.data_set?.data?.[0]?.entity_name || pInfo.brand || 'Product');
+
+                prods.push({
+                  productId: d.styleId,
+                  brand: pInfo.brand || '',
+                  product: title,
+                  price: rawPrice,
+                  mrp: rawMrp,
+                  searchImage: searchImg,
+                  rating: ratingVal,
+                  ratingCount: ratingCountStr,
+                  landingPageUrl: cleanRoute
+                });
+              }
+            }
+            if (prods.length > 0) return prods;
+          }
+        }
+      } catch (e) {
+        console.warn('redux parse error:', e);
+      }
+    }
+
+    // 3. Try pageStateData (standard for root category landing pages)
     const psPrefix = 'var pageStateData = { data: ';
     const psIdx = html.indexOf(psPrefix);
     if (psIdx !== -1) {
@@ -3687,7 +3751,10 @@
 
     resultsEl.innerHTML = products.map(p => {
       const fullUrl = 'https://www.myntra.com/' + (p.landingPageUrl || '');
-      const ratingStr = p.rating ? `<div class="mds-card-rating"><span style="color:#14958f;">★</span>${p.rating.toFixed(1)}${p.ratingCount ? ` <span style="color:#7e818c; font-weight:400;">| ${p.ratingCount.toLocaleString()}</span>` : ''}</div>` : '';
+      const countFormatted = p.ratingCount
+        ? (typeof p.ratingCount === 'number' ? p.ratingCount.toLocaleString() : p.ratingCount)
+        : '';
+      const ratingStr = p.rating ? `<div class="mds-card-rating"><span style="color:#14958f;">★</span>${p.rating.toFixed(1)}${countFormatted ? ` <span style="color:#7e818c; font-weight:400;">| ${countFormatted}</span>` : ''}</div>` : '';
 
       return `
         <a class="mds-product-card" href="${fullUrl}" target="_blank" rel="noopener">
